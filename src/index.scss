@@ -21,7 +21,8 @@ body {
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 1.6;
-  min-height: 100vh;
+  max-width: 140rem;
+  margin: 0 auto;
 }
 
 .header {
@@ -35,5 +36,59 @@ body {
   &__subtitle {
     font-style: italic;
     font-size: 1.8rem;
+  }
+}
+
+.app {
+  text-align: center;
+  &__unranked-fruit-holder {
+    border: 1px dashed grey;
+    margin: 2rem auto;
+    width: 90%;
+    height: 8rem;
+  }
+  &__plane {
+    position: relative;
+    //border: 2px dashed grey;
+    width: 100%;
+    max-width: 75vh;
+    margin: 2rem auto;
+    background-image: url('./img/axis.svg');
+  }
+
+  &__plane:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  &__axis {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__submit {
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__help-btn,
+  &__tyler-btn,
+  &__inspiration-btn {
+    width: 15rem;
+    text-align: center;
+  }
+
+  &__help-btn {
+  }
+  &__tyler-btn {
+  }
+  &__inspiration-btn {
   }
 }
