@@ -6,7 +6,7 @@ const App = () => {
   const [apple, setApple] = useState({ easy: null, tasty: null });
 
   return (
-    <div className="App">
+    <div>
       <header className="header">
         <h2 className="header__title">Fruit</h2>
         <div className="header__subtitle">
