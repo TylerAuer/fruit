@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import Fruit from './components/Fruit';
 
 const App = () => {
   // null while not on the plane
-  const [apple, setApple] = useState(null);
+  const [apple, setApple] = useState({ easy: null, tasty: null });
 
   return (
     <div className="App">
@@ -15,7 +16,12 @@ const App = () => {
       <main className="app">
         <div className="app__unranked-fruit-holder"></div>
         <div className="app__plane">
-          <div className="app__axis">DRAG ME!</div>
+          <Fruit
+            name={'apple'}
+            img={''}
+            location={apple}
+            setLocation={setApple}
+          />
         </div>
         <button className="app__submit">Submit</button>
       </main>

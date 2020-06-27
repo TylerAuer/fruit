@@ -54,6 +54,9 @@ body {
     max-width: 75vh;
     margin: 2rem auto;
     background-image: url('./img/axis.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
   }
 
   &__plane:after {
@@ -70,6 +73,16 @@ body {
   }
 
   &__submit {
+  }
+}
+
+.fruit {
+  &__dot {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-block;
   }
 }
 
