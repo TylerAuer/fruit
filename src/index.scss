@@ -31,12 +31,13 @@ body {
   text-align: center;
 
   &__title {
-    font-size: 5rem;
+    font-size: 6rem;
+    line-height: 1.2;
   }
 
   &__subtitle {
     font-style: italic;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }
 
