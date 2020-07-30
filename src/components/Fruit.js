@@ -3,16 +3,46 @@ import Draggable from 'react-draggable';
 import './Fruit.scss';
 
 const Fruit = ({ name, ratings, setRatings, scale }) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({
-    // x: scale.left + scale.x * ratings[name].x - scale.imgSize / 2,
-    // y: scale.top + scale.y * (100 - ratings[name].y) - scale.imgSize / 2,
+  const calculatedPostion = {
+    // Turns 0 to 100 scale into
     x: scale.x * ratings[name].x - scale.imgSize / 2,
     y: scale.y * (100 - ratings[name].y) - scale.imgSize / 2,
-  });
+  };
+
+  const onDrag = (e) => {
+    return null;
+  };
+
+  const onStop = (e, position) => {
+    // get position
+    const newX = position.x + scale.imgSize / 2;
+    const newY = position.y + scale.imgSize / 2;
+
+    // Set rating to null if dragged off the grid
+    if (newX < 0 || newX > scale.width || newY < 0 || newY > scale.height) {
+      setRatings({
+        ...ratings,
+        [name]: null,
+      });
+    }
+
+    // ELSE:
+    const newXRating = (newX * 100) / scale.width;
+    const newYRating = 100 - (newY * 100) / scale.height;
+    console.log(newXRating, newYRating);
+    //// set state in Matrix component
+    setRatings({
+      ...ratings,
+      [name]: {
+        x: newXRating,
+        y: newYRating,
+      },
+    });
+    return null;
+  };
 
   return (
-    <Draggable defaultPosition={position}>
+    <Draggable position={calculatedPostion} onDrag={onDrag} onStop={onStop}>
       <div className={`fruit fruit-${name}`}>
         <div
           className="fruit__temp-div"
@@ -21,8 +51,6 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
             width: scale.imgSize,
           }}
         />
-        <p>LEFT: {Math.round(position.x)}</p>
-        <p>TOP: {Math.round(position.y)}</p>
       </div>
     </Draggable>
   );
