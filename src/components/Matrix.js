@@ -52,7 +52,6 @@ const Matrix = () => {
       }
     : null;
 
-  console.log(scale);
   // Generates fruit components for each key in ratings
   const fruits = Object.keys(ratings).map((name) => {
     if (!ratings[name]) {
@@ -72,9 +71,10 @@ const Matrix = () => {
 
   return (
     <>
-      {fruits}
       <div className="matrix">
-        <div ref={graphRef} className="matrix__graph" />
+        <div ref={graphRef} className="matrix__graph">
+          {fruits}
+        </div>
         <div className="matrix__unused-fruit" />
         <div className="matrix__controls">
           <button className="app__submit">Submit</button>
