@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import Draggable from 'react-draggable';
 import './Fruit.scss';
 
 const Fruit = ({ name, ratings, setRatings, scale }) => {
+  const nodeRef = useRef(null);
   const calculatedPostion = {
     // Turns 0 to 100 scale into
     x: scale.x * ratings[name].x - scale.imgSize / 2,
@@ -42,8 +43,13 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
   };
 
   return (
-    <Draggable position={calculatedPostion} onDrag={onDrag} onStop={onStop}>
-      <div className={`fruit fruit-${name}`}>
+    <Draggable
+      nodeRef={nodeRef}
+      position={calculatedPostion}
+      onDrag={onDrag}
+      onStop={onStop}
+    >
+      <div ref={nodeRef} className={`fruit fruit-${name}`}>
         <div
           className="fruit__temp-div"
           style={{
