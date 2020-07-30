@@ -1,5 +1,6 @@
 .matrix {
   position: relative;
+
   &__graph {
     width: 100%;
     max-width: 60vh;
@@ -8,7 +9,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: auto;
-    border: 1px dashed grey;
 
     &:after {
       content: '';

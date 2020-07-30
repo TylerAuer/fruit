@@ -11,12 +11,19 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
     y: scale.y * (100 - ratings[name].y) - scale.imgSize / 2,
   };
 
+  const onStart = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   const onDrag = (e) => {
     e.preventDefault();
-    return null;
+    e.stopPropagation();
   };
 
   const onStop = (e, position) => {
+    e.preventDefault();
+    e.stopPropagation();
     // get position
     const newX = position.x + scale.imgSize / 2;
     const newY = position.y + scale.imgSize / 2;
@@ -27,41 +34,39 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
         ...ratings,
         [name]: null,
       });
+    } else {
+      // ELSE:
+      const newXRating = (newX * 100) / scale.width;
+      const newYRating = 100 - (newY * 100) / scale.height;
+      //// set state in Matrix component
+      setRatings({
+        ...ratings,
+        [name]: {
+          x: newXRating,
+          y: newYRating,
+        },
+      });
     }
-
-    // ELSE:
-    const newXRating = (newX * 100) / scale.width;
-    const newYRating = 100 - (newY * 100) / scale.height;
-    console.log(newXRating, newYRating);
-    //// set state in Matrix component
-    setRatings({
-      ...ratings,
-      [name]: {
-        x: newXRating,
-        y: newYRating,
-      },
-    });
-    return null;
   };
 
   return (
     <Draggable
       nodeRef={nodeRef}
       position={calculatedPostion}
+      onStart={onStart}
       onDrag={onDrag}
       onStop={onStop}
     >
-      <div ref={nodeRef} className={`fruit fruit-${name}`}>
-        <img
-          alt={name}
-          src={src}
-          className={`fruit__img fruit__img--${name}`}
-          style={{
-            height: scale.imgSize,
-            width: scale.imgSize,
-          }}
-        />
-      </div>
+      <img
+        ref={nodeRef}
+        alt={name}
+        src={src}
+        className={`fruit__img fruit__img--${name}`}
+        style={{
+          height: scale.imgSize,
+          width: scale.imgSize,
+        }}
+      />
     </Draggable>
   );
 };
