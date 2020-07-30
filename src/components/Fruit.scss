@@ -4,13 +4,20 @@
 
 .fruit__img {
   z-index: 10;
-  transition: all 0.2s;
+  transition: all 0.3s;
 
   &:hover {
     transform: scale(1.2);
   }
 }
 
+// Fruit is currently being dragged
 .react-draggable-dragging .fruit__img {
   transform: translateY(-3px) scale(1.2);
+
+  // Fruit has been dragged outside of the graph area
+  &--off-graph {
+    transform: translateY(-3px) scale(0.5) rotate(20deg);
+    filter: grayscale(80%);
+  }
 }
