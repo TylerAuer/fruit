@@ -1,0 +1,19 @@
+.matrix {
+  position: relative;
+  &__graph {
+    width: 100%;
+    max-width: 60vh;
+    margin: 0 auto;
+    background-image: url('../img/axis.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    border: 1px dashed grey;
+
+    &:after {
+      content: '';
+      display: block;
+      padding-bottom: 100%;
+    }
+  }
+}

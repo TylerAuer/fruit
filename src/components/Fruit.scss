@@ -1,0 +1,10 @@
+.fruit {
+  position: absolute;
+  z-index: 10;
+
+  &__temp-div {
+    height: 20px;
+    width: 20px;
+    background-color: grey;
+  }
+}

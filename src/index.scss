@@ -23,6 +23,7 @@ body {
   line-height: 1.6;
   max-width: 140rem;
   margin: 0 auto;
+  height: 2000px;
 }
 
 .header {
@@ -39,55 +40,6 @@ body {
   }
 }
 
-.app {
-  //text-align: center;
-  &__unranked-fruit-holder {
-    border: 1px dashed grey;
-    margin: 2rem auto;
-    width: 90%;
-    height: 8rem;
-  }
-  &__plane {
-    position: relative;
-    //border: 2px dashed grey;
-    width: 100%;
-    max-width: 75vh;
-    margin: 2rem auto;
-    background-image: url('./img/axis.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: auto;
-  }
-
-  &__plane:after {
-    content: '';
-    display: block;
-    padding-bottom: 100%;
-  }
-
-  &__axis {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  &__submit {
-  }
-}
-
-.fruit {
-  display: inline-block;
-  //position: absolute;
-
-  &__dot {
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: blue;
-    border-radius: 50%;
-  }
-}
-
 .footer {
   display: flex;
   justify-content: center;
@@ -98,12 +50,5 @@ body {
   &__inspiration-btn {
     width: 15rem;
     text-align: center;
-  }
-
-  &__help-btn {
-  }
-  &__tyler-btn {
-  }
-  &__inspiration-btn {
   }
 }
