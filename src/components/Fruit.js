@@ -16,7 +16,7 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
     e.stopPropagation();
   };
 
-  const onDrag = (e) => {
+  const onDrag = (e, position) => {
     e.preventDefault();
     e.stopPropagation();
   };
@@ -57,16 +57,17 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
       onDrag={onDrag}
       onStop={onStop}
     >
-      <img
-        ref={nodeRef}
-        alt={name}
-        src={src}
-        className={`fruit__img fruit__img--${name}`}
-        style={{
-          height: scale.imgSize,
-          width: scale.imgSize,
-        }}
-      />
+      <div className="fruit" ref={nodeRef}>
+        <img
+          alt={name}
+          src={src}
+          className={`fruit__img fruit__img--${name}`}
+          style={{
+            height: scale.imgSize,
+            width: scale.imgSize,
+          }}
+        />
+      </div>
     </Draggable>
   );
 };
