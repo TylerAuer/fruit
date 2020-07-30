@@ -4,6 +4,7 @@ import './Fruit.scss';
 
 const Fruit = ({ name, ratings, setRatings, scale }) => {
   const nodeRef = useRef(null);
+  const src = require(`../img/${name}.png`);
   const calculatedPostion = {
     // Turns 0 to 100 scale into
     x: scale.x * ratings[name].x - scale.imgSize / 2,
@@ -11,6 +12,7 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
   };
 
   const onDrag = (e) => {
+    e.preventDefault();
     return null;
   };
 
@@ -50,8 +52,10 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
       onStop={onStop}
     >
       <div ref={nodeRef} className={`fruit fruit-${name}`}>
-        <div
-          className="fruit__temp-div"
+        <img
+          alt={name}
+          src={src}
+          className={`fruit__img fruit__img--${name}`}
           style={{
             height: scale.imgSize,
             width: scale.imgSize,
