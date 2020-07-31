@@ -1,14 +1,10 @@
 .bottom {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  margin: 2rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   &__title {
-    font-size: 8rem;
+    font-size: 6rem;
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 4px;
@@ -27,6 +23,7 @@
 
   &__link,
   &__link:visited {
+    letter-spacing: 2px;
     width: 15rem;
     text-align: center;
     text-decoration: none;
@@ -38,6 +35,6 @@
   &__link:hover,
   &__link:focus {
     outline: none;
-    color: darkorange;
+    color: rgb(255, 0, 183);
   }
 }

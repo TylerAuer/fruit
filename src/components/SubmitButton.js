@@ -8,7 +8,7 @@ const SubmitButton = ({ ratings }) => {
   };
 
   return (
-    <button className="submit-button" onClick={onClick}>
+    <button className="bottom__submit-button" onClick={onClick}>
       Submit Ratings
     </button>
   );

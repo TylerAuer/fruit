@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import useBounds from '../hooks/useBounds';
+import Directions from './Directions';
+import BottomInfo from './BottomInfo';
 import fruitList from './Fruit.json';
 import Fruit from './Fruit';
-import SubmitButton from './SubmitButton';
 import './Matrix.scss';
 
 /**
@@ -29,7 +30,7 @@ import './Matrix.scss';
   
  */
 
-const Matrix = () => {
+const App = () => {
   const graphRef = useRef();
   const graphBounds = useBounds(graphRef);
   const [ratings, setRatings] = useState(fruitList);
@@ -72,19 +73,22 @@ const Matrix = () => {
 
   return (
     <>
-      <div
-        className="matrix"
-        style={{
-          padding: `${scale.imgSize + 30}px 10px 20px 10px`,
-        }}
-      >
-        <div ref={graphRef} className="matrix__graph">
-          {fruitsOnGraph}
+      <main className="app">
+        <Directions />
+        <div
+          className="matrix"
+          style={{
+            padding: `${scale.imgSize + 30}px 10px 20px 10px`,
+          }}
+        >
+          <div ref={graphRef} className="matrix__graph">
+            {fruitsOnGraph}
+          </div>
         </div>
-      </div>
-      <SubmitButton ratings={ratings} />
+      </main>
+      <BottomInfo ratings={ratings} />
     </>
   );
 };
 
-export default Matrix;
+export default App;
