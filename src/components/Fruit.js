@@ -5,7 +5,7 @@ import './Fruit.scss';
 const Fruit = ({ name, ratings, setRatings, scale }) => {
   const nodeRef = useRef(null);
   const [isOnGraph, setIsOnGraph] = useState(true);
-  const src = require(`../img/${name}.png`);
+  const src = require(`../img/${name}.svg`);
   const calculatedPostion = {
     // Turns 0 to 100 scale into
     x: scale.x * ratings[name].x - scale.imgSize / 2,
@@ -79,6 +79,7 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
             width: scale.imgSize,
           }}
         />
+        <div className="fruit__label">{name.replace('_', ' ')}</div>
       </div>
     </Draggable>
   );

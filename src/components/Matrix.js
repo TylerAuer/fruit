@@ -7,10 +7,6 @@ const Matrix = () => {
   const graphRef = useRef();
   const graphBounds = useBounds(graphRef);
   const [ratings, setRatings] = useState({
-    apple: {
-      x: 50,
-      y: 50,
-    },
     banana: null,
     blackberries: null,
     blueberries: null,
@@ -28,7 +24,10 @@ const Matrix = () => {
     pineapples: null,
     plums: null,
     pomegranates: null,
-    red_apples: null,
+    red_apples: {
+      x: 50,
+      y: 50,
+    },
     seeded_grapes: null,
     seedless_grapes: null,
     strawberries: null,
