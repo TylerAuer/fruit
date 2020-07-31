@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import useBounds from '../hooks/useBounds';
 import fruitList from './Fruit.json';
 import Fruit from './Fruit';
+import SubmitButton from './SubmitButton';
 import './Matrix.scss';
 
 /**
@@ -71,14 +72,17 @@ const Matrix = () => {
 
   return (
     <>
-      <div className="matrix">
+      <div
+        className="matrix"
+        style={{
+          marginBottom: 50 + scale.imgSize,
+        }}
+      >
         <div ref={graphRef} className="matrix__graph">
           {fruitsOnGraph}
         </div>
-        <div className="matrix__controls">
-          <button className="app__submit">Submit</button>
-        </div>
       </div>
+      <SubmitButton ratings={ratings} />
     </>
   );
 };
