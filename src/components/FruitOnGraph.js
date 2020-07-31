@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 import './Fruit.scss';
 
-const Fruit = ({ name, ratings, setRatings, scale }) => {
+const FruitOnGraph = ({ name, ratings, setRatings, scale }) => {
   const nodeRef = useRef(null);
   const [isOnGraph, setIsOnGraph] = useState(true);
   const src = require(`../img/${name}.svg`);
@@ -85,4 +85,4 @@ const Fruit = ({ name, ratings, setRatings, scale }) => {
   );
 };
 
-export default Fruit;
+export default FruitOnGraph;
