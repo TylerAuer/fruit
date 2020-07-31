@@ -49,12 +49,8 @@ const Matrix = () => {
       }
     : null;
 
-  // Generates fruit components **ON** the graph
+  // Generates fruit components
   const fruitsOnGraph = Object.keys(ratings).map((name) => {
-    if (!ratings[name]) {
-      return null;
-    }
-
     return (
       <Fruit
         key={name}
