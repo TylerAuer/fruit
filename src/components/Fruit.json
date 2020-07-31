@@ -1,13 +1,7 @@
 {
   "bananas": null,
   "cherries": null,
-  "green_apples": {
-    "x": 75,
-    "y": 70
-  },
-  "red_apples": {
-    "x": 50,
-    "y": 20
-  },
+  "green_apples": null,
+  "red_apples": null,
   "watermelons": null
 }

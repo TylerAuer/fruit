@@ -49,6 +49,12 @@ const Matrix = () => {
       }
     : null;
 
+  // Generate an array of keys to pass to Fruit so fruits of the graph can know
+  // where to be placed
+  const listOfKeysOffGraph = Object.keys(ratings).filter((name) => {
+    return !ratings[name];
+  });
+
   // Generates fruit components
   const fruitsOnGraph = Object.keys(ratings).map((name) => {
     return (
@@ -58,6 +64,7 @@ const Matrix = () => {
         ratings={ratings}
         setRatings={setRatings}
         scale={scale}
+        listOfKeysOffGraph={listOfKeysOffGraph}
       />
     );
   });

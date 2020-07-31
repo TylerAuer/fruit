@@ -2,22 +2,38 @@ import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 import './Fruit.scss';
 
-const FruitOnGraph = ({ name, ratings, setRatings, scale }) => {
+const FruitOnGraph = ({
+  name,
+  ratings,
+  setRatings,
+  scale,
+  listOfKeysOffGraph,
+}) => {
   const nodeRef = useRef(null);
   const [isDraggingOverGraph, setIsDraggingOverGraph] = useState(null);
   const [isOnGraph, setIsOnGraph] = useState(!ratings[name] ? false : true);
+  const marginForOffGraphFruits = 20;
   const src = require(`../img/${name}.svg`);
 
   const calculatePosition = () => {
     if (isOnGraph) {
-      // Turns 0 to 100 scale into
+      // ON THE GRAPH
+      // so convert 0 to 100 scale into pixel position
       return {
         x: scale.x * ratings[name].x - scale.imgSize / 2,
         y: scale.y * (100 - ratings[name].y) - scale.imgSize / 2,
       };
     } else {
+      // OFF THE GRAPH
+      // so space fruit out to display nicely
+      const count = listOfKeysOffGraph.length;
+      const index = listOfKeysOffGraph.indexOf(name);
+      const listOffset =
+        scale.width / 2 -
+        (count * scale.imgSize + (count - 1) * marginForOffGraphFruits) / 2;
       return {
-        x: scale.width / 2 - scale.imgSize / 2,
+        //x: scale.width / 2 - scale.imgSize / 2,
+        x: index * scale.imgSize + index * marginForOffGraphFruits + listOffset,
         y: scale.height + scale.imgSize,
       };
     }
@@ -34,9 +50,7 @@ const FruitOnGraph = ({ name, ratings, setRatings, scale }) => {
 
     const newX = position.x + scale.imgSize / 2;
     const newY = position.y + scale.imgSize / 2;
-    console.log(newX);
-    console.log(newY);
-    console.log(' ');
+
     // Set rating to null if dragged off the grid
     if (newX < 0 || newX > scale.width || newY < 0 || newY > scale.height) {
       setIsDraggingOverGraph(false);
