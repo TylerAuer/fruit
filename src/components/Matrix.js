@@ -75,7 +75,7 @@ const Matrix = () => {
       <div
         className="matrix"
         style={{
-          marginBottom: 50 + scale.imgSize,
+          padding: `${scale.imgSize + 50}px 10px 20px 10px`,
         }}
       >
         <div ref={graphRef} className="matrix__graph">

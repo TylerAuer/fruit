@@ -34,7 +34,7 @@ const FruitOnGraph = ({
       return {
         //x: scale.width / 2 - scale.imgSize / 2,
         x: index * scale.imgSize + index * marginForOffGraphFruits + listOffset,
-        y: scale.height + 10,
+        y: -20 - scale.imgSize,
       };
     }
   };

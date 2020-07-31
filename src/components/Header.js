@@ -2,12 +2,9 @@ import React from 'react';
 
 const Header = (props) => {
   return (
-    <header className="header">
-      <h2 className="header__title">Fruit Matrix</h2>
-      <div className="header__subtitle">
-        An aggregator of people's feelings about fruit. Inspired by XKCD.
-      </div>
-    </header>
+    <div>
+      Drag the fruit onto the graph to rank how tasty and easy to eat they are.
+    </div>
   );
 };
 
