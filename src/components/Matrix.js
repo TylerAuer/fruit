@@ -12,7 +12,10 @@ const Matrix = () => {
     blueberries: null,
     cherries: null,
     grapefruits: null,
-    green_apples: null,
+    green_apples: {
+      x: 50,
+      y: 50,
+    },
     kiwi: null,
     lemons: null,
     melon: null,
