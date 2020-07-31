@@ -23,7 +23,9 @@ const FruitOnGraph = ({ name, ratings, setRatings, scale }) => {
 
     const newX = position.x + scale.imgSize / 2;
     const newY = position.y + scale.imgSize / 2;
-
+    console.log(newX);
+    console.log(newY);
+    console.log(' ');
     // Set rating to null if dragged off the grid
     if (newX < 0 || newX > scale.width || newY < 0 || newY > scale.height) {
       setIsOnGraph(false);

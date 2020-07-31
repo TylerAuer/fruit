@@ -1,9 +1,32 @@
 import React, { useState, useRef } from 'react';
 import useBounds from '../hooks/useBounds';
 import fruitList from './Fruit.json';
-import FruitOnGraph from './FruitOnGraph';
-import FruitOffGraph from './FruitOffGraph';
+import Fruit from './Fruit';
 import './Matrix.scss';
+
+/**
+ * FRUIT TO ADD IN ONCE I HAVE MADE GRAPHICS FOR THEM
+  
+  "kiwi": null,
+  "lemons": null,
+  "melon": null,
+  "nectarine": null,
+  "oranges": null,
+  "papaya": null,
+  "peaches": null,
+  "pears": null,
+  "pineapples": null,
+  "plums": null,
+  "pomegranates": null,
+  "seeded_grapes": null,
+  "seedless_grapes": null,
+  "strawberries": null,
+  "tomatoes": null,
+  "blackberries": null,
+  "blueberries": null,
+  "grapefruits": null,
+  
+ */
 
 const Matrix = () => {
   const graphRef = useRef();
@@ -33,7 +56,7 @@ const Matrix = () => {
     }
 
     return (
-      <FruitOnGraph
+      <Fruit
         key={name}
         name={name}
         ratings={ratings}
@@ -43,30 +66,13 @@ const Matrix = () => {
     );
   });
 
-  // Generates fruit components **NOT** on the graph
-  const fruitsOffGraph = Object.keys(ratings).map((name) => {
-    if (ratings[name]) {
-      return null;
-    }
-
-    // return (
-    //   <FruitOffGraph
-    //     key={name}
-    //     name={name}
-    //     ratings={ratings}
-    //     setRatings={setRatings}
-    //     scale={scale}
-    //   />
-    // );
-  });
-
   return (
     <>
       <div className="matrix">
         <div ref={graphRef} className="matrix__graph">
           {fruitsOnGraph}
         </div>
-        <div className="matrix__unused-fruit">{fruitsOffGraph}</div>
+        {/* <div className="matrix__unused-fruit" /> */}
         <div className="matrix__controls">
           <button className="app__submit">Submit</button>
         </div>
