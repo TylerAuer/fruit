@@ -1,0 +1,43 @@
+.bottom {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 8rem;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+
+  &__subtitle {
+    font-size: 1.6rem;
+  }
+
+  &__link-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  &__link,
+  &__link:visited {
+    width: 15rem;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+  }
+
+  &__link:hover,
+  &__link:focus {
+    outline: none;
+    color: darkorange;
+  }
+}

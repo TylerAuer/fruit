@@ -1,16 +1,16 @@
 import React from 'react';
-import Header from './components/Header';
+import Directions from './components/Directions';
 import Matrix from './components/Matrix';
-import Footer from './components/Footer';
+import BottomInfo from './components/BottomInfo';
 
 const App = () => {
   return (
     <>
-      <Header />
-      <main className="app">
+      <Directions />
+      <main className="app" style={{ minHeight: '100vh' }}>
         <Matrix />
       </main>
-      <Footer />
+      <BottomInfo />
     </>
   );
 };
