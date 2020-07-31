@@ -25,7 +25,7 @@ const FruitOnGraph = ({
       };
     } else {
       // OFF THE GRAPH
-      // so space fruit out to display nicely
+      // so center and space out fruit below graph
       const count = listOfKeysOffGraph.length;
       const index = listOfKeysOffGraph.indexOf(name);
       const listOffset =
@@ -34,7 +34,7 @@ const FruitOnGraph = ({
       return {
         //x: scale.width / 2 - scale.imgSize / 2,
         x: index * scale.imgSize + index * marginForOffGraphFruits + listOffset,
-        y: scale.height + scale.imgSize,
+        y: scale.height + 10,
       };
     }
   };

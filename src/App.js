@@ -1,23 +1,16 @@
 import React from 'react';
+import Header from './components/Header';
 import Matrix from './components/Matrix';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
     <>
-      <header className="header">
-        <h2 className="header__title">Fruit Matrix</h2>
-        <div className="header__subtitle">
-          An aggregator of people's feelings about fruit. Inspired by XKCD.
-        </div>
-      </header>
+      <Header />
       <main className="app">
         <Matrix />
       </main>
-      <footer className="footer">
-        <div className="footer__help-btn">Help</div>
-        <div className="footer__tyler-btn">Tyler Auer</div>
-        <div className="footer__inspiration-btn">Inspiration</div>
-      </footer>
+      <Footer />
     </>
   );
 };

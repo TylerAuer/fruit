@@ -75,7 +75,6 @@ const Matrix = () => {
         <div ref={graphRef} className="matrix__graph">
           {fruitsOnGraph}
         </div>
-        {/* <div className="matrix__unused-fruit" /> */}
         <div className="matrix__controls">
           <button className="app__submit">Submit</button>
         </div>
