@@ -3,6 +3,10 @@
   flex-direction: column;
   align-items: center;
 
+  &__buttons {
+    margin: 40px auto;
+  }
+
   &__title {
     font-size: 6rem;
     line-height: 1;

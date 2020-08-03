@@ -1,11 +1,20 @@
 import React from 'react';
-import SubmitButton from './SubmitButton';
+import Button from './Button';
 import './BottomInfo.scss';
 
 const BottomInfo = ({ ratings }) => {
   return (
     <div className="bottom">
-      <SubmitButton ratings={ratings} />
+      <div className="bottom__buttons">
+        <Button
+          text="Submit Ratings"
+          onClick={() => console.log('Submit clicked')}
+        />
+        <Button
+          text="Aggregate Ratings"
+          onClick={() => console.log('Submit clicked')}
+        />
+      </div>
       <header>
         <h1 className="bottom__title">Fruit Matrix</h1>
         {/* <div className="bottom__subtitle">
