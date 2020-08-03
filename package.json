@@ -8,10 +8,13 @@
     "@testing-library/user-event": "^7.2.1",
     "express": "^4.17.1",
     "node-sass": "^4.14.1",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.3",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "sequelize": "^6.3.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,5 +36,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  },
+  "proxy": "http://localhost:4000"
 }
