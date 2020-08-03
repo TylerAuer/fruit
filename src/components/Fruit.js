@@ -39,9 +39,13 @@ const FruitOnGraph = ({
     }
   };
 
-  const onStart = (e) => {
+  const onStart = (e, position) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // Prevents flash of off graph styles when fruit on graph is clicked but cursor
+    // is not moved
+    isOnGraph ? setIsDraggingOverGraph(true) : setIsDraggingOverGraph(true);
   };
 
   const onDrag = (e, position) => {
