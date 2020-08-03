@@ -10,19 +10,15 @@ import './Matrix.scss';
  * FRUIT TO ADD IN ONCE I HAVE MADE GRAPHICS FOR THEM
   
   "kiwi": null,
-  "lemons": null,
   "melon": null,
   "nectarine": null,
-  "oranges": null,
   "papaya": null,
   "peaches": null,
-  "pears": null,
   "pineapples": null,
   "plums": null,
   "pomegranates": null,
   "seeded_grapes": null,
   "seedless_grapes": null,
-  "strawberries": null,
   "tomatoes": null,
   "blackberries": null,
   "blueberries": null,
@@ -34,6 +30,7 @@ const App = () => {
   const graphRef = useRef();
   const graphBounds = useBounds(graphRef);
   const [ratings, setRatings] = useState(fruitList);
+  const [showAggregate, setShowAggregate] = useState(false);
 
   if (!graphBounds) {
     return <div ref={graphRef} className="matrix__graph" />;
