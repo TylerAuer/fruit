@@ -29,6 +29,9 @@ const BottomInfo = ({ ratings }) => {
         <a className="bottom__link" href="https://xkcd.com/">
           XKCD
         </a>
+        <a className="bottom__link" href="https://fruit.tylerauer.com/about">
+          About
+        </a>
       </div>
     </div>
   );
