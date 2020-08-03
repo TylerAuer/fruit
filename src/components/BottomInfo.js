@@ -2,14 +2,11 @@ import React from 'react';
 import Button from './Button';
 import './BottomInfo.scss';
 
-const BottomInfo = ({ ratings }) => {
+const BottomInfo = ({ submitRatings }) => {
   return (
     <div className="bottom">
       <div className="bottom__buttons">
-        <Button
-          text="Submit Ratings"
-          onClick={() => console.log('Submit clicked')}
-        />
+        <Button text="Submit Ratings" onClick={submitRatings} />
         <Button
           text="Aggregate Ratings"
           onClick={() => console.log('Submit clicked')}

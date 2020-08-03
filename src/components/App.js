@@ -32,6 +32,16 @@ const App = () => {
   const [ratings, setRatings] = useState(fruitList);
   const [showAggregate, setShowAggregate] = useState(false);
 
+  const submitRatings = () => {
+    fetch('/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(ratings),
+    });
+  };
+
   if (!graphBounds) {
     return <div ref={graphRef} className="matrix__graph" />;
   }
@@ -83,7 +93,7 @@ const App = () => {
           </div>
         </div>
       </main>
-      <BottomInfo ratings={ratings} />
+      <BottomInfo submitRatings={submitRatings} />
     </>
   );
 };
