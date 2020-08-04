@@ -1,26 +1,17 @@
 const express = require('express');
 const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const endpoints = require('./backend/endpoints');
 const db = require('./backend/models');
 const chalk = require('chalk');
 
-const app = express();
-app.use(express.json());
-app.use(
-  session({
-    secret: 'temp_secret',
-    secure: false,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    },
-  })
-);
-const port = 4000;
-
 ///////////////////////////////////////////////
-// Set Up PSQL Database
+// CONFIG POSTGRES DATABASE
+
+const sessionStore = new SequelizeStore({
+  db: db.sequelize,
+});
+
 const syncDatabaseToModels = async () => {
   // Use to rebuild the DB (WILL DELETE DATA)
   //await db.sequelize.sync({ force: true });
@@ -33,6 +24,25 @@ const syncDatabaseToModels = async () => {
 // Only runs when the Database does not exist or when the models don't
 // match the current state of the DB
 syncDatabaseToModels();
+
+///////////////////////////////////////////////
+// CONFIG EXPRESS AND APP
+
+const app = express();
+app.use(express.json());
+app.use(
+  session({
+    secret: 'temp_secret',
+    store: sessionStore,
+    secure: false,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    },
+  })
+);
+const port = 4000;
 
 ///////////
 // ROUTES
