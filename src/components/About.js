@@ -1,15 +1,22 @@
 import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import Button from './Button';
 import './About.scss';
 
 const About = ({ countOfSubmissions, countOfAllRatings }) => {
+  const history = useHistory();
+
   return (
     <div className="about">
       <header className="about__header">
-        <h1 className="about__title">Fruit Matrix</h1>
+        <Link to="/">
+          <h1 className="about__title">Fruit Matrix</h1>
+        </Link>
         <div className="about__subtitle">
           An aggregator of people's feelings about fruit. Inspired by XKCD.
         </div>
       </header>
+      <Button onClick={() => history.push('/')} text="Back to Graph" />
       <main>
         <p>
           <b>Fruit Matrix</b> was built by me, Tyler Auer. I spent 12 years in

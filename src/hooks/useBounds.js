@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-const useResponsiveDimensions = (myRef) => {
+const useBounds = (myRef) => {
   const [bounds, setBounds] = useState(null);
-
   // Triggers dimension update when window changes
   useEffect(() => {
     const getDOMRect = () => {
+      // Only update bounds if on page that displays graph
       const domRect = myRef.current.getBoundingClientRect();
       setBounds(domRect);
     };
@@ -38,4 +38,4 @@ const useResponsiveDimensions = (myRef) => {
   return scale;
 };
 
-export default useResponsiveDimensions;
+export default useBounds;
