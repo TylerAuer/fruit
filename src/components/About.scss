@@ -1,0 +1,41 @@
+.about {
+  max-width: 80rem;
+  margin: 0 auto;
+
+  body h2 {
+    font-size: 3rem;
+  }
+
+  body p {
+    margin: 2rem 0;
+    line-height: 1.8;
+    font-size: 1.8rem;
+
+    a,
+    a:visited {
+      color: rgb(255, 0, 183);
+      text-decoration: none;
+
+      &:hover {
+        color: rgb(199, 1, 143);
+      }
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin: 3rem 0;
+  }
+
+  &__title {
+    font-size: 8rem;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+  }
+
+  &__subtitle {
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+}

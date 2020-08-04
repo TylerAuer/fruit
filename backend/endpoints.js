@@ -1,44 +1,50 @@
 const Model = require('./models');
-const { Op } = require('sequelize');
+const chalk = require('chalk');
+const log = console.log;
 
 // Get Aggregate Ratings
 const getAggregateRatings = async (req, res, next) => {
   // Fruit in DB (can be copied from /src/comonents/fruit.json)
   const aggregateRatings = {
-    bananas: {},
-    cherries: {},
-    green_apples: {},
-    lemons: {},
-    // melons: {},
-    oranges: {},
-    red_apples: {},
-    pears: {},
-    strawberries: {},
-    watermelons: {},
+    count_of_submissions: await getTotalSubmissions(),
+    fruit: {
+      bananas: {},
+      cherries: {},
+      green_apples: {},
+      lemons: {},
+      // melons: {},
+      oranges: {},
+      red_apples: {},
+      pears: {},
+      strawberries: {},
+      watermelons: {},
+    },
   };
 
-  await getCountsAndAverages();
-  res.send(aggregateRatings);
+  await getCountsAndAveragesByFruitDimension();
 
-  async function getCountsAndAverages() {
-    for (let fruit in aggregateRatings) {
-      // counts
-      aggregateRatings[fruit].count = await Model.Rating.count({
-        col: `${fruit}_x`,
-      });
-      // average
-      aggregateRatings[fruit].average = {
-        x:
-          (await Model.Rating.sum(`${fruit}_x`)) /
-          aggregateRatings[fruit].count,
-        y:
-          (await Model.Rating.sum(`${fruit}_y`)) /
-          aggregateRatings[fruit].count,
+  async function getCountsAndAveragesByFruitDimension() {
+    let count_of_all_ratings = 0;
+    for (let fruit in aggregateRatings.fruit) {
+      const count = await Model.Rating.count({ col: `${fruit}_x` });
+      const sumOfX = await Model.Rating.sum(`${fruit}_x`);
+      const sumOfY = await Model.Rating.sum(`${fruit}_y`);
+      count_of_all_ratings += count;
+      aggregateRatings.fruit[fruit] = {
+        count: count,
+        xAvg: sumOfX / count,
+        yAvg: sumOfY / count,
       };
     }
+    aggregateRatings.count_of_all_ratings = count_of_all_ratings;
   }
 
-  return null;
+  function getTotalSubmissions() {
+    return Model.Rating.count();
+  }
+
+  res.send(aggregateRatings);
+  log(chalk.blue('Generating Aggregate Data'));
 };
 
 // ADD RATINGS

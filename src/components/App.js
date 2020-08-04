@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import useBounds from '../hooks/useBounds';
 import useManageUserRatings from '../hooks/useManageUserRatings';
 import useManageAggregate from '../hooks/useManageAggregate';
+import About from './About';
 import Directions from './Directions';
 import Fruit from './Fruit';
 import Bottom from './Bottom';
@@ -59,26 +61,36 @@ const App = () => {
   });
 
   return (
-    <>
-      <main className="app">
-        <Directions />
-        <div
-          className="matrix"
-          style={{
-            padding: `${scale.imgSize + 30}px 10px 20px 10px`,
-          }}
-        >
-          <div ref={graphRef} className="matrix__graph">
-            {fruit}
-          </div>
-        </div>
-      </main>
-      <Bottom
-        submitRatings={submitRatings}
-        setShowAggregate={setShowAggregate}
-        showAggregate={showAggregate}
-      />
-    </>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <main className="app">
+            <Directions />
+            <div
+              className="matrix"
+              style={{
+                padding: `${scale.imgSize + 30}px 10px 20px 10px`,
+              }}
+            >
+              <div ref={graphRef} className="matrix__graph">
+                {fruit}
+              </div>
+            </div>
+          </main>
+          <Bottom
+            submitRatings={submitRatings}
+            setShowAggregate={setShowAggregate}
+            showAggregate={showAggregate}
+          />
+        </Route>
+        <Route exact path="/about">
+          <About
+            countOfAllRatings={aggregate.count_of_all_ratings}
+            countOfSubmissions={aggregate.count_of_submissions}
+          />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 

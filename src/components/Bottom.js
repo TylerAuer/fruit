@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from './Button';
 import './Bottom.scss';
 
@@ -19,9 +20,9 @@ const Bottom = ({ submitRatings, showAggregate, setShowAggregate }) => {
         </div> */}
       </header>
       <div className="bottom__link-container">
-        <a className="bottom__link" href="https://fruit.tylerauer.com/about">
+        <Link to="/about" className="bottom__link">
           About
-        </a>
+        </Link>
         <a className="bottom__link" href="https://xkcd.com/">
           XKCD
         </a>
