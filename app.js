@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const endpoints = require('./backend/endpoints');
 const db = require('./backend/models');
+const chalk = require('chalk');
 
 const app = express();
 app.use(express.json());
@@ -23,8 +24,10 @@ const port = 4000;
 const syncDatabaseToModels = async () => {
   // Use to rebuild the DB (WILL DELETE DATA)
   //await db.sequelize.sync({ force: true });
+
   await db.sequelize.sync();
-  console.log('Finished synchronizing the DB');
+  console.log(chalk.blue('Finished synchronizing the DB'));
+  console.log('');
 };
 
 // Only runs when the Database does not exist or when the models don't
@@ -46,6 +49,9 @@ app.get('/aggregate', endpoints.getAggregateRatings);
 // SUBMIT NEW RATINGS
 app.post('/submit', endpoints.submitRatings);
 
+console.log('');
+console.log(chalk.bgBlue.bold('** Initializing App **'));
+console.log('');
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(chalk.blue.bold(`Listening at http://localhost:${port}`));
 });

@@ -3,12 +3,14 @@ const NodeCache = require('node-cache');
 const chalk = require('chalk');
 const log = console.log;
 
-// Set up cache
+/////////////////////////////////////
+// INITIALIZE THE CACHE
 const cache = new NodeCache({
   stdTTL: 20, // delete cached values after 10 seconds
 });
 
-// Get Aggregate Ratings
+/////////////////////////////////////
+// HANDLE REQUESTS FOR AGGREGATE DATA
 const getAggregateRatings = async (req, res) => {
   const cacheHasAggregate = cache.has('aggregate');
   if (cacheHasAggregate) {
@@ -66,7 +68,8 @@ const getAggregateRatings = async (req, res) => {
   );
 };
 
-// Handle a user submitting ratings
+/////////////////////////////////////
+// HANDLE USER SUBMISSIONS OF RATINGS
 const submitRatings = async (req, res) => {
   const ratingsForDB = await prepDataForDB(req.body);
   const userPreviouslySubmittedRatings = (await Model.Rating.findOne({
@@ -84,10 +87,14 @@ const submitRatings = async (req, res) => {
       },
     });
     log(chalk.blue.bold('RATING: ') + chalk.blue('Updating set of ratings'));
+    res.send("We've updated your previous ratings in our dataset.");
   } else {
     Model.Rating.create(ratingsForDB);
     log(chalk.blue.bold('RATING: ') + chalk.blue('Recording new ratings'));
+    res.send('Your ratings have been added to our dataset');
   }
+
+  cache.del('aggregate');
 
   function prepDataForDB(ratings) {
     const newRow = {
