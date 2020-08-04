@@ -2,15 +2,12 @@ import React from 'react';
 import Button from './Button';
 import './BottomInfo.scss';
 
-const BottomInfo = ({ submitRatings }) => {
+const BottomInfo = ({ submitRatings, getAggregate }) => {
   return (
     <div className="bottom">
       <div className="bottom__buttons">
         <Button text="Submit Ratings" onClick={submitRatings} />
-        <Button
-          text="Aggregate Ratings"
-          onClick={() => console.log('Submit clicked')}
-        />
+        <Button text="Aggregate Ratings" onClick={getAggregate} />
       </div>
       <header>
         <h1 className="bottom__title">Fruit Matrix</h1>

@@ -30,6 +30,7 @@ const App = () => {
   const graphRef = useRef();
   const graphBounds = useBounds(graphRef);
   const [ratings, setRatings] = useState(fruitList);
+  const [aggregate, setAggregate] = useState(fruitList);
   const [showAggregate, setShowAggregate] = useState(false);
 
   const submitRatings = () => {
@@ -40,6 +41,15 @@ const App = () => {
       },
       body: JSON.stringify(ratings),
     });
+  };
+
+  const getAggregate = () => {
+    fetch('/aggregate')
+      .then((res) => res.json())
+      .then((data) => {
+        setAggregate(data);
+        console.log(data);
+      });
   };
 
   if (!graphBounds) {
@@ -93,7 +103,7 @@ const App = () => {
           </div>
         </div>
       </main>
-      <BottomInfo submitRatings={submitRatings} />
+      <BottomInfo submitRatings={submitRatings} getAggregate={getAggregate} />
     </>
   );
 };

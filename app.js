@@ -29,7 +29,7 @@ app.use(express.static(__dirname + '/build'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/build/index.html'));
 
 // GET AGGREGATE RATINGS
-// app.get('/aggregate', endpoints.getAggregateRatings)
+app.get('/aggregate', endpoints.getAggregateRatings);
 
 // SUBMIT NEW RATINGS
 app.post('/submit', endpoints.submitRatings);
