@@ -21,7 +21,21 @@ const useResponsiveDimensions = (myRef) => {
     };
   }, [myRef]);
 
-  return bounds;
+  // References needed to convert fruit from pixel coordinates to 0 to 100
+  // scale and back as well as correctly place items
+  const scale = bounds
+    ? {
+        width: bounds.width,
+        height: bounds.height,
+        left: bounds.left,
+        top: bounds.top,
+        x: bounds.width / 100,
+        y: bounds.height / 100,
+        imgSize: bounds.width * 0.035, // size of image as % of graph width
+      }
+    : null;
+
+  return scale;
 };
 
 export default useResponsiveDimensions;

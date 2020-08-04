@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import fruitList from '../components/Fruit.json';
 
 const useManageAggregate = () => {
@@ -11,6 +11,10 @@ const useManageAggregate = () => {
         setAggregate(data);
       });
   };
+
+  useEffect(() => {
+    getAggregate();
+  }, []);
 
   return { aggregate, getAggregate };
 };
