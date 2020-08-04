@@ -10,7 +10,7 @@ const About = ({ countOfSubmissions, countOfAllRatings }) => {
           An aggregator of people's feelings about fruit. Inspired by XKCD.
         </div>
       </header>
-      <body>
+      <main>
         <p>
           <b>Fruit Matrix</b> was built by me, Tyler Auer. I spent 12 years in
           education as a math coach and as a math, science, and technology
@@ -69,7 +69,7 @@ const About = ({ countOfSubmissions, countOfAllRatings }) => {
             </p>
           </>
         )}
-      </body>
+      </main>
     </div>
   );
 };
