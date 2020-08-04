@@ -1,17 +1,29 @@
 const express = require('express');
-const db = require('./backend/models');
+const session = require('express-session');
 const endpoints = require('./backend/endpoints');
+const db = require('./backend/models');
 
 const app = express();
 app.use(express.json());
+app.use(
+  session({
+    secret: 'temp_secret',
+    secure: false,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    },
+  })
+);
 const port = 4000;
 
 ///////////////////////////////////////////////
 // Set Up PSQL Database
 const syncDatabaseToModels = async () => {
   // Use to rebuild the DB (WILL DELETE DATA)
-  // await db.sequelize.sync({ force: true });
-  await db.sequelize.sync();
+  await db.sequelize.sync({ force: true });
+  //await db.sequelize.sync();
   console.log('Finished synchronizing the DB');
 };
 

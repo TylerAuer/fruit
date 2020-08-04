@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Rating.init(
     {
+      session_id: DataTypes.STRING,
       red_apples_x: DataTypes.FLOAT,
       red_apples_y: DataTypes.FLOAT,
       green_apples_x: DataTypes.FLOAT,
