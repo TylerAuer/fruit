@@ -1,9 +1,22 @@
 const Model = require('./models');
+const NodeCache = require('node-cache');
 const chalk = require('chalk');
 const log = console.log;
 
+// Set up cache
+const cache = new NodeCache({
+  stdTTL: 20, // delete cached values after 10 seconds
+});
+
 // Get Aggregate Ratings
-const getAggregateRatings = async (req, res, next) => {
+const getAggregateRatings = async (req, res) => {
+  const cacheHasAggregate = cache.has('aggregate');
+  if (cacheHasAggregate) {
+    log(chalk.magenta.bold('AGGREGATE: ') + chalk.magenta('Sent cached data.'));
+    res.send(cache.get('aggregate'));
+    return;
+  }
+
   // Fruit in DB (can be copied from /src/comonents/fruit.json)
   const aggregateRatings = {
     count_of_submissions: await getTotalSubmissions(),
@@ -46,14 +59,15 @@ const getAggregateRatings = async (req, res, next) => {
   }
 
   res.send(aggregateRatings);
+  cache.set('aggregate', aggregateRatings);
   log(
     chalk.magenta.bold('AGGREGATE: ') +
-      chalk.magenta('Generating Aggregate Data')
+      chalk.magenta('Caching and send aggregate data')
   );
 };
 
 // Handle a user submitting ratings
-const submitRatings = async (req, res, next) => {
+const submitRatings = async (req, res) => {
   const ratingsForDB = await prepDataForDB(req.body);
   const userPreviouslySubmittedRatings = (await Model.Rating.findOne({
     where: {
@@ -69,12 +83,10 @@ const submitRatings = async (req, res, next) => {
         session_id: req.sessionID,
       },
     });
-    log(
-      chalk.blue.bold('RATING: ') + chalk.blue('Submitting new set of ratings')
-    );
+    log(chalk.blue.bold('RATING: ') + chalk.blue('Updating set of ratings'));
   } else {
     Model.Rating.create(ratingsForDB);
-    log(chalk.blue.bold('RATING: ') + chalk.blue('Updating a set of ratings'));
+    log(chalk.blue.bold('RATING: ') + chalk.blue('Recording new ratings'));
   }
 
   function prepDataForDB(ratings) {
