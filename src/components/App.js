@@ -1,16 +1,16 @@
 import React, { useState, useRef } from 'react';
 import useBounds from '../hooks/useBounds';
+import useManageUserRatings from '../hooks/useManageUserRatings';
+import useManageAggregate from '../hooks/useManageAggregate';
 import Directions from './Directions';
-import BottomInfo from './BottomInfo';
-import fruitList from './Fruit.json';
 import Fruit from './Fruit';
+import Bottom from './Bottom';
 import './Matrix.scss';
 
 /**
  * FRUIT TO ADD IN ONCE I HAVE MADE GRAPHICS FOR THEM
   
   "kiwi": null,
-  "melon": null,
   "nectarine": null,
   "papaya": null,
   "peaches": null,
@@ -29,33 +29,18 @@ import './Matrix.scss';
 const App = () => {
   const graphRef = useRef();
   const graphBounds = useBounds(graphRef);
-  const [ratings, setRatings] = useState(fruitList);
-  const [aggregate, setAggregate] = useState(fruitList);
+  const { ratings, setRatings, submitRatings } = useManageUserRatings();
+  const { aggregate, getAggregate } = useManageAggregate();
   const [showAggregate, setShowAggregate] = useState(false);
 
-  const submitRatings = () => {
-    fetch('/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(ratings),
-    });
-  };
-
-  const getAggregate = () => {
-    fetch('/aggregate')
-      .then((res) => res.json())
-      .then((data) => {
-        setAggregate(data);
-        console.log(data);
-      });
-  };
-
+  // The useBounds hook takes time on page load to get info
+  // so, only show axis until useBounds gets its data
   if (!graphBounds) {
     return <div ref={graphRef} className="matrix__graph" />;
   }
 
+  // References needed to convert fruit from pixel coordinates to 0 to 100
+  // scale and back as well as correctly place items
   const scale = graphBounds
     ? {
         width: graphBounds.width,
@@ -68,14 +53,14 @@ const App = () => {
       }
     : null;
 
-  // Generate an array of keys to pass to Fruit so fruits of the graph can know
-  // where to be placed
+  // Generates an array of fruit that are OFF the graph.
+  // Needed to display fruit spaced out nicely above graph
   const listOfKeysOffGraph = Object.keys(ratings).filter((name) => {
     return !ratings[name];
   });
 
-  // Generates fruit components
-  const fruitsOnGraph = Object.keys(ratings).map((name) => {
+  //
+  const fruit = Object.keys(ratings).map((name) => {
     return (
       <Fruit
         key={name}
@@ -99,11 +84,11 @@ const App = () => {
           }}
         >
           <div ref={graphRef} className="matrix__graph">
-            {fruitsOnGraph}
+            {fruit}
           </div>
         </div>
       </main>
-      <BottomInfo submitRatings={submitRatings} getAggregate={getAggregate} />
+      <Bottom submitRatings={submitRatings} getAggregate={getAggregate} />
     </>
   );
 };

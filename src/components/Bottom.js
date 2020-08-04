@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from './Button';
-import './BottomInfo.scss';
+import './Bottom.scss';
 
-const BottomInfo = ({ submitRatings, getAggregate }) => {
+const Bottom = ({ submitRatings, getAggregate }) => {
   return (
     <div className="bottom">
       <div className="bottom__buttons">
@@ -31,4 +31,4 @@ const BottomInfo = ({ submitRatings, getAggregate }) => {
   );
 };
 
-export default BottomInfo;
+export default Bottom;

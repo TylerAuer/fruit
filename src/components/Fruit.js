@@ -2,13 +2,7 @@ import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 import './Fruit.scss';
 
-const FruitOnGraph = ({
-  name,
-  ratings,
-  setRatings,
-  scale,
-  listOfKeysOffGraph,
-}) => {
+const Fruit = ({ name, ratings, setRatings, scale, listOfKeysOffGraph }) => {
   const nodeRef = useRef(null);
   const [isDraggingOverGraph, setIsDraggingOverGraph] = useState(null);
   const [isOnGraph, setIsOnGraph] = useState(!ratings[name] ? false : true);
@@ -120,4 +114,4 @@ const FruitOnGraph = ({
   );
 };
 
-export default FruitOnGraph;
+export default Fruit;
