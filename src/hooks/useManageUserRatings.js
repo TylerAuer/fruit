@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import fruitList from '../components/Fruit.json';
+import toaster from 'toasted-notes';
+import 'toasted-notes/src/styles.css';
+import '../components/Toasts.scss';
 
 const useManageUserRatings = () => {
   const [ratings, setRatings] = useState(fruitList);
@@ -26,7 +29,12 @@ const useManageUserRatings = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(roundedRatings),
-    });
+    })
+      .then((res) => res.text())
+      .then((message) => toaster.notify(message))
+      .catch((error) => {
+        toaster.notify('So sorry! There was an error submiting your ratings.');
+      });
   };
 
   return { ratings, setRatings, submitRatings };

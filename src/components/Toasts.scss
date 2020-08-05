@@ -1,0 +1,14 @@
+.Toaster {
+  &__alert {
+    // padding: 1.5rem;
+  }
+
+  &__alert_text {
+    padding: 1rem;
+    font-size: 1.6rem;
+  }
+
+  &__alert_close {
+    font-size: 2rem;
+  }
+}

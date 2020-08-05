@@ -113,7 +113,7 @@ const storeOrUpdateUserRatings = async (req, res) => {
   } else {
     Model.Rating.create(ratingsForDB);
     log(chalk.blue.bold('RATING: ') + chalk.blue('Recording new ratings'));
-    res.send('Your ratings have been added to our dataset');
+    res.send('Your ratings have been added to our dataset.');
   }
 
   // Once a user submits new data, the cached aggregate data is incorrect
