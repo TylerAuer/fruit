@@ -22,9 +22,11 @@ syncDatabaseToModels();
 
 async function syncDatabaseToModels() {
   // Use to rebuild the DB (WILL DELETE DATA)
-  //await db.sequelize.sync({ force: true });
+  // await db.sequelize.sync({ force: true });
 
+  // Use to initialize the DB
   await db.sequelize.sync();
+
   console.log(chalk.blue('Finished synchronizing the DB'));
   console.log('');
 }

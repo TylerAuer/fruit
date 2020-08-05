@@ -6,25 +6,6 @@ import About from './About';
 import Graph from './Graph';
 import './Matrix.scss';
 
-/**
- * FRUIT TO ADD IN ONCE I HAVE MADE GRAPHICS FOR THEM
-  
-  "kiwi": null,
-  "nectarine": null,
-  "papaya": null,
-  "peaches": null,
-  "pineapples": null,
-  "plums": null,
-  "pomegranates": null,
-  "seeded_grapes": null,
-  "seedless_grapes": null,
-  "tomatoes": null,
-  "blackberries": null,
-  "blueberries": null,
-  "grapefruits": null,
-  
- */
-
 const App = () => {
   const { aggregate, getAggregate } = useManageAggregate();
   const { ratings, setRatings, submitRatings } = useManageUserRatings();

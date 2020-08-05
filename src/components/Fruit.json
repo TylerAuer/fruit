@@ -1,12 +1,18 @@
 {
   "bananas": null,
+  "blueberries": null,
   "cherries": null,
+  "coconuts": null,
+  "grapefruits": null,
+  "grapes": null,
   "green_apples": null,
   "lemons": null,
   "melons": null,
   "oranges": null,
-  "red_apples": null,
+  "peaches": null,
   "pears": null,
+  "pineapples": null,
+  "red_apples": null,
   "strawberries": null,
   "watermelons": null
 }
