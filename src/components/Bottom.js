@@ -9,7 +9,7 @@ const Bottom = ({ submitRatings, showAggregate, setShowAggregate }) => {
       <div className="bottom__buttons">
         <Button text="Submit Ratings" onClick={submitRatings} />
         <Button
-          text={showAggregate ? 'Hide Aggregate' : 'Show Aggregate'}
+          text={showAggregate ? 'Show Your Ratings' : 'Show Aggregate Ratings'}
           onClick={() => setShowAggregate(!showAggregate)}
         />
       </div>
