@@ -112,7 +112,10 @@ const Fruit = ({
       onDrag={onDrag}
       onStop={onStop}
     >
-      <div className="fruit" ref={nodeRef}>
+      <div
+        className={`fruit ${isDraggingOverGraph === null ? '' : 'fruit--drag'}`}
+        ref={nodeRef}
+      >
         <img
           alt={name}
           src={src}

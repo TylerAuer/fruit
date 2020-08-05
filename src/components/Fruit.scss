@@ -1,6 +1,7 @@
 .fruit {
   position: absolute;
   z-index: 10;
+  transition: all 0.5s;
 
   &__img {
     transition: all 0.3s;
@@ -21,12 +22,16 @@
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    transition: all 0.2s;
+    transition: opacity 0.2s;
     backface-visibility: hidden;
   }
 
   &__img:hover + &__label {
     opacity: 1;
+  }
+
+  &--drag {
+    transition: transform 0s;
   }
 }
 
