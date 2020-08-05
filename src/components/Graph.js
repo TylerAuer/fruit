@@ -8,7 +8,9 @@ const Graph = ({ aggregate, ratings, setRatings, submitRatings }) => {
   const graphRef = useRef();
   const scale = useBounds(graphRef);
   const [showAggregate, setShowAggregate] = useState(false);
-  // Just show axis until useBounds is able to determine that info
+
+  // Just show axis until useBounds is able to determine the info about the
+  // graph that is used to correctly position all of the fruit
   if (!scale) {
     return <div ref={graphRef} className="matrix__graph" />;
   }

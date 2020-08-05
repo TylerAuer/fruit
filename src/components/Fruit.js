@@ -11,8 +11,7 @@ const Fruit = ({ name, ratings, setRatings, scale, listOfKeysOffGraph }) => {
 
   const calculatePosition = () => {
     if (isOnGraph) {
-      // ON THE GRAPH
-      // so convert 0 to 100 scale into pixel position
+      // convert 0 to 100 scale into pixel position
       return {
         x: scale.x * ratings[name].x - scale.imgSize / 2,
         y: scale.y * (100 - ratings[name].y) - scale.imgSize / 2,
