@@ -6,7 +6,7 @@ import About from './About';
 import Graph from './Graph';
 
 const App = () => {
-  const { aggregate, getAggregate } = useManageAggregate();
+  const { aggregate } = useManageAggregate();
   const { ratings, setRatings, submitRatings } = useManageUserRatings();
 
   return (

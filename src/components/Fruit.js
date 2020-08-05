@@ -2,14 +2,22 @@ import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 import './Fruit.scss';
 
-const Fruit = ({ name, ratings, setRatings, scale, listOfKeysOffGraph }) => {
+const Fruit = ({
+  name,
+  ratings,
+  setRatings,
+  scale,
+  listOfKeysOffGraph,
+  aggregate,
+  showAggregate,
+}) => {
   const nodeRef = useRef(null);
   const [isDraggingOverGraph, setIsDraggingOverGraph] = useState(null);
   const [isOnGraph, setIsOnGraph] = useState(!ratings[name] ? false : true);
   const marginForOffGraphFruits = 20;
   const src = require(`../img/${name}.svg`);
 
-  const calculatePosition = () => {
+  const usersPosition = () => {
     if (isOnGraph) {
       // convert 0 to 100 scale into pixel position
       return {
@@ -30,6 +38,13 @@ const Fruit = ({ name, ratings, setRatings, scale, listOfKeysOffGraph }) => {
         y: -20 - scale.imgSize,
       };
     }
+  };
+
+  const aggregatePosition = () => {
+    return {
+      x: scale.x * aggregate.fruit[name].x - scale.imgSize / 2,
+      y: scale.y * (100 - aggregate.fruit[name].y) - scale.imgSize / 2,
+    };
   };
 
   const onStart = (e, position) => {
@@ -90,7 +105,7 @@ const Fruit = ({ name, ratings, setRatings, scale, listOfKeysOffGraph }) => {
   return (
     <Draggable
       nodeRef={nodeRef}
-      position={calculatePosition()}
+      position={showAggregate ? aggregatePosition() : usersPosition()}
       onStart={onStart}
       onDrag={onDrag}
       onStop={onStop}

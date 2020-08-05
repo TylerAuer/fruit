@@ -30,6 +30,8 @@ const Graph = ({ aggregate, ratings, setRatings, submitRatings }) => {
         name={name}
         ratings={ratings}
         setRatings={setRatings}
+        aggregate={aggregate}
+        showAggregate={showAggregate}
         scale={scale}
         listOfKeysOffGraph={listOfKeysOffGraph}
       />

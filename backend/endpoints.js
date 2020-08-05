@@ -68,8 +68,8 @@ const sendAggregateDataToUser = async (req, res) => {
       count_of_all_ratings += count;
       aggregateRatings.fruit[fruit] = {
         count: count,
-        x_avg: sumOfX / count,
-        y_avg: sumOfY / count,
+        x: sumOfX / count,
+        y: sumOfY / count,
       };
     }
     aggregateRatings.count_of_all_ratings = count_of_all_ratings;
