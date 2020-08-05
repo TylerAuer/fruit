@@ -17,7 +17,16 @@ const Fruit = ({
   const marginForOffGraphFruits = 20;
   const src = require(`../img/${name}.svg`);
 
-  const usersPosition = () => {
+  const position = () => {
+    // Displaying aggregate ratings
+    if (showAggregate) {
+      return {
+        x: scale.x * aggregate.fruit[name].x - scale.imgSize / 2,
+        y: scale.y * (100 - aggregate.fruit[name].y) - scale.imgSize / 2,
+      };
+    }
+
+    // Displaying user's ratings
     if (isOnGraph) {
       // convert 0 to 100 scale into pixel position
       return {
@@ -40,13 +49,6 @@ const Fruit = ({
     }
   };
 
-  const aggregatePosition = () => {
-    return {
-      x: scale.x * aggregate.fruit[name].x - scale.imgSize / 2,
-      y: scale.y * (100 - aggregate.fruit[name].y) - scale.imgSize / 2,
-    };
-  };
-
   const onStart = (e, position) => {
     e.preventDefault();
     e.stopPropagation();
@@ -63,7 +65,7 @@ const Fruit = ({
     const newX = position.x + scale.imgSize / 2;
     const newY = position.y + scale.imgSize / 2;
 
-    // Set rating to null if dragged off the grid
+    // Track whether the drag is on or over the graph so styles can be applied
     if (newX < 0 || newX > scale.width || newY < 0 || newY > scale.height) {
       setIsDraggingOverGraph(false);
     } else {
@@ -105,7 +107,7 @@ const Fruit = ({
   return (
     <Draggable
       nodeRef={nodeRef}
-      position={showAggregate ? aggregatePosition() : usersPosition()}
+      position={position()}
       onStart={onStart}
       onDrag={onDrag}
       onStop={onStop}
