@@ -111,6 +111,7 @@ const Fruit = ({
       onStart={onStart}
       onDrag={onDrag}
       onStop={onStop}
+      disabled={showAggregate ? true : false} // can't drag aggregate fruit
     >
       <div
         className={`fruit ${isDraggingOverGraph === null ? '' : 'fruit--drag'}`}
@@ -118,10 +119,12 @@ const Fruit = ({
       >
         <img
           alt={name}
+          draggable="false" // only applies when showing aggregates
           src={src}
           className={`fruit__img fruit__img--${name} ${
             isDraggingOverGraph ? '' : 'fruit__img--off-graph'
-          }`}
+          } ${showAggregate ? 'fruit__img--aggregate' : ''}
+          `}
           style={{
             height: scale.imgSize,
             width: scale.imgSize,

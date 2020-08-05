@@ -1,13 +1,16 @@
 .fruit {
   position: absolute;
   z-index: 10;
-  transition: all 0.5s;
+  transition: all 0.5s ease-in-out;
 
   &__img {
     transition: all 0.3s;
 
     &:hover {
       transform: scale(1.2);
+    }
+
+    &--aggregate {
     }
   }
 
