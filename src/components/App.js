@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import useManageUserRatings from '../hooks/useManageUserRatings';
 import useManageAggregate from '../hooks/useManageAggregate';
