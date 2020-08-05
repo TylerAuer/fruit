@@ -17,7 +17,8 @@
   &__label {
     opacity: 0;
     position: absolute;
-    text-transform: capitalize;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     font-size: 1.6rem;
     text-align: center;
     text-shadow: 2px 2px 2px white, -2px -2px 2px white;
