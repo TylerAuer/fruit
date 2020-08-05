@@ -3,22 +3,35 @@ const NodeCache = require('node-cache');
 const chalk = require('chalk');
 const log = console.log;
 
-/////////////////////////////////////
+//
+//
 // INITIALIZE THE CACHE
+//
+// Currently, the cache is cleared whenever a user submits data. This option
+// seems best at first because users will immediatelly see their input affect
+// the aggregate.
+//
+// Once the DB grows or the site becomes popular the cache can clear after a
+// certain amount of time, but a new submission will not empty the cache.
+//
 const cache = new NodeCache({
-  stdTTL: 20, // delete cached values after 10 seconds
+  stdTTL: 0, // never delete cached values
 });
 
-/////////////////////////////////////
+//
+//
 // HANDLE REQUESTS FOR AGGREGATE DATA
-const getAggregateRatings = async (req, res) => {
-  const cacheHasAggregate = cache.has('aggregate');
-  if (cacheHasAggregate) {
+//
+//
+const sendAggregateDataToUser = async (req, res) => {
+  // If the data is already in the cache, send it
+  if (cache.has('aggregate')) {
     log(chalk.magenta.bold('AGGREGATE: ') + chalk.magenta('Sent cached data.'));
     res.send(cache.get('aggregate'));
     return;
   }
 
+  // Generate new aggregate ratings
   // Fruit in DB (can be copied from /src/comonents/fruit.json)
   const aggregateRatings = {
     count_of_submissions: await getTotalSubmissions(),
@@ -49,8 +62,8 @@ const getAggregateRatings = async (req, res) => {
       count_of_all_ratings += count;
       aggregateRatings.fruit[fruit] = {
         count: count,
-        xAvg: sumOfX / count,
-        yAvg: sumOfY / count,
+        x_avg: sumOfX / count,
+        y_avg: sumOfY / count,
       };
     }
     aggregateRatings.count_of_all_ratings = count_of_all_ratings;
@@ -68,9 +81,12 @@ const getAggregateRatings = async (req, res) => {
   );
 };
 
-/////////////////////////////////////
+//
+//
 // HANDLE USER SUBMISSIONS OF RATINGS
-const submitRatings = async (req, res) => {
+//
+//
+const storeOrUpdateUserRatings = async (req, res) => {
   const ratingsForDB = await prepDataForDB(req.body);
   const userPreviouslySubmittedRatings = (await Model.Rating.findOne({
     where: {
@@ -94,6 +110,8 @@ const submitRatings = async (req, res) => {
     res.send('Your ratings have been added to our dataset');
   }
 
+  // Once a user submits new data, the cached aggregate data is incorrect
+  // so, delete it.
   cache.del('aggregate');
 
   function prepDataForDB(ratings) {
@@ -114,4 +132,4 @@ const submitRatings = async (req, res) => {
   }
 };
 
-module.exports = { getAggregateRatings, submitRatings };
+module.exports = { sendAggregateDataToUser, storeOrUpdateUserRatings };

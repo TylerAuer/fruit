@@ -5,29 +5,35 @@ const endpoints = require('./backend/endpoints');
 const db = require('./backend/models');
 const chalk = require('chalk');
 
-///////////////////////////////////////////////
+//
+//
 // CONFIG POSTGRES DATABASE
+//
+//
 
+// Create store for session data in Postgres DB
 const sessionStore = new SequelizeStore({
   db: db.sequelize,
 });
 
-const syncDatabaseToModels = async () => {
+// Only runs when the Database does not exist or when the models don't
+// match the current state of the DB
+syncDatabaseToModels();
+
+async function syncDatabaseToModels() {
   // Use to rebuild the DB (WILL DELETE DATA)
   //await db.sequelize.sync({ force: true });
 
   await db.sequelize.sync();
   console.log(chalk.blue('Finished synchronizing the DB'));
   console.log('');
-};
+}
 
-// Only runs when the Database does not exist or when the models don't
-// match the current state of the DB
-syncDatabaseToModels();
-
-///////////////////////////////////////////////
+//
+//
 // CONFIG EXPRESS AND APP
-
+//
+//
 const app = express();
 app.use(express.json());
 app.use(
@@ -44,21 +50,25 @@ app.use(
 );
 const port = 4000;
 
-///////////
+//
+//
 // ROUTES
-
+//
+//
 // Make static files available from build folder
 app.use(express.static(__dirname + '/build'));
-
 // Send build of React app when visit the root dir
 app.get('/', (req, res) => res.sendFile(__dirname + '/build/index.html'));
-
 // GET AGGREGATE RATINGS
-app.get('/aggregate', endpoints.getAggregateRatings);
-
+app.get('/aggregate', endpoints.sendAggregateDataToUser);
 // SUBMIT NEW RATINGS
-app.post('/submit', endpoints.submitRatings);
+app.post('/submit', endpoints.storeOrUpdateUserRatings);
 
+//
+//
+// OPEN PORT FOR APP TO LISTEN AT
+//
+//
 console.log('');
 console.log(chalk.bgBlue.bold('** Initializing App **'));
 console.log('');
