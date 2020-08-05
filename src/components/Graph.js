@@ -3,6 +3,7 @@ import Directions from './Directions';
 import Fruit from './Fruit';
 import Bottom from './Bottom';
 import useBounds from '../hooks/useBounds';
+import './Graph.scss';
 
 const Graph = ({ aggregate, ratings, setRatings, submitRatings }) => {
   const graphRef = useRef();

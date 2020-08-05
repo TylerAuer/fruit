@@ -4,7 +4,6 @@ import useManageUserRatings from '../hooks/useManageUserRatings';
 import useManageAggregate from '../hooks/useManageAggregate';
 import About from './About';
 import Graph from './Graph';
-import './Matrix.scss';
 
 const App = () => {
   const { aggregate, getAggregate } = useManageAggregate();
