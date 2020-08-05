@@ -17,7 +17,7 @@ Plan for building out features
 9. ~~Caches averages for each fruit and other stats~~
 10. ~~API for getting average user data from DB~~
 11. ~~Protections from people gaming the system with ranking the fruit over and over~~
-12. UI for displaying public results
+12. ~~UI for displaying public results~~
 13. Help button that displays an overlay of how to use the page
 14. Docker setup
 15. Deploy with CI setup
