@@ -14,6 +14,7 @@ const log = console.log;
 // Once the DB grows or the site becomes popular the cache can clear after a
 // certain amount of time, but a new submission will not empty the cache.
 //
+//
 const cache = new NodeCache({
   stdTTL: 0, // never delete cached values
 });
@@ -22,74 +23,90 @@ const cache = new NodeCache({
 //
 // HANDLE REQUESTS FOR AGGREGATE DATA
 //
+// If there is a aggregate data in the cache, then it sends it to user.
+// Otherwise, it generates new aggregate, stores it in the cache, and sends
+// it to the user.
+//
 //
 const sendAggregateDataToUser = async (req, res) => {
-  // If the data is already in the cache, send it
   if (cache.has('aggregate')) {
-    log(chalk.magenta.bold('AGGREGATE: ') + chalk.magenta('Sent cached data.'));
     res.send(cache.get('aggregate'));
-    return;
+  } else {
+    res.send(await calculateAndCacheAggregateData());
   }
 
-  // Generate new aggregate ratings
-  // Fruit in DB (can be copied from /src/comonents/fruit.json)
-  const aggregateRatings = {
-    count_of_submissions: await getTotalSubmissions(),
-    fruit: {
-      bananas: {},
-      blueberries: {},
-      cherries: {},
-      coconuts: {},
-      grapefruits: {},
-      grapes: {},
-      green_apples: {},
-      lemons: {},
-      melons: {},
-      oranges: {},
-      red_apples: {},
-      peaches: {},
-      pears: {},
-      pineapples: {},
-      strawberries: {},
-      watermelons: {},
-    },
-  };
+  log(chalk.magenta('Sent aggregate data to user.'));
 
-  await getCountsAndAveragesByFruitDimension();
+  async function calculateAndCacheAggregateData() {
+    // Used to time process
+    const start = process.hrtime.bigint();
 
-  async function getCountsAndAveragesByFruitDimension() {
+    // Generates object to be populated with aggregate data
+    // This object is eventually sent as the response JSON
+    const aggregateRatings = {
+      count_of_submissions: await Model.Rating.count(),
+      fruit: {
+        bananas: {},
+        blueberries: {},
+        cherries: {},
+        coconuts: {},
+        grapefruits: {},
+        grapes: {},
+        green_apples: {},
+        lemons: {},
+        melons: {},
+        oranges: {},
+        red_apples: {},
+        peaches: {},
+        pears: {},
+        pineapples: {},
+        strawberries: {},
+        watermelons: {},
+      },
+    };
+
+    // If a person rates 3 fruits, that would increase this by 3.
     let count_of_all_ratings = 0;
+
     for (let fruit in aggregateRatings.fruit) {
+      // Counts ratings for a given fruit (ignores nulls)
       const count = await Model.Rating.count({
         col: `${fruit}_x`,
       });
+
+      // Finds sums of ratings for a given fruit (ignores nulls)
       const sumOfX = await Model.Rating.sum(`${fruit}_x`);
       const sumOfY = await Model.Rating.sum(`${fruit}_y`);
+
+      // Adds the given fruit's ratings to the total count
       count_of_all_ratings += count;
+
+      // Updates the response object
       aggregateRatings.fruit[fruit] = {
         count: count,
         x: sumOfX / count,
         y: sumOfY / count,
       };
     }
+
+    // Updates the response object
     aggregateRatings.count_of_all_ratings = count_of_all_ratings;
-  }
 
-  function getTotalSubmissions() {
-    return Model.Rating.count();
+    // End process timer
+    const end = process.hrtime.bigint();
+    const timeElapsedInSeconds = Number(end - start) / 1000000000;
+    const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
+    log(chalk.magenta(`Cached and sent aggregate data (${timeElapsed}s)`));
+    return aggregateRatings;
   }
-
-  res.send(aggregateRatings);
-  cache.set('aggregate', aggregateRatings);
-  log(
-    chalk.magenta.bold('AGGREGATE: ') +
-      chalk.magenta('Caching and send aggregate data')
-  );
 };
 
 //
 //
 // HANDLE USER SUBMISSIONS OF RATINGS
+//
+// If the used has previously submitted data, then their previous submission is
+// updated. Otherwise, it creates a new row in the DB for them.
 //
 //
 const storeOrUpdateUserRatings = async (req, res) => {
