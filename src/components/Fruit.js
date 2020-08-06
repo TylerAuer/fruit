@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
+import DragGuides from './DragGuides';
 import './Fruit.scss';
 
 const Fruit = ({
@@ -17,7 +18,7 @@ const Fruit = ({
   const marginForOffGraphFruits = scale.imgSize * 0.25; // scales responsively
   const src = require(`../img/${name}.svg`);
 
-  const position = () => {
+  const calculatePosition = () => {
     // Displaying aggregate ratings
     if (showAggregate) {
       return {
@@ -71,16 +72,6 @@ const Fruit = ({
     } else {
       setIsDraggingOverGraph(true);
     }
-  };
-
-  const onStop = (e, position) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDraggingOverGraph(null);
-
-    // Get position
-    const newX = position.x + scale.imgSize / 2;
-    const newY = position.y + scale.imgSize / 2;
 
     if (newX < 0 || newX > scale.width || newY < 0 || newY > scale.height) {
       // Dropped off of the graph
@@ -104,35 +95,52 @@ const Fruit = ({
     }
   };
 
+  const onStop = (e, position) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDraggingOverGraph(null);
+  };
+
+  const position = calculatePosition();
+
   return (
-    <Draggable
-      nodeRef={nodeRef}
-      position={position()}
-      onStart={onStart}
-      onDrag={onDrag}
-      onStop={onStop}
-      disabled={showAggregate ? true : false} // can't drag aggregate fruit
-    >
-      <div
-        className={`fruit ${isDraggingOverGraph === null ? '' : 'fruit--drag'}`}
-        ref={nodeRef}
+    <>
+      <Draggable
+        nodeRef={nodeRef}
+        position={position}
+        onStart={onStart}
+        onDrag={onDrag}
+        onStop={onStop}
+        disabled={showAggregate ? true : false} // can't drag aggregate fruit
       >
-        <img
-          alt={name}
-          draggable="false" // only applies when showing aggregates
-          src={src}
-          className={`fruit__img fruit__img--${name} ${
-            isDraggingOverGraph ? '' : 'fruit__img--off-graph'
-          } ${showAggregate ? 'fruit__img--aggregate' : ''}
+        <div
+          className={`fruit ${
+            isDraggingOverGraph === null ? '' : 'fruit--drag'
+          }`}
+          ref={nodeRef}
+        >
+          <img
+            alt={name}
+            draggable="false" // only applies when showing aggregates
+            src={src}
+            className={`fruit__img fruit__img--${name} ${
+              isDraggingOverGraph ? '' : 'fruit__img--off-graph'
+            } ${showAggregate ? 'fruit__img--aggregate' : ''}
           `}
-          style={{
-            height: scale.imgSize,
-            width: scale.imgSize,
-          }}
-        />
-        <div className="fruit__label">{name.replace('_', ' ')}</div>
-      </div>
-    </Draggable>
+            style={{
+              height: scale.imgSize,
+              width: scale.imgSize,
+            }}
+          />
+          <div className="fruit__label">{name.replace('_', ' ')}</div>
+        </div>
+      </Draggable>
+      <DragGuides
+        scale={scale}
+        isDraggingOverGraph={isDraggingOverGraph}
+        position={position}
+      />
+    </>
   );
 };
 
