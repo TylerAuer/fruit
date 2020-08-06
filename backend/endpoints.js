@@ -7,16 +7,13 @@ const log = console.log;
 //
 // INITIALIZE THE CACHE
 //
-// Currently, the cache is cleared whenever a user submits data. This option
-// seems best at first because users will immediatelly see their input affect
-// the aggregate.
-//
-// Once the DB grows or the site becomes popular the cache can clear after a
-// certain amount of time, but a new submission will not empty the cache.
+// Currently, when a user submits ratings the cache is deleted. This is not
+// a good long-term plan for production
 //
 //
 const cache = new NodeCache({
-  stdTTL: 0, // never delete cached values
+  stdTTL: 60 * 1, // delete cached items after 1 minute
+  checkperiod: 30, // check if cache should be deleted every 1 minute
 });
 
 //
@@ -35,7 +32,14 @@ const sendAggregateDataToUser = async (req, res) => {
     res.send(await calculateAndCacheAggregateData());
   }
 
-  log(chalk.magenta('Sent aggregate data to user.'));
+  const secondsUntilCacheExpires = Math.round(
+    (cache.getTtl('aggregate') - Date.now()) / 1000
+  );
+  log(
+    chalk.magenta(
+      `Sent aggregate data to user. Cache expires in ${secondsUntilCacheExpires}s.`
+    )
+  );
 
   async function calculateAndCacheAggregateData() {
     // Used to time process

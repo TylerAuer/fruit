@@ -3,8 +3,14 @@ import { Link, useHistory } from 'react-router-dom';
 import Button from './Button';
 import './About.scss';
 
-const About = ({ countOfSubmissions, countOfAllRatings }) => {
+const About = ({ aggregate: agg }) => {
   const history = useHistory();
+  const cleanFruitName = (fruitName) => {
+    return fruitName
+      .split('_') // Convert into array
+      .map((word) => word[0].toUpperCase() + word.slice(1)) // capitalize first letter
+      .join(' '); // Convert into string
+  };
 
   return (
     <div className="about">
@@ -67,13 +73,25 @@ const About = ({ countOfSubmissions, countOfAllRatings }) => {
           . You'll no doubt notice how their great app influenced the layout of
           mine.
         </p>
-        {countOfAllRatings && (
+        {agg.count_of_all_ratings && (
           <>
             <h2>Stats</h2>
-            <p>
-              {countOfSubmissions} people have rated {countOfAllRatings} fruits
-              since this went live.
-            </p>
+            <ul>
+              <li>
+                {agg.count_of_submissions} people have rated{' '}
+                {agg.count_of_all_ratings} fruits since this went live.
+              </li>
+              <li>
+                {cleanFruitName(agg.most_rated_fruit_name)} have been rated{' '}
+                {agg.fruit[agg.most_rated_fruit_name].count} times, the most of
+                any fruit.
+              </li>
+              <li>
+                {cleanFruitName(agg.least_rated_fruit_name)} have been rated{' '}
+                {agg.fruit[agg.least_rated_fruit_name].count} times, the least
+                of any fruit.
+              </li>
+            </ul>
           </>
         )}
       </main>

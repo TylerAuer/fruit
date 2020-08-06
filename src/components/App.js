@@ -21,10 +21,7 @@ const App = () => {
           />
         </Route>
         <Route exact path="/about">
-          <About
-            countOfAllRatings={aggregate.count_of_all_ratings}
-            countOfSubmissions={aggregate.count_of_submissions}
-          />
+          <About aggregate={aggregate} />
         </Route>
       </Switch>
     </Router>
