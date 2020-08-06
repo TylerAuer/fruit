@@ -40,7 +40,7 @@ const Graph = ({ aggregate, ratings, setRatings, submitRatings }) => {
 
   return (
     <main className="app">
-      <Directions />
+      <Directions ratings={ratings} />
       <div
         className="matrix"
         style={{
