@@ -31,7 +31,7 @@ const useBounds = (myRef) => {
         top: bounds.top,
         x: bounds.width / 100,
         y: bounds.height / 100,
-        imgSize: bounds.width * 0.035, // size of image as % of graph width
+        imgSize: bounds.width * 0.05, // size of image as % of graph width
       }
     : null;
 

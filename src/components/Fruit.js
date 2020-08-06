@@ -14,7 +14,7 @@ const Fruit = ({
   const nodeRef = useRef(null);
   const [isDraggingOverGraph, setIsDraggingOverGraph] = useState(null);
   const [isOnGraph, setIsOnGraph] = useState(!ratings[name] ? false : true);
-  const marginForOffGraphFruits = scale.imgSize * 0.75; // scales responsively
+  const marginForOffGraphFruits = scale.imgSize * 0.25; // scales responsively
   const src = require(`../img/${name}.svg`);
 
   const position = () => {
