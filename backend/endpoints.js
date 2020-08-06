@@ -68,11 +68,26 @@ const sendAggregateDataToUser = async (req, res) => {
     // If a person rates 3 fruits, that would increase this by 3.
     let count_of_all_ratings = 0;
 
+    let most_rated_fruit_count_of_ratings = 0;
+    let most_rated_fruit_name = '';
+    let least_rated_fruit_count_of_ratings = 1000000000000000;
+    let least_rated_fruit_name = '';
+
     for (let fruit in aggregateRatings.fruit) {
       // Counts ratings for a given fruit (ignores nulls)
       const count = await Model.Rating.count({
         col: `${fruit}_x`,
       });
+
+      // Checks if fruit is most or least rated
+      if (count > most_rated_fruit_count_of_ratings) {
+        most_rated_fruit_count_of_ratings = count;
+        most_rated_fruit_name = fruit;
+      }
+      if (count < least_rated_fruit_count_of_ratings) {
+        least_rated_fruit_count_of_ratings = count;
+        least_rated_fruit_name = fruit;
+      }
 
       // Finds sums of ratings for a given fruit (ignores nulls)
       const sumOfX = await Model.Rating.sum(`${fruit}_x`);
@@ -91,12 +106,19 @@ const sendAggregateDataToUser = async (req, res) => {
 
     // Updates the response object
     aggregateRatings.count_of_all_ratings = count_of_all_ratings;
+    aggregateRatings.most_rated_fruit_name = most_rated_fruit_name;
+    aggregateRatings.least_rated_fruit_name = least_rated_fruit_name;
+
+    // Store results in the cache
+    cache.set('aggregate', aggregateRatings);
 
     // End process timer
     const end = process.hrtime.bigint();
     const timeElapsedInSeconds = Number(end - start) / 1000000000;
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
-    log(chalk.magenta(`Cached and sent aggregate data (${timeElapsed}s)`));
+    log(
+      chalk.magenta(`Calculated + cached aggregate data in ${timeElapsed}s.`)
+    );
     return aggregateRatings;
   }
 };
