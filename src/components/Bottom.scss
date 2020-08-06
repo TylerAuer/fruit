@@ -4,6 +4,10 @@
   align-items: center;
 
   &__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
     margin: 40px auto;
   }
 
@@ -12,10 +16,11 @@
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 4px;
-  }
+    text-align: center;
 
-  &__subtitle {
-    font-size: 1.6rem;
+    @media (max-width: 475px) {
+      font-size: 5rem;
+    }
   }
 
   &__link-container {
@@ -34,6 +39,10 @@
     color: black;
     font-size: 1.8rem;
     text-transform: uppercase;
+
+    @media (max-width: 475px) {
+      font-size: 1.6rem;
+    }
   }
 
   &__link:hover,
