@@ -1,6 +1,7 @@
 const Model = require('./models');
 const NodeCache = require('node-cache');
 const chalk = require('chalk');
+const { sequelize } = require('./models');
 const log = console.log;
 
 //
@@ -47,8 +48,11 @@ const sendAggregateDataToUser = async (req, res) => {
 
     // Generates object to be populated with aggregate data
     // This object is eventually sent as the response JSON
-    const aggregateRatings = {
+    const aggregateResponse = {
       count_of_submissions: await Model.Rating.count(),
+      count_of_all_ratings: 0,
+      most_rated_fruit_name: '',
+      least_rated_fruit_name: '',
       fruit: {
         bananas: {},
         blueberries: {},
@@ -69,52 +73,48 @@ const sendAggregateDataToUser = async (req, res) => {
       },
     };
 
-    // If a person rates 3 fruits, that would increase this by 3.
-    let count_of_all_ratings = 0;
-
+    // Tracks which fruits have the most & least ratings and greatest / least
+    // standard deviation for x and y
     let most_rated_fruit_count_of_ratings = 0;
-    let most_rated_fruit_name = '';
     let least_rated_fruit_count_of_ratings = 1000000000000000;
-    let least_rated_fruit_name = '';
 
-    for (let fruit in aggregateRatings.fruit) {
-      // Counts ratings for a given fruit (ignores nulls)
-      const count = await Model.Rating.count({
-        col: `${fruit}_x`,
-      });
-
-      // Checks if fruit is most or least rated
-      if (count > most_rated_fruit_count_of_ratings) {
-        most_rated_fruit_count_of_ratings = count;
-        most_rated_fruit_name = fruit;
-      }
-      if (count < least_rated_fruit_count_of_ratings) {
-        least_rated_fruit_count_of_ratings = count;
-        least_rated_fruit_name = fruit;
-      }
-
-      // Finds sums of ratings for a given fruit (ignores nulls)
-      const sumOfX = await Model.Rating.sum(`${fruit}_x`);
-      const sumOfY = await Model.Rating.sum(`${fruit}_y`);
+    for (let fruit in aggregateResponse.fruit) {
+      const data = await sequelize
+        .query(
+          `
+          SELECT 
+          COUNT(${fruit}_x) as count, 
+          AVG(${fruit}_x) as avg_x,
+          MIN(${fruit}_x) as min_x, 
+          MAX(${fruit}_x) as max_x, 
+          stddev_pop(${fruit}_x) as std_dev_x, 
+          AVG(${fruit}_y) as avg_y,
+          MIN(${fruit}_y) as min_y, 
+          MAX(${fruit}_y) as max_y, 
+          stddev_pop(${fruit}_y) as std_dev_y
+          FROM "Ratings";`,
+          { type: sequelize.QueryTypes.SELECT }
+        )
+        .then((data) => data[0]); // pulls out object from array of length 1
+      data.count = parseInt(data.count); // convert count from str to int
+      aggregateResponse.fruit[fruit] = data; // add to response
 
       // Adds the given fruit's ratings to the total count
-      count_of_all_ratings += count;
+      aggregateResponse.count_of_all_ratings += data.count;
 
-      // Updates the response object
-      aggregateRatings.fruit[fruit] = {
-        count: count,
-        x: sumOfX / count,
-        y: sumOfY / count,
-      };
+      // Checks if fruit is most or least rated, greatest / least std dev
+      if (data.count > most_rated_fruit_count_of_ratings) {
+        most_rated_fruit_count_of_ratings = data.count;
+        aggregateResponse.most_rated_fruit_name = fruit;
+      }
+      if (data.count < least_rated_fruit_count_of_ratings) {
+        least_rated_fruit_count_of_ratings = data.count;
+        aggregateResponse.least_rated_fruit_name = fruit;
+      }
     }
 
-    // Updates the response object
-    aggregateRatings.count_of_all_ratings = count_of_all_ratings;
-    aggregateRatings.most_rated_fruit_name = most_rated_fruit_name;
-    aggregateRatings.least_rated_fruit_name = least_rated_fruit_name;
-
     // Store results in the cache
-    cache.set('aggregate', aggregateRatings);
+    cache.set('aggregate', aggregateResponse);
 
     // End process timer
     const end = process.hrtime.bigint();
@@ -123,7 +123,7 @@ const sendAggregateDataToUser = async (req, res) => {
     log(
       chalk.magenta(`Calculated + cached aggregate data in ${timeElapsed}s.`)
     );
-    return aggregateRatings;
+    return aggregateResponse;
   }
 };
 
