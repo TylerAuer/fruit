@@ -22,8 +22,8 @@ const Fruit = ({
     // Displaying aggregate ratings
     if (showAggregate) {
       return {
-        x: scale.x * aggregate.fruit[name].x - scale.imgSize / 2,
-        y: scale.y * (100 - aggregate.fruit[name].y) - scale.imgSize / 2,
+        x: scale.x * aggregate.fruit[name].avg_x - scale.imgSize / 2,
+        y: scale.y * (100 - aggregate.fruit[name].avg_y) - scale.imgSize / 2,
       };
     }
 
@@ -35,8 +35,7 @@ const Fruit = ({
         y: scale.y * (100 - ratings[name].y) - scale.imgSize / 2,
       };
     } else {
-      // OFF THE GRAPH
-      // so center and space out fruit below graph
+      // Space out fruit nicely above graph
       const count = listOfKeysOffGraph.length;
       const index = listOfKeysOffGraph.indexOf(name);
       const listOffset =
