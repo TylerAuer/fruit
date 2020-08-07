@@ -1,0 +1,11 @@
+.arrow {
+  position: absolute;
+  opacity: 0.4;
+  z-index: -50;
+}
+
+.ghost {
+  position: absolute;
+  filter: opacity(60%) blur(3px);
+  z-index: -100;
+}

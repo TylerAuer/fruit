@@ -78,7 +78,12 @@ const DragGuides = ({ scale, position, isDraggingOverGraph }) => {
   };
 
   return (
-    <svg className="drag" width={scale.width} height={scale.height}>
+    <svg
+      className="drag"
+      width={scale.width}
+      height={scale.height}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <line {...guideCoords.left} {...axisStyles} />
       <line {...guideCoords.right} {...axisStyles} />
       <line {...guideCoords.top} {...axisStyles} />

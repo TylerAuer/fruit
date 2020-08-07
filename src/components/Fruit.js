@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 import DragGuides from './DragGuides';
+import AggregateArrows from './AggregateArrows';
 import './Fruit.scss';
 
 const Fruit = ({
@@ -18,15 +19,7 @@ const Fruit = ({
   const marginForOffGraphFruits = scale.imgSize * 0.25; // scales responsively
   const src = require(`../img/${name}.svg`);
 
-  const calculatePosition = () => {
-    // Displaying aggregate ratings
-    if (showAggregate) {
-      return {
-        x: scale.x * aggregate.fruit[name].avg_x - scale.imgSize / 2,
-        y: scale.y * (100 - aggregate.fruit[name].avg_y) - scale.imgSize / 2,
-      };
-    }
-
+  const calculateUserPosition = () => {
     // Displaying user's ratings
     if (isOnGraph) {
       // convert 0 to 100 scale into pixel position
@@ -47,6 +40,13 @@ const Fruit = ({
         y: -20 - scale.imgSize,
       };
     }
+  };
+
+  const calculateAggregatePosition = () => {
+    return {
+      x: scale.x * aggregate.fruit[name].avg_x - scale.imgSize / 2,
+      y: scale.y * (100 - aggregate.fruit[name].avg_y) - scale.imgSize / 2,
+    };
   };
 
   const onStart = (e, position) => {
@@ -100,13 +100,14 @@ const Fruit = ({
     setIsDraggingOverGraph(null);
   };
 
-  const position = calculatePosition();
+  const userPosition = calculateUserPosition();
+  const aggregatePosition = showAggregate ? calculateAggregatePosition() : null;
 
   return (
     <>
       <Draggable
         nodeRef={nodeRef}
-        position={position}
+        position={showAggregate ? aggregatePosition : userPosition}
         onStart={onStart}
         onDrag={onDrag}
         onStop={onStop}
@@ -137,7 +138,16 @@ const Fruit = ({
       <DragGuides
         scale={scale}
         isDraggingOverGraph={isDraggingOverGraph}
-        position={position}
+        position={userPosition}
+      />
+      <AggregateArrows
+        scale={scale}
+        userPosition={userPosition}
+        aggregatePosition={aggregatePosition}
+        isOnGraph={isOnGraph}
+        showAggregate={showAggregate}
+        src={src}
+        name={name}
       />
     </>
   );
