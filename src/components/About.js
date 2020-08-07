@@ -2,15 +2,53 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Button from './Button';
 import './About.scss';
+import fruitList from './Fruit.json';
 
 const About = ({ aggregate: agg }) => {
   const history = useHistory();
+
   const cleanFruitName = (fruitName) => {
     return fruitName
       .split('_') // Convert into array
       .map((word) => word[0].toUpperCase() + word.slice(1)) // capitalize first letter
       .join(' '); // Convert into string
   };
+
+  // Determine the highest and lowest rated fruit in each category
+  let mostTastyVal = 0;
+  let mostEasyVal = 0;
+  let leastTastyVal = 100;
+  let leastEasyVal = 100;
+  let mostTastyName;
+  let leastTastyName;
+  let mostEasyName;
+  let leastEasyName;
+
+  if (agg.fruit) {
+    // Skip until fruit data is loaded
+    for (let fruit in fruitList) {
+      // Check if MOST EASY
+      if (agg.fruit[fruit].avg_x > mostEasyVal) {
+        mostEasyVal = agg.fruit[fruit].avg_x;
+        mostEasyName = fruit;
+      }
+      // Check if LEAST EASY
+      if (agg.fruit[fruit].avg_x < leastEasyVal) {
+        leastEasyVal = agg.fruit[fruit].avg_x;
+        leastEasyName = fruit;
+      }
+      // Check if MOST TASTY
+      if (agg.fruit[fruit].avg_y > mostTastyVal) {
+        mostTastyVal = agg.fruit[fruit].avg_y;
+        mostTastyName = fruit;
+      }
+      // Check if LEAST TASTY
+      if (agg.fruit[fruit].avg_y < leastTastyVal) {
+        leastTastyVal = agg.fruit[fruit].avg_y;
+        leastTastyName = fruit;
+      }
+    }
+  }
 
   return (
     <div className="about">
@@ -90,6 +128,14 @@ const About = ({ aggregate: agg }) => {
                 {cleanFruitName(agg.least_rated_fruit_name)} have been rated{' '}
                 {agg.fruit[agg.least_rated_fruit_name].count} times, the least
                 of any fruit.
+              </li>
+              <li>
+                {cleanFruitName(mostTastyName)} are the tastiest fruit.{' '}
+                {cleanFruitName(leastTastyName)} are the least tasty.
+              </li>
+              <li>
+                {cleanFruitName(mostEasyName)} are the easiest fruit to eat.{' '}
+                {cleanFruitName(leastEasyName)} are the least easy.
               </li>
             </ul>
           </>
