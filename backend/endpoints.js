@@ -87,11 +87,13 @@ const sendAggregateDataToUser = async (req, res) => {
           AVG(${fruit}_x) as avg_x,
           MIN(${fruit}_x) as min_x, 
           MAX(${fruit}_x) as max_x, 
-          stddev_pop(${fruit}_x) as std_dev_x, 
+          stddev_pop(${fruit}_x) as std_dev_x,
+          percentile_cont(0.5) WITHIN GROUP (ORDER BY ${fruit}_x) as median_x,
           AVG(${fruit}_y) as avg_y,
           MIN(${fruit}_y) as min_y, 
           MAX(${fruit}_y) as max_y, 
-          stddev_pop(${fruit}_y) as std_dev_y
+          stddev_pop(${fruit}_y) as std_dev_y,
+          percentile_cont(0.5) WITHIN GROUP (ORDER BY ${fruit}_y) as median_y
           FROM "Ratings";`,
           { type: sequelize.QueryTypes.SELECT }
         )
