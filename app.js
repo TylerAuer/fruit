@@ -7,10 +7,36 @@ const chalk = require('chalk');
 
 //
 //
+// ADD TIMESTAMP TO ALL CONSOLE.LOGs
+//
+// Overwrites standard console.log with function that prepends the timestamp
+//
+//
+const originalLog = console.log;
+// Overwriting
+console.log = function () {
+  var args = [].slice.call(arguments);
+  const timestamp = chalk.dim.green(
+    `${new Intl.DateTimeFormat('en', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+      timeZone: 'America/Los_Angeles',
+    }).format(Date.now())} >`
+  );
+  originalLog.apply(console.log, [timestamp].concat(args));
+};
+
+//
+//
 // CONFIG POSTGRES DATABASE
 //
+// Creates two tables, one to store session information and another to record
+// users' ratings of fruit.
 //
-
+// Including { force: true } in syncDatabaseToModels() will wipe previous data
+// this is only necessary when making changes during development
+//
+//
 // Create store for session data in Postgres DB
 const sessionStore = new SequelizeStore({
   db: db.sequelize,
@@ -27,8 +53,7 @@ async function syncDatabaseToModels() {
   // Use to initialize the DB
   await db.sequelize.sync();
 
-  console.log(chalk.blue('Finished synchronizing the DB'));
-  console.log('');
+  console.log(chalk.blue.bold('Finished synchronizing the DB'));
 }
 
 //
@@ -71,9 +96,7 @@ app.post('/submit', endpoints.storeOrUpdateUserRatings);
 // OPEN PORT FOR APP TO LISTEN AT
 //
 //
-console.log('');
 console.log(chalk.bgBlue.bold('** Initializing App **'));
-console.log('');
 app.listen(port, () => {
   console.log(chalk.blue.bold(`Listening at http://localhost:${port}`));
 });
