@@ -7,49 +7,6 @@ const About = ({ aggregate: agg }) => {
   // TODO: Move Stats to details page
   // TODO: Add section explaining why I included the fruits I did
 
-  const cleanFruitName = (fruitName) => {
-    return fruitName
-      .split('_') // Convert into array
-      .map((word) => word[0].toUpperCase() + word.slice(1)) // capitalize first letter
-      .join(' '); // Convert into string
-  };
-
-  // Determine the highest and lowest rated fruit in each category
-  let mostTastyVal = 0;
-  let mostEasyVal = 0;
-  let leastTastyVal = 100;
-  let leastEasyVal = 100;
-  let mostTastyName;
-  let leastTastyName;
-  let mostEasyName;
-  let leastEasyName;
-
-  if (agg.fruit) {
-    // Skip until fruit data is loaded
-    for (let fruit in fruitList) {
-      // Check if MOST EASY
-      if (agg.fruit[fruit].avg_x > mostEasyVal) {
-        mostEasyVal = agg.fruit[fruit].avg_x;
-        mostEasyName = fruit;
-      }
-      // Check if LEAST EASY
-      if (agg.fruit[fruit].avg_x < leastEasyVal) {
-        leastEasyVal = agg.fruit[fruit].avg_x;
-        leastEasyName = fruit;
-      }
-      // Check if MOST TASTY
-      if (agg.fruit[fruit].avg_y > mostTastyVal) {
-        mostTastyVal = agg.fruit[fruit].avg_y;
-        mostTastyName = fruit;
-      }
-      // Check if LEAST TASTY
-      if (agg.fruit[fruit].avg_y < leastTastyVal) {
-        leastTastyVal = agg.fruit[fruit].avg_y;
-        leastTastyName = fruit;
-      }
-    }
-  }
-
   return (
     <div className="secondary">
       <Header />
@@ -103,35 +60,35 @@ const About = ({ aggregate: agg }) => {
           . You'll no doubt notice how their great app influenced the layout of
           mine.
         </p>
-        {agg.count_of_all_ratings && (
-          <>
-            <h2>Stats</h2>
-            <ul>
-              <li>
-                {agg.count_of_submissions} people have rated{' '}
-                {agg.count_of_all_ratings} fruits since this went live.
-              </li>
-              <li>
-                {cleanFruitName(agg.most_rated_fruit_name)} have been rated{' '}
-                {agg.fruit[agg.most_rated_fruit_name].count} times, the most of
-                any fruit.
-              </li>
-              <li>
-                {cleanFruitName(agg.least_rated_fruit_name)} have been rated{' '}
-                {agg.fruit[agg.least_rated_fruit_name].count} times, the least
-                of any fruit.
-              </li>
-              <li>
-                {cleanFruitName(mostTastyName)} are the tastiest fruit.{' '}
-                {cleanFruitName(leastTastyName)} are the least tasty.
-              </li>
-              <li>
-                {cleanFruitName(mostEasyName)} are the easiest fruit to eat.{' '}
-                {cleanFruitName(leastEasyName)} are the least easy.
-              </li>
-            </ul>
-          </>
-        )}
+        <h2>How did you choose the fruit?</h2>
+        <p>
+          Choosing which types of fruit to include was a balancing act. I wanted
+          to honor the original comic so I'd originally planned to keep all 18
+          of the fruits Munroe used. But there were some issues.
+        </p>
+        <p>
+          First, in Munroe's comic, each fruit is represented with both an icon
+          and a label. When I tried implementing that approach, things were
+          quite messy. Since Munroe just chose where the fruit went, he was able
+          to consider the labels as he laid out his graph. Since my matrix is
+          dynamically created and edited, it wasn't a clean experience when the
+          labels were shown for every fruit. So, I set the labels to show only
+          when hovered.
+        </p>
+        <p>
+          This created its own issue. Without labels, each fruit needs to be
+          identifiable only by it's icon. That wasn't possible for seedless
+          versus seeded grapes, so those were combined to just grapes. Plums and
+          pomegranates are hard to render and aren't that recognizable. So,
+          those were out.
+        </p>
+        <p>
+          Finally, after some experimentation, I settled on 16 as an ideal
+          number. With 16 fruits you are likely to place a couple fruits in each
+          quadrant, but the aggregate displays aren't too crazy. I added
+          coconuts (which Munroe references in his comic's alt-text) and melon.
+          Why melon? Well, I like melon and I'm in charge here.
+        </p>
       </main>
     </div>
   );
