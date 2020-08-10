@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-const drawEasyBox = (size) => {
+const drawEasyBox = () => {
   const imgSize = 30;
 
   // set the dimensions and margins of the graph
@@ -18,7 +18,7 @@ const drawEasyBox = (size) => {
     .attr('transform', 'translate(' + margin + ',' + margin + ')');
 
   // Parse the Data
-  d3.json('/data/easy-box').then((data) => {
+  d3.json('/data/counts').then((data) => {
     // Add X axis
     const x = d3.scaleLinear().domain([0, 100]).range([0, width]);
     const tickLabels = ['Hard', 'Easy'];
