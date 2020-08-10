@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import Header from './Header';
 import drawEasyBox from '../d3/drawEasyBox';
+import drawTastyBox from '../d3/drawTastyBox';
 import './secondary-page.scss';
 import './Clevelands.scss';
 
 const Data = () => {
   useEffect(() => {
     drawEasyBox();
+    drawTastyBox();
   }, []);
 
   return (
@@ -46,19 +48,18 @@ const Data = () => {
           or tasty people find the fruit.
         </p>
 
-        {/* <div className="chart">
-          <h3 className="chart__title">Fruit by Tastyness</h3>
+        <div className="chart">
+          <div className="chart__header">
+            <h3 className="chart__title">Fruit by Tastyness</h3>
+            <div className="chart__subtitle">Blah, blah, subtitle</div>
+          </div>
           <div id="tasty-d3" className="chart__chart"></div>
-        </div> */}
+        </div>
 
         <div className="chart">
           <div className="chart__header">
             <h3 className="chart__title">Fruit by Easyness</h3>
-            <div className="chart__subtitle">
-              Shows how easy a fruit is to eat. Fruit image is located at the
-              average. The bars hold about 68% of users' ratings for each fruit,
-              so a larger bar means people's opinions vary more.
-            </div>
+            <div className="chart__subtitle">Blah, blah, subtitle</div>
           </div>
           <div id="easy-d3" className="chart__chart"></div>
         </div>

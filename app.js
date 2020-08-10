@@ -90,20 +90,17 @@ const port = 4000;
 //
 //
 
-// Make static files available from build folder
+// APPLICATION FILES
 app.use(express.static(__dirname + '/build'));
-
-// Send build of React app when visit the root dir
 app.get('/', (req, res) => res.sendFile(__dirname + '/build/index.html'));
 
-// SUBMIT NEW RATINGS
+// USER ENDPOINTS
 app.post('/submit', userEndpoints.storeOrUpdateUserRatings);
 
-// GET AGGREGATE RATINGS
+// DATA ENDPOINTS
 app.get('/aggregate', dataEndpoints.sendAggregateDataToUser);
-
-//
 app.get('/data/easy-box', dataEndpoints.sendEasyBoxData);
+app.get('/data/tasty-box', dataEndpoints.sendTastyBoxData);
 
 //
 //

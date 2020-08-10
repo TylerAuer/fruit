@@ -1,41 +1,41 @@
 import * as d3 from 'd3';
 
-const drawEasyBox = (size) => {
+const drawTastyBox = (size) => {
   const imgSize = 30;
 
   // set the dimensions and margins of the graph
-  const margin = imgSize;
+  const margin = imgSize / 2;
   const width = 760 - 2 * margin;
-  const height = (imgSize + 10) * 16 - 2 * margin;
+  const height = 600 - 2 * margin;
 
   // append the svg object to the body of the page
-  var svg = d3
-    .select('#easy-d3')
+  const svg = d3
+    .select('#tasty-d3')
     .append('svg')
     .attr('preserveAspectRatio', 'xMinYMin meet')
-    .attr('viewBox', `0 0 760 ${(imgSize + 10) * 16}`)
+    .attr('viewBox', `0 0 760 600`)
     .append('g')
     .attr('transform', 'translate(' + margin + ',' + margin + ')');
 
   // Parse the Data
-  d3.json('/data/easy-box').then((data) => {
+  d3.json('/data/tasty-box').then((data) => {
     // Add X axis
-    const x = d3.scaleLinear().domain([0, 100]).range([0, width]);
-    const tickLabels = ['Hard', 'Easy'];
-    const xAxis = d3
-      .axisBottom(x)
+    const x = d3
+      .scaleBand()
+      .range([0, width])
+      .domain(data.map((fruit) => fruit.name));
+
+    // Y axis
+    const y = d3.scaleLinear().domain([100, 0]).range([0, height]);
+    const tickLabels = ['Tasty', 'Untasty'];
+    const yAxis = d3
+      .axisLeft(y)
       .ticks(1)
       .tickFormat((d, i) => tickLabels[i]);
     svg
       .append('g')
-      .attr('transform', 'translate(0,' + height + ')')
-      .call(xAxis);
-
-    // Y axis
-    var y = d3
-      .scaleBand()
-      .range([0, height])
-      .domain(data.map((fruit) => fruit.name));
+      .attr('transform', 'translate( ' + width + ',0)')
+      .call(yAxis);
 
     // Lines
     svg
@@ -43,24 +43,16 @@ const drawEasyBox = (size) => {
       .data(data)
       .enter()
       .append('line')
-      .attr('x1', function (d) {
-        return x(d.q1);
-      })
-      .attr('x2', function (d) {
-        return x(d.q3);
-      })
-      .attr('y1', function (d) {
-        return y(d.name);
-      })
-      .attr('y2', function (d) {
-        return y(d.name);
-      })
+      .attr('x1', (d) => x(d.name))
+      .attr('x2', (d) => x(d.name))
+      .attr('y1', (d) => y(d.q1))
+      .attr('y2', (d) => y(d.q3))
       .attr('stroke', 'black')
       .attr('stroke-width', '2px');
 
     const bar = {
-      height: 10,
-      width: 1,
+      height: 1,
+      width: 10,
     };
 
     // Bars for Q3
@@ -69,8 +61,8 @@ const drawEasyBox = (size) => {
       .data(data)
       .enter()
       .append('rect')
-      .attr('x', (d) => x(d.q3))
-      .attr('y', (d) => y(d.name) - bar.height / 2)
+      .attr('x', (d) => x(d.name) - bar.width / 2)
+      .attr('y', (d) => y(d.q3))
       .attr('width', bar.width)
       .attr('height', bar.height)
       .style('fill', 'black');
@@ -81,8 +73,8 @@ const drawEasyBox = (size) => {
       .data(data)
       .enter()
       .append('rect')
-      .attr('x', (d) => x(d.q1))
-      .attr('y', (d) => y(d.name) - bar.height / 2)
+      .attr('x', (d) => x(d.name) - bar.width / 2)
+      .attr('y', (d) => y(d.q1))
       .attr('width', bar.width)
       .attr('height', bar.height)
       .style('fill', 'black');
@@ -94,11 +86,11 @@ const drawEasyBox = (size) => {
       .enter()
       .append('svg:image')
       .attr('xlink:href', (d) => require(`../img/${d.name}.svg`))
-      .attr('x', (d) => x(d.avg) - imgSize / 2)
-      .attr('y', (d) => y(d.name) - imgSize / 2)
+      .attr('x', (d) => x(d.name) - imgSize / 2)
+      .attr('y', (d) => y(d.avg) - imgSize / 2)
       .attr('width', imgSize)
       .attr('height', imgSize);
   });
 };
 
-export default drawEasyBox;
+export default drawTastyBox;

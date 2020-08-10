@@ -9,7 +9,6 @@ const { sequelize } = require('./models');
 // INITIALIZE THE CACHE
 //
 //
-//
 const cache = new NodeCache({
   stdTTL: 60 * 1, // delete cached items after 1 minute
   checkperiod: 30, // check if cache should be deleted every 1 minute
@@ -119,20 +118,18 @@ const sendAggregateDataToUser = async (req, res) => {
 
 //
 //
-// SEND DATA FOR EASY CLEVELAND DIAGRAM
-//
-// Generates and caches the data. Sorts by greatest "high" value
+// EASY BOX DATA
 //
 //
 const sendEasyBoxData = async (req, res) => {
-  if (cache.has('easyCleveland')) {
-    res.send(cache.get('easyCleveland'));
+  if (cache.has('easyBox')) {
+    res.send(cache.get('easyBox'));
   } else {
-    res.send(await calculateAndCacheEasyCleveland());
+    res.send(await calculateAndCacheEasyBox());
   }
 
   const secondsUntilCacheExpires = Math.round(
-    (cache.getTtl('easyCleveland') - Date.now()) / 1000
+    (cache.getTtl('easyBox') - Date.now()) / 1000
   );
 
   console.log(
@@ -143,7 +140,7 @@ const sendEasyBoxData = async (req, res) => {
     )
   );
 
-  async function calculateAndCacheEasyCleveland() {
+  async function calculateAndCacheEasyBox() {
     // Start timer
     const start = process.hrtime.bigint();
 
@@ -176,7 +173,79 @@ const sendEasyBoxData = async (req, res) => {
     data.sort((a, b) => b.avg - a.avg);
 
     // Store results in the cache
-    cache.set('easyCleveland', data);
+    cache.set('easyBox', data);
+
+    // End process timer
+    const end = process.hrtime.bigint();
+    const timeElapsedInSeconds = Number(end - start) / 1000000000;
+    const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
+    console.log(
+      chalk.red.bold('CACHE > '),
+      chalk.red(`Easy box chart data (${timeElapsed}s)`)
+    );
+
+    return data;
+  }
+};
+
+//
+//
+// TASTY BOX DATA
+//
+//
+const sendTastyBoxData = async (req, res) => {
+  if (cache.has('tastyBox')) {
+    res.send(cache.get('tastyBox'));
+  } else {
+    res.send(await calculateAndCacheTastyBox());
+  }
+
+  const secondsUntilCacheExpires = Math.round(
+    (cache.getTtl('tastyBox') - Date.now()) / 1000
+  );
+
+  console.log(
+    chalk.blue.bold('SEND DATA >'),
+    chalk.blue(
+      `Sent easy box chart data to user.`,
+      chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
+    )
+  );
+
+  async function calculateAndCacheTastyBox() {
+    // Start timer
+    const start = process.hrtime.bigint();
+
+    let data = [];
+    // Query and process std dev and avg for each fruit
+    // Then add to data array
+    for (let fruit of listOfFruit) {
+      let query = await sequelize.query(
+        `
+        SELECT
+        AVG(${fruit}_y) as avg,
+        percentile_cont(0.25) WITHIN GROUP (ORDER BY ${fruit}_y) as q1,
+        percentile_cont(0.75) WITHIN GROUP (ORDER BY ${fruit}_y) as q3
+        FROM "Ratings";
+        `,
+        {
+          type: sequelize.QueryTypes.SELECT,
+        }
+      );
+      query = query[0];
+      data.push({
+        name: fruit,
+        avg: query.avg,
+        q1: query.q1,
+        q3: query.q3,
+      });
+    }
+
+    // Sorts with least tasty fruit first
+    data.sort((a, b) => a.avg - b.avg);
+
+    // Store results in the cache
+    cache.set('tastyBox', data);
 
     // End process timer
     const end = process.hrtime.bigint();
@@ -194,4 +263,5 @@ const sendEasyBoxData = async (req, res) => {
 module.exports = {
   sendAggregateDataToUser,
   sendEasyBoxData,
+  sendTastyBoxData,
 };
