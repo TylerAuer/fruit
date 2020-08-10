@@ -53,25 +53,12 @@ const sendAggregateDataToUser = async (req, res) => {
       count_of_all_ratings: 0,
       most_rated_fruit_name: '',
       least_rated_fruit_name: '',
-      fruit: {
-        bananas: {},
-        blueberries: {},
-        cherries: {},
-        coconuts: {},
-        grapefruits: {},
-        grapes: {},
-        green_apples: {},
-        lemons: {},
-        melons: {},
-        oranges: {},
-        red_apples: {},
-        peaches: {},
-        pears: {},
-        pineapples: {},
-        strawberries: {},
-        watermelons: {},
-      },
+      fruit: {},
     };
+
+    for (let fruit of listOfFruit) {
+      aggregateResponse.fruit[fruit] = {};
+    }
 
     // Tracks which fruits have the most & least ratings and greatest / least
     // standard deviation for x and y
