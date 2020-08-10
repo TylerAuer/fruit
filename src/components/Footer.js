@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from './Button';
 import './Bottom.scss';
 
-const Bottom = ({ submitRatings, showAggregate, setShowAggregate }) => {
+const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
   const onClickOfSubmitRatings = () => {
     return showAggregate ? null : submitRatings();
   };
@@ -31,6 +31,9 @@ const Bottom = ({ submitRatings, showAggregate, setShowAggregate }) => {
         <Link to="/about" className="bottom__link">
           About
         </Link>
+        <Link to="/details" className="bottom__link">
+          Data
+        </Link>
         <a className="bottom__link" href="https://xkcd.com/">
           XKCD
         </a>
@@ -39,4 +42,4 @@ const Bottom = ({ submitRatings, showAggregate, setShowAggregate }) => {
   );
 };
 
-export default Bottom;
+export default Footer;

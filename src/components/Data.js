@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import Header from './Header';
-import drawEasyCleveland from '../d3/drawEasyCleveland';
+import drawEasyBox from '../d3/drawEasyBox';
 import './secondary-page.scss';
 import './Clevelands.scss';
 
-const AggregateDetails = () => {
+const Data = () => {
   useEffect(() => {
-    drawEasyCleveland();
+    drawEasyBox();
   }, []);
 
   return (
@@ -69,4 +69,4 @@ const AggregateDetails = () => {
   );
 };
 
-export default AggregateDetails;
+export default Data;

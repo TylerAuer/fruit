@@ -4,7 +4,7 @@ import useManageUserRatings from '../hooks/useManageUserRatings';
 import useManageAggregate from '../hooks/useManageAggregate';
 import About from './About';
 import Graph from './Graph';
-import AggregateDetails from './AggregateDetails';
+import Data from './Data';
 
 const App = () => {
   const { aggregate } = useManageAggregate();
@@ -24,8 +24,8 @@ const App = () => {
         <Route exact path="/about">
           <About aggregate={aggregate} />
         </Route>
-        <Route exact path="/details">
-          <AggregateDetails aggregate={aggregate} />
+        <Route exact path="/data">
+          <Data />
         </Route>
       </Switch>
     </Router>

@@ -13,7 +13,7 @@ const Header = () => {
       <div className="secondary__subtitle">
         An aggregator of people's feelings about fruit. Inspired by XKCD.
       </div>
-      <Button onClick={() => history.push('/')} text="Back to Graph" />
+      <Button onClick={() => history.push('/')} text="Back to Matrix" />
     </header>
   );
 };

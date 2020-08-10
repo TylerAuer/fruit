@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-const drawEasyCleveland = (size) => {
+const drawEasyBox = (size) => {
   const imgSize = 30;
 
   // set the dimensions and margins of the graph
@@ -108,4 +108,4 @@ const drawEasyCleveland = (size) => {
   });
 };
 
-export default drawEasyCleveland;
+export default drawEasyBox;
