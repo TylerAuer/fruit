@@ -8,14 +8,68 @@ const { sequelize } = require('./models');
 //
 // INITIALIZE THE CACHE
 //
-// Currently, when a user submits ratings the cache is deleted. This is not
-// a good long-term plan for production
 //
 //
 const cache = new NodeCache({
   stdTTL: 60 * 1, // delete cached items after 1 minute
   checkperiod: 30, // check if cache should be deleted every 1 minute
 });
+
+//
+//
+// HANDLE USER SUBMISSIONS OF RATINGS
+//
+// If the used has previously submitted data, then their previous submission is
+// updated. Otherwise, it creates a new row in the DB for them.
+//
+//
+const storeOrUpdateUserRatings = async (req, res) => {
+  const ratingsForDB = await prepDataForDB(req.body);
+  const userPreviouslySubmittedRatings = (await Model.Rating.findOne({
+    where: {
+      session_id: req.sessionID,
+    },
+  }))
+    ? true
+    : false;
+
+  if (userPreviouslySubmittedRatings) {
+    Model.Rating.update(ratingsForDB, {
+      where: {
+        session_id: req.sessionID,
+      },
+    });
+    console.log(
+      chalk.blue.bold('USER SUBMISSION > ') +
+        chalk.blue('Updating set of ratings')
+    );
+    res.send("We've updated your previous ratings in our dataset.");
+  } else {
+    Model.Rating.create(ratingsForDB);
+    console.log(
+      chalk.blue.bold('USER SUBMISSION > ') +
+        chalk.blue('Recording new ratings')
+    );
+    res.send('Your ratings have been added to our dataset.');
+  }
+
+  function prepDataForDB(ratings) {
+    const newRow = {
+      session_id: req.sessionID,
+    };
+    // If the fruit has a rating value, put it in the DB else store null
+    for (let fruit in req.body) {
+      if (req.body[fruit]) {
+        newRow[`${fruit}_x`] = req.body[fruit].x;
+        newRow[`${fruit}_y`] = req.body[fruit].y;
+      } else {
+        newRow[`${fruit}_x`] = null;
+        newRow[`${fruit}_y`] = null;
+      }
+    }
+    return newRow;
+  }
+};
 
 //
 //
@@ -37,8 +91,10 @@ const sendAggregateDataToUser = async (req, res) => {
     (cache.getTtl('aggregate') - Date.now()) / 1000
   );
   console.log(
-    chalk.magenta(
-      `Sent aggregate data to user. Cache expires in ${secondsUntilCacheExpires}s.`
+    chalk.blue.bold('SEND DATA > '),
+    chalk.blue(
+      `Sent aggregate data to user.`,
+      chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
     )
   );
 
@@ -123,67 +179,10 @@ const sendAggregateDataToUser = async (req, res) => {
     const timeElapsedInSeconds = Number(end - start) / 1000000000;
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
     console.log(
-      chalk.magenta(`Calculated + cached aggregate data in ${timeElapsed}s.`)
+      chalk.red.bold('CACHE > '),
+      chalk.red(`Aggregate data (${timeElapsed}s)`)
     );
     return aggregateResponse;
-  }
-};
-
-//
-//
-// HANDLE USER SUBMISSIONS OF RATINGS
-//
-// If the used has previously submitted data, then their previous submission is
-// updated. Otherwise, it creates a new row in the DB for them.
-//
-//
-const storeOrUpdateUserRatings = async (req, res) => {
-  const ratingsForDB = await prepDataForDB(req.body);
-  const userPreviouslySubmittedRatings = (await Model.Rating.findOne({
-    where: {
-      session_id: req.sessionID,
-    },
-  }))
-    ? true
-    : false;
-
-  if (userPreviouslySubmittedRatings) {
-    Model.Rating.update(ratingsForDB, {
-      where: {
-        session_id: req.sessionID,
-      },
-    });
-    console.log(
-      chalk.blue.bold('RATING: ') + chalk.blue('Updating set of ratings')
-    );
-    res.send("We've updated your previous ratings in our dataset.");
-  } else {
-    Model.Rating.create(ratingsForDB);
-    console.log(
-      chalk.blue.bold('RATING: ') + chalk.blue('Recording new ratings')
-    );
-    res.send('Your ratings have been added to our dataset.');
-  }
-
-  // Once a user submits new data, the cached aggregate data is incorrect
-  // so, delete it.
-  cache.del('aggregate');
-
-  function prepDataForDB(ratings) {
-    const newRow = {
-      session_id: req.sessionID,
-    };
-    // If the fruit has a rating value, put it in the DB else store null
-    for (let fruit in req.body) {
-      if (req.body[fruit]) {
-        newRow[`${fruit}_x`] = req.body[fruit].x;
-        newRow[`${fruit}_y`] = req.body[fruit].y;
-      } else {
-        newRow[`${fruit}_x`] = null;
-        newRow[`${fruit}_y`] = null;
-      }
-    }
-    return newRow;
   }
 };
 
@@ -194,7 +193,7 @@ const storeOrUpdateUserRatings = async (req, res) => {
 // Generates and caches the data. Sorts by greatest "high" value
 //
 //
-const sendEasyClevelandData = async (req, res) => {
+const sendEasyBoxData = async (req, res) => {
   if (cache.has('easyCleveland')) {
     res.send(cache.get('easyCleveland'));
   } else {
@@ -206,8 +205,10 @@ const sendEasyClevelandData = async (req, res) => {
   );
 
   console.log(
-    chalk.red(
-      `Sent data for EASY CLEVELAND chart to user. Cache expires in ${secondsUntilCacheExpires}s.`
+    chalk.blue.bold('SEND DATA >'),
+    chalk.blue(
+      `Sent easy box chart data to user.`,
+      chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
     )
   );
 
@@ -251,7 +252,8 @@ const sendEasyClevelandData = async (req, res) => {
     const timeElapsedInSeconds = Number(end - start) / 1000000000;
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
     console.log(
-      chalk.red(`Calculated + cached EASY CLEVELAND data in ${timeElapsed}s.`)
+      chalk.red.bold('CACHE > '),
+      chalk.red(`Easy box chart data (${timeElapsed}s)`)
     );
 
     return data;
@@ -261,5 +263,5 @@ const sendEasyClevelandData = async (req, res) => {
 module.exports = {
   sendAggregateDataToUser,
   storeOrUpdateUserRatings,
-  sendEasyClevelandData,
+  sendEasyBoxData,
 };

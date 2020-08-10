@@ -17,15 +17,13 @@ const drawEasyBox = (size) => {
   var svg = d3
     .select('#easy-d3')
     .append('svg')
-    // .attr('width', width + margin.left + margin.right)
-    // .attr('height', height + margin.top + margin.bottom)
     .attr('preserveAspectRatio', 'xMinYMin meet')
     .attr('viewBox', `0 0 760 ${(imgSize + 10) * 16}`)
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
   // Parse the Data
-  d3.json('/data/easy-cleveland').then((data) => {
+  d3.json('/data/easy-box').then((data) => {
     // Add X axis
     const x = d3.scaleLinear().domain([0, 100]).range([0, width]);
     const tickLabels = ['Hard', 'Easy'];

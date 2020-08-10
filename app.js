@@ -55,7 +55,10 @@ async function syncDatabaseToModels() {
   // Use to initialize the DB
   await db.sequelize.sync();
 
-  console.log(chalk.blue.bold('Finished synchronizing the DB'));
+  console.log(
+    chalk.yellow.bold('APP > '),
+    chalk.yellow('Synchronize database tables')
+  );
 }
 
 //
@@ -99,7 +102,7 @@ app.post('/submit', endpoints.storeOrUpdateUserRatings);
 app.get('/aggregate', endpoints.sendAggregateDataToUser);
 
 //
-app.get('/data/easy-cleveland', endpoints.sendEasyClevelandData);
+app.get('/data/easy-box', endpoints.sendEasyBoxData);
 
 //
 //
@@ -107,7 +110,9 @@ app.get('/data/easy-cleveland', endpoints.sendEasyClevelandData);
 //
 //
 
-console.log(chalk.bgBlue.bold('** Initializing App **'));
-app.listen(port, () => {
-  console.log(chalk.blue.bold(`Listening at http://localhost:${port}`));
-});
+app.listen(port, () =>
+  console.log(
+    chalk.yellow.bold('APP > '),
+    chalk.yellow(`Spin up app on port ${port}`)
+  )
+);

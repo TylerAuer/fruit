@@ -31,7 +31,7 @@ const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
         <Link to="/about" className="bottom__link">
           About
         </Link>
-        <Link to="/details" className="bottom__link">
+        <Link to="/data" className="bottom__link">
           Data
         </Link>
         <a className="bottom__link" href="https://xkcd.com/">
