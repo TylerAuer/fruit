@@ -1,8 +1,7 @@
-const Model = require('./models');
-const { listOfFruit } = require('./listOfFruit');
-const NodeCache = require('node-cache');
 const chalk = require('chalk');
+const NodeCache = require('node-cache');
 const { sequelize } = require('./models');
+const { listOfFruit } = require('./listOfFruit');
 
 //
 //
@@ -23,96 +22,63 @@ const cache = new NodeCache({
 // it to the user.
 //
 //
-const sendAggregateDataToUser = async (req, res) => {
-  if (cache.has('aggregate')) {
-    res.send(cache.get('aggregate'));
+const sendAverageData = async (req, res) => {
+  if (cache.has('averages')) {
+    res.send(cache.get('averages'));
   } else {
-    res.send(await calculateAndCacheAggregateData());
+    res.send(await calculateAndCacheAverageData());
   }
 
   const secondsUntilCacheExpires = Math.round(
-    (cache.getTtl('aggregate') - Date.now()) / 1000
+    (cache.getTtl('averages') - Date.now()) / 1000
   );
   console.log(
     chalk.blue.bold('SEND DATA > '),
     chalk.blue(
-      `Sent aggregate data to user.`,
+      `Sent averages of fruit ratings to user.`,
       chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
     )
   );
 
-  async function calculateAndCacheAggregateData() {
+  async function calculateAndCacheAverageData() {
     // Used to time process
     const start = process.hrtime.bigint();
 
     // Generates object to be populated with aggregate data
     // This object is eventually sent as the response JSON
-    const aggregateResponse = {
-      count_of_submissions: await Model.Rating.count(),
-      count_of_all_ratings: 0,
-      most_rated_fruit_name: '',
-      least_rated_fruit_name: '',
+    const averagesData = {
       fruit: {},
     };
 
     for (let fruit of listOfFruit) {
-      aggregateResponse.fruit[fruit] = {};
-    }
-
-    // Tracks which fruits have the most & least ratings and greatest / least
-    // standard deviation for x and y
-    let most_rated_fruit_count_of_ratings = 0;
-    let least_rated_fruit_count_of_ratings = 1000000000000000;
-
-    for (let fruit in aggregateResponse.fruit) {
       const data = await sequelize
         .query(
           `
           SELECT 
-          COUNT(${fruit}_x) as count, 
           AVG(${fruit}_x) as avg_x,
-          MIN(${fruit}_x) as min_x, 
-          MAX(${fruit}_x) as max_x, 
-          stddev_pop(${fruit}_x) as std_dev_x,
-          percentile_cont(0.5) WITHIN GROUP (ORDER BY ${fruit}_x) as median_x,
-          AVG(${fruit}_y) as avg_y,
-          MIN(${fruit}_y) as min_y, 
-          MAX(${fruit}_y) as max_y, 
-          stddev_pop(${fruit}_y) as std_dev_y,
-          percentile_cont(0.5) WITHIN GROUP (ORDER BY ${fruit}_y) as median_y
+          AVG(${fruit}_y) as avg_y
           FROM "Ratings";`,
           { type: sequelize.QueryTypes.SELECT }
         )
         .then((data) => data[0]); // pulls out object from array of length 1
-      data.count = parseInt(data.count); // convert count from str to int
-      aggregateResponse.fruit[fruit] = data; // add to response
 
-      // Adds the given fruit's ratings to the total count
-      aggregateResponse.count_of_all_ratings += data.count;
-
-      // Checks if fruit is most or least rated, greatest / least std dev
-      if (data.count > most_rated_fruit_count_of_ratings) {
-        most_rated_fruit_count_of_ratings = data.count;
-        aggregateResponse.most_rated_fruit_name = fruit;
-      }
-      if (data.count < least_rated_fruit_count_of_ratings) {
-        least_rated_fruit_count_of_ratings = data.count;
-        aggregateResponse.least_rated_fruit_name = fruit;
-      }
+      console.log(data);
+      averagesData.fruit[fruit] = data;
     }
 
     // Store results in the cache
-    cache.set('aggregate', aggregateResponse);
+    cache.set('averages', averagesData);
 
     // End process timer
     const end = process.hrtime.bigint();
     const timeElapsedInSeconds = Number(end - start) / 1000000000;
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
+
     console.log(
       chalk.red.bold('CACHE > '),
-      chalk.red(`Aggregate data (${timeElapsed}s)`)
+      chalk.red(`Averages data (${timeElapsed}s)`)
     );
-    return aggregateResponse;
+    return averagesData;
   }
 };
 
@@ -261,7 +227,7 @@ const sendTastyBoxData = async (req, res) => {
 };
 
 module.exports = {
-  sendAggregateDataToUser,
+  sendAverageData,
   sendEasyBoxData,
   sendTastyBoxData,
 };

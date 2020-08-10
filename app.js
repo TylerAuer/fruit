@@ -98,7 +98,7 @@ app.get('/', (req, res) => res.sendFile(__dirname + '/build/index.html'));
 app.post('/submit', userEndpoints.storeOrUpdateUserRatings);
 
 // DATA ENDPOINTS
-app.get('/aggregate', dataEndpoints.sendAggregateDataToUser);
+app.get('/data/averages', dataEndpoints.sendAverageData);
 app.get('/data/easy-box', dataEndpoints.sendEasyBoxData);
 app.get('/data/tasty-box', dataEndpoints.sendTastyBoxData);
 

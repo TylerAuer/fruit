@@ -5,7 +5,7 @@ const useManageAggregate = () => {
   const [aggregate, setAggregate] = useState(fruitList);
 
   const getAggregate = () => {
-    fetch('/aggregate')
+    fetch('/data/averages')
       .then((res) => res.json())
       .then((data) => {
         setAggregate(data);
