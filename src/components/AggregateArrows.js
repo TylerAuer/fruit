@@ -1,12 +1,6 @@
 import React from 'react';
 import './AggregateArrows.scss';
 
-// scale = { scale };
-// userPosition = { userPosition };
-// aggregatePosition = { aggregatePosition };
-// isOnGraph = { isOnGraph };
-// showAggregate = { showAggregate };
-
 const AggregateArrows = ({
   scale,
   userPosition,
