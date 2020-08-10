@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import Button from './Button';
-import './About.scss';
+import Header from './Header';
 import fruitList from './Fruit.json';
+import './secondary-page.scss';
 
 const About = ({ aggregate: agg }) => {
-  const history = useHistory();
+  // TODO: Move Stats to details page
+  // TODO: Add section explaining why I included the fruits I did
 
   const cleanFruitName = (fruitName) => {
     return fruitName
@@ -51,16 +51,8 @@ const About = ({ aggregate: agg }) => {
   }
 
   return (
-    <div className="about">
-      <header className="about__header">
-        <Link to="/">
-          <h1 className="about__title">Fruit Matrix</h1>
-        </Link>
-        <div className="about__subtitle">
-          An aggregator of people's feelings about fruit. Inspired by XKCD.
-        </div>
-      </header>
-      <Button onClick={() => history.push('/')} text="Back to Graph" />
+    <div className="secondary">
+      <Header />
       <main>
         <p>
           <b>Fruit Matrix</b> was built by me, Tyler Auer. I've always been

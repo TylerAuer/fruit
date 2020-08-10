@@ -1,0 +1,29 @@
+.tick text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  shape-rendering: crispEdges;
+}
+
+.chart {
+  border: 4px solid black;
+  padding: 1rem 2rem 2rem 2rem;
+  margin: 3rem 0;
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 2.8rem;
+  }
+
+  &__subtitle {
+    color: darkgrey;
+    font-size: 1.7rem;
+    line-height: 1.4;
+  }
+}

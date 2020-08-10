@@ -12,6 +12,7 @@ const chalk = require('chalk');
 // Overwrites standard console.log with function that prepends the timestamp
 //
 //
+
 const originalLog = console.log;
 // Overwriting
 console.log = function () {
@@ -37,6 +38,7 @@ console.log = function () {
 // this is only necessary when making changes during development
 //
 //
+
 // Create store for session data in Postgres DB
 const sessionStore = new SequelizeStore({
   db: db.sequelize,
@@ -61,6 +63,7 @@ async function syncDatabaseToModels() {
 // CONFIG EXPRESS AND APP
 //
 //
+
 const app = express();
 app.use(express.json());
 app.use(
@@ -82,20 +85,28 @@ const port = 4000;
 // ROUTES
 //
 //
+
 // Make static files available from build folder
 app.use(express.static(__dirname + '/build'));
+
 // Send build of React app when visit the root dir
 app.get('/', (req, res) => res.sendFile(__dirname + '/build/index.html'));
-// GET AGGREGATE RATINGS
-app.get('/aggregate', endpoints.sendAggregateDataToUser);
+
 // SUBMIT NEW RATINGS
 app.post('/submit', endpoints.storeOrUpdateUserRatings);
+
+// GET AGGREGATE RATINGS
+app.get('/aggregate', endpoints.sendAggregateDataToUser);
+
+//
+app.get('/data/easy-cleveland', endpoints.sendEasyClevelandData);
 
 //
 //
 // OPEN PORT FOR APP TO LISTEN AT
 //
 //
+
 console.log(chalk.bgBlue.bold('** Initializing App **'));
 app.listen(port, () => {
   console.log(chalk.blue.bold(`Listening at http://localhost:${port}`));

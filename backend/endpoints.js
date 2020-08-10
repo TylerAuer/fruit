@@ -1,8 +1,8 @@
 const Model = require('./models');
+const { listOfFruit } = require('./listOfFruit');
 const NodeCache = require('node-cache');
 const chalk = require('chalk');
 const { sequelize } = require('./models');
-const log = console.log;
 
 //
 //
@@ -36,7 +36,7 @@ const sendAggregateDataToUser = async (req, res) => {
   const secondsUntilCacheExpires = Math.round(
     (cache.getTtl('aggregate') - Date.now()) / 1000
   );
-  log(
+  console.log(
     chalk.magenta(
       `Sent aggregate data to user. Cache expires in ${secondsUntilCacheExpires}s.`
     )
@@ -122,7 +122,7 @@ const sendAggregateDataToUser = async (req, res) => {
     const end = process.hrtime.bigint();
     const timeElapsedInSeconds = Number(end - start) / 1000000000;
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
-    log(
+    console.log(
       chalk.magenta(`Calculated + cached aggregate data in ${timeElapsed}s.`)
     );
     return aggregateResponse;
@@ -153,11 +153,15 @@ const storeOrUpdateUserRatings = async (req, res) => {
         session_id: req.sessionID,
       },
     });
-    log(chalk.blue.bold('RATING: ') + chalk.blue('Updating set of ratings'));
+    console.log(
+      chalk.blue.bold('RATING: ') + chalk.blue('Updating set of ratings')
+    );
     res.send("We've updated your previous ratings in our dataset.");
   } else {
     Model.Rating.create(ratingsForDB);
-    log(chalk.blue.bold('RATING: ') + chalk.blue('Recording new ratings'));
+    console.log(
+      chalk.blue.bold('RATING: ') + chalk.blue('Recording new ratings')
+    );
     res.send('Your ratings have been added to our dataset.');
   }
 
@@ -183,4 +187,79 @@ const storeOrUpdateUserRatings = async (req, res) => {
   }
 };
 
-module.exports = { sendAggregateDataToUser, storeOrUpdateUserRatings };
+//
+//
+// SEND DATA FOR EASY CLEVELAND DIAGRAM
+//
+// Generates and caches the data. Sorts by greatest "high" value
+//
+//
+const sendEasyClevelandData = async (req, res) => {
+  if (cache.has('easyCleveland')) {
+    res.send(cache.get('easyCleveland'));
+  } else {
+    res.send(await calculateAndCacheEasyCleveland());
+  }
+
+  const secondsUntilCacheExpires = Math.round(
+    (cache.getTtl('easyCleveland') - Date.now()) / 1000
+  );
+
+  console.log(
+    chalk.red(
+      `Sent data for EASY CLEVELAND chart to user. Cache expires in ${secondsUntilCacheExpires}s.`
+    )
+  );
+
+  async function calculateAndCacheEasyCleveland() {
+    // Start timer
+    const start = process.hrtime.bigint();
+
+    let data = [];
+    // Query and process std dev and avg for each fruit
+    // Then add to data array
+    for (let fruit of listOfFruit) {
+      let query = await sequelize.query(
+        `
+        SELECT
+        AVG(${fruit}_x) as avg,
+        percentile_cont(0.25) WITHIN GROUP (ORDER BY ${fruit}_x) as q1,
+        percentile_cont(0.75) WITHIN GROUP (ORDER BY ${fruit}_x) as q3
+        FROM "Ratings";
+        `,
+        {
+          type: sequelize.QueryTypes.SELECT,
+        }
+      );
+      query = query[0];
+      data.push({
+        name: fruit,
+        avg: query.avg,
+        q1: query.q1,
+        q3: query.q3,
+      });
+    }
+
+    // Sorts with easiest fruit first
+    data.sort((a, b) => b.avg - a.avg);
+
+    // Store results in the cache
+    cache.set('easyCleveland', data);
+
+    // End process timer
+    const end = process.hrtime.bigint();
+    const timeElapsedInSeconds = Number(end - start) / 1000000000;
+    const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
+    console.log(
+      chalk.red(`Calculated + cached EASY CLEVELAND data in ${timeElapsed}s.`)
+    );
+
+    return data;
+  }
+};
+
+module.exports = {
+  sendAggregateDataToUser,
+  storeOrUpdateUserRatings,
+  sendEasyClevelandData,
+};
