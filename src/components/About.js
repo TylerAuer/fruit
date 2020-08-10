@@ -1,12 +1,8 @@
 import React from 'react';
 import Header from './Header';
-import fruitList from './Fruit.json';
 import './secondary-page.scss';
 
-const About = ({ aggregate: agg }) => {
-  // TODO: Move Stats to details page
-  // TODO: Add section explaining why I included the fruits I did
-
+const About = () => {
   return (
     <div className="secondary">
       <Header />
