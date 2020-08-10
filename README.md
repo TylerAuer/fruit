@@ -21,3 +21,8 @@ Plan for building out features
 13. Help button that displays an overlay of how to use the page
 14. Docker setup
 15. Deploy with CI setup
+
+## Log Manager Helpers (Observability)
+
+- Data Dog
+- New Relic
