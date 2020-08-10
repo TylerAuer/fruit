@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
+import useManageAggregate from '../hooks/useManageAggregate';
+import useBounds from '../hooks/useBounds';
 import Directions from './Directions';
 import Fruit from './Fruit';
 import Footer from './Footer';
-import useBounds from '../hooks/useBounds';
 import './Graph.scss';
 
-const Graph = ({ aggregate, ratings, setRatings, submitRatings }) => {
+const Graph = ({ ratings, setRatings, submitRatings }) => {
+  const { aggregate } = useManageAggregate();
   const graphRef = useRef();
   const scale = useBounds(graphRef);
   const [showAggregate, setShowAggregate] = useState(false);
