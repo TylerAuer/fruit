@@ -1,7 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const endpoints = require('./backend/endpoints');
+const dataEndpoints = require('./backend/dataEndpoints');
+const userEndpoints = require('./backend/userEndpoints');
 const db = require('./backend/models');
 const chalk = require('chalk');
 
@@ -96,13 +97,13 @@ app.use(express.static(__dirname + '/build'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/build/index.html'));
 
 // SUBMIT NEW RATINGS
-app.post('/submit', endpoints.storeOrUpdateUserRatings);
+app.post('/submit', userEndpoints.storeOrUpdateUserRatings);
 
 // GET AGGREGATE RATINGS
-app.get('/aggregate', endpoints.sendAggregateDataToUser);
+app.get('/aggregate', dataEndpoints.sendAggregateDataToUser);
 
 //
-app.get('/data/easy-box', endpoints.sendEasyBoxData);
+app.get('/data/easy-box', dataEndpoints.sendEasyBoxData);
 
 //
 //
