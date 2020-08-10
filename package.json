@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "chalk": "^4.1.0",
     "connect-session-sequelize": "^7.0.1",
+    "d3": "^5.16.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "node-cache": "^5.1.2",
