@@ -1,6 +1,4 @@
 const Model = require('./models');
-const { sequelize } = require('./models');
-const { listOfFruit } = require('./listOfFruit');
 const chalk = require('chalk');
 
 //
@@ -28,15 +26,15 @@ const storeOrUpdateUserRatings = async (req, res) => {
       },
     });
     console.log(
-      chalk.blue.bold('USER SUBMISSION > ') +
-        chalk.blue('Updating set of ratings')
+      chalk.cyan.bold('USER SUBMISSION > ') +
+        chalk.cyan('Updating set of ratings')
     );
     res.send("We've updated your previous ratings in our dataset.");
   } else {
     Model.Rating.create(ratingsForDB);
     console.log(
-      chalk.blue.bold('USER SUBMISSION > ') +
-        chalk.blue('Recording new ratings')
+      chalk.cyan.bold('USER SUBMISSION > ') +
+        chalk.cyan('Recording new ratings')
     );
     res.send('Your ratings have been added to our dataset.');
   }
