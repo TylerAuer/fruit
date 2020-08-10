@@ -3,7 +3,7 @@ import Header from './Header';
 import drawEasyBox from '../d3/drawEasyBox';
 import drawTastyBox from '../d3/drawTastyBox';
 import './secondary-page.scss';
-import './Clevelands.scss';
+import './Charts.scss';
 
 const Data = () => {
   useEffect(() => {
