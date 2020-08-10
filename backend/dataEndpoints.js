@@ -1,3 +1,4 @@
+const Model = require('./models');
 const chalk = require('chalk');
 const NodeCache = require('node-cache');
 const { sequelize } = require('./models');
@@ -62,7 +63,6 @@ const sendAverageData = async (req, res) => {
         )
         .then((data) => data[0]); // pulls out object from array of length 1
 
-      console.log(data);
       averagesData.fruit[fruit] = data;
     }
 
@@ -226,8 +226,75 @@ const sendTastyBoxData = async (req, res) => {
   }
 };
 
+//
+//
+// COUNTS
+//
+//
+const sendCountsOfRatings = async (req, res) => {
+  if (cache.has('countsOfRatings')) {
+    res.send(cache.get('countsOfRatings'));
+  } else {
+    res.send(await calculateAndCacheCountsOfRatings());
+  }
+
+  const secondsUntilCacheExpires = Math.round(
+    (cache.getTtl('countsOfRatings') - Date.now()) / 1000
+  );
+
+  console.log(
+    chalk.blue.bold('SEND DATA > '),
+    chalk.blue(
+      `Counts of ratings.`,
+      chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
+    )
+  );
+
+  async function calculateAndCacheCountsOfRatings() {
+    // Used to time process
+    const start = process.hrtime.bigint();
+
+    // Generates object to be populated with aggregate data
+    // This object is eventually sent as the response JSON
+    const countsData = [];
+
+    for (let fruit of listOfFruit) {
+      const data = await sequelize
+        .query(
+          `
+          SELECT 
+          COUNT(${fruit}_x) as count
+          FROM "Ratings";`,
+          { type: sequelize.QueryTypes.SELECT }
+        )
+        .then((data) => data[0]); // pulls out object from array of length 1
+
+      const singleFruitCounts = {
+        name: fruit,
+        count: parseInt(data.count),
+      };
+      countsData.push(singleFruitCounts);
+    }
+
+    // Store results in the cache
+    cache.set('counts', countsData);
+
+    // End process timer
+    const end = process.hrtime.bigint();
+    const timeElapsedInSeconds = Number(end - start) / 1000000000;
+    const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
+
+    console.log(
+      chalk.red.bold('CACHE > '),
+      chalk.red(`Counts data (${timeElapsed}s)`)
+    );
+    return countsData;
+  }
+};
+
 module.exports = {
   sendAverageData,
+  sendCountsOfRatings,
   sendEasyBoxData,
   sendTastyBoxData,
 };

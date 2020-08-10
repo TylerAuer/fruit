@@ -101,6 +101,7 @@ app.post('/submit', userEndpoints.storeOrUpdateUserRatings);
 app.get('/data/averages', dataEndpoints.sendAverageData);
 app.get('/data/easy-box', dataEndpoints.sendEasyBoxData);
 app.get('/data/tasty-box', dataEndpoints.sendTastyBoxData);
+app.get('/data/counts', dataEndpoints.sendCountsOfRatings);
 
 //
 //
