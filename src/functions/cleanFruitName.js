@@ -4,3 +4,5 @@ const cleanFruitName = (fruitName) => {
     .map((word) => word[0].toUpperCase() + word.slice(1)) // capitalize first letter
     .join(' '); // Convert into string
 };
+
+export default cleanFruitName;

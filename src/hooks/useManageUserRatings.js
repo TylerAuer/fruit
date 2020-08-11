@@ -5,6 +5,8 @@ import 'toasted-notes/src/styles.css';
 import '../components/Toasts.scss';
 
 const useManageUserRatings = () => {
+  // TODO: Populate the matrix with previous user ratings if the user
+  // has an active sessions
   const [ratings, setRatings] = useState(fruitList);
 
   const submitRatings = () => {
@@ -12,9 +14,8 @@ const useManageUserRatings = () => {
       return Math.round(float * 10) / 10;
     };
 
-    const roundedRatings = { ...ratings };
-
     // round data to one decimal place
+    const roundedRatings = { ...ratings };
     Object.keys(roundedRatings).forEach((fruit) => {
       // Check if not null
       if (roundedRatings[fruit]) {
@@ -34,6 +35,7 @@ const useManageUserRatings = () => {
       .then((message) => toaster.notify(message))
       .catch((error) => {
         toaster.notify('So sorry! There was an error submiting your ratings.');
+        console.log(error);
       });
   };
 

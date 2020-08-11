@@ -276,6 +276,9 @@ const sendCountsOfRatings = async (req, res) => {
       countsData.push(singleFruitCounts);
     }
 
+    // Sorts the results descending by counts
+    countsData.sort((a, b) => b.count - a.count);
+
     // Store results in the cache
     cache.set('counts', countsData);
 
