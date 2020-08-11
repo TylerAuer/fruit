@@ -22,7 +22,7 @@ const drawTastyBox = () => {
     // Add X axis
     const x = d3
       .scaleBand()
-      .range([0, width])
+      .range([imgSize + 10, width])
       .domain(data.map((fruit) => fruit.name));
 
     // Y axis
@@ -32,10 +32,28 @@ const drawTastyBox = () => {
       .axisLeft(y)
       .ticks(1)
       .tickFormat((d, i) => tickLabels[i]);
+
+    // Midline
+    svg
+      .selectAll('midline')
+      .data(data)
+      .enter()
+      .append('line')
+      .attr('x1', '0')
+      .attr('x2', width)
+      .attr('y1', y(50))
+      .attr('y2', y(50))
+      .attr('stroke', '#ddd')
+      .attr('stroke-width', '1px');
+
+    // Y Axis Labels
     svg
       .append('g')
-      .attr('transform', 'translate( ' + width + ',0)')
-      .call(yAxis);
+      .call(yAxis)
+      .selectAll('text')
+      .style('text-anchor', 'start')
+      .attr('dx', '20')
+      .attr('dy', '7');
 
     // Lines
     svg

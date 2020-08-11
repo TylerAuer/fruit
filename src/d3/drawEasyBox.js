@@ -18,7 +18,7 @@ const drawEasyBox = () => {
     .attr('transform', 'translate(' + margin + ',' + margin + ')');
 
   // Parse the Data
-  d3.json('/data/counts').then((data) => {
+  d3.json('/data/easy-box').then((data) => {
     // Add X axis
     const x = d3.scaleLinear().domain([0, 100]).range([0, width]);
     const tickLabels = ['Hard', 'Easy'];
@@ -26,16 +26,31 @@ const drawEasyBox = () => {
       .axisBottom(x)
       .ticks(1)
       .tickFormat((d, i) => tickLabels[i]);
+
+    // Y axis
+    const y = d3
+      .scaleBand()
+      .range([0, height])
+      .domain(data.map((fruit) => fruit.name));
+
+    // Midline
+    svg
+      .selectAll('midline')
+      .data(data)
+      .enter()
+      .append('line')
+      .attr('x1', x(50))
+      .attr('x2', x(50))
+      .attr('y1', 0)
+      .attr('y2', height)
+      .attr('stroke', '#ddd')
+      .attr('stroke-width', '1px');
+
+    // Add x Axis labels
     svg
       .append('g')
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis);
-
-    // Y axis
-    var y = d3
-      .scaleBand()
-      .range([0, height])
-      .domain(data.map((fruit) => fruit.name));
 
     // Lines
     svg

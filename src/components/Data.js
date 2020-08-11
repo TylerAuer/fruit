@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Header from './Header';
 import drawEasyBox from '../d3/drawEasyBox';
 import drawTastyBox from '../d3/drawTastyBox';
+import drawCountsBar from '../d3/drawCountsBar';
 import './secondary-page.scss';
 import './Charts.scss';
 
@@ -9,6 +10,7 @@ const Data = () => {
   useEffect(() => {
     drawEasyBox();
     drawTastyBox();
+    drawCountsBar();
   }, []);
 
   return (
@@ -38,14 +40,17 @@ const Data = () => {
           tasty (or not) without worrying about how easy they are to eat
           (looking at you grapefruit).
         </p>
+        <div className="chart">
+          <div className="chart__header">
+            <h3 className="chart__title">Counts</h3>
+            <div className="chart__subtitle">Blah, blah, subtitle</div>
+          </div>
+          <div id="counts-d3" className="chart__chart"></div>
+        </div>
         <p>
-          The Cleveland Dot Plots below isolate tastyness and easyness to make
-          each easier to think about. The spread between the dots represents the
-          range that ~68% of the data fall within (this is calculated using
-          standard deviation and mean). So, a piece of fruit with a short bar is
-          ranked more consistently by people. A long bar means people's opinions
-          are more varied. The more to the right or up the bar is, the more easy
-          or tasty people find the fruit.
+          The graphs below isolate tastyness and easyness to make each easier to
+          think about. The bars contain the middle 50% of responses with each
+          fruit located at its average.
         </p>
 
         <div className="chart">
