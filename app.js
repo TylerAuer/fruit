@@ -5,6 +5,7 @@ const dataEndpoints = require('./backend/dataEndpoints');
 const userEndpoints = require('./backend/userEndpoints');
 const db = require('./backend/models');
 const chalk = require('chalk');
+const { useReducer } = require('react');
 
 //
 //
@@ -96,6 +97,7 @@ app.get('/', (req, res) => res.sendFile(__dirname + '/build/index.html'));
 
 // USER ENDPOINTS
 app.post('/submit', userEndpoints.storeOrUpdateUserRatings);
+app.get('/previous-ratings', userEndpoints.checkForPreviousRatings);
 
 // DATA ENDPOINTS
 app.get('/data/averages', dataEndpoints.sendAverageData);

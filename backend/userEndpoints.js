@@ -1,5 +1,44 @@
 const Model = require('./models');
 const chalk = require('chalk');
+const { listOfFruit } = require('./listOfFruit');
+
+//
+//
+// CHECK IF USER HAS PREVIOUSLY RATED FRUIT (ON APP LOAD)
+//
+//
+const checkForPreviousRatings = async (req, res) => {
+  const priorRatings = await Model.Rating.findOne({
+    where: {
+      session_id: req.sessionID,
+    },
+  });
+
+  // No matching session found in ratings table of DB
+  if (!priorRatings) {
+    res.status(404).send(null);
+  }
+
+  const responseOfPreviousRatings = {};
+  for (let fruit of listOfFruit) {
+    let fruitXAndY = {};
+    // No rating for this fruit
+    if (priorRatings[`${fruit}_x`]) {
+      fruitXAndY.x = priorRatings[`${fruit}_x`];
+      fruitXAndY.y = priorRatings[`${fruit}_y`];
+    } else {
+      fruitXAndY = null;
+    }
+    responseOfPreviousRatings[fruit] = fruitXAndY;
+  }
+
+  res.send(responseOfPreviousRatings);
+
+  console.log(
+    chalk.cyan.bold('USER SUBMISSION >'),
+    chalk.cyan('Loaded previous ratings and sent them to the user')
+  );
+};
 
 //
 //
@@ -26,8 +65,8 @@ const storeOrUpdateUserRatings = async (req, res) => {
       },
     });
     console.log(
-      chalk.cyan.bold('USER SUBMISSION > ') +
-        chalk.cyan('Updating set of ratings')
+      chalk.cyan.bold('USER SUBMISSION >'),
+      chalk.cyan('Updating set of ratings')
     );
     res.send("We've updated your previous ratings in our dataset.");
   } else {
@@ -59,4 +98,5 @@ const storeOrUpdateUserRatings = async (req, res) => {
 
 module.exports = {
   storeOrUpdateUserRatings,
+  checkForPreviousRatings,
 };

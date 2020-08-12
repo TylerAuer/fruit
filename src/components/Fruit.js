@@ -15,9 +15,11 @@ const Fruit = ({
 }) => {
   const nodeRef = useRef(null);
   const [isDraggingOverGraph, setIsDraggingOverGraph] = useState(null);
-  const [isOnGraph, setIsOnGraph] = useState(!ratings[name] ? false : true);
   const marginForOffGraphFruits = scale.imgSize * 0.25; // scales responsively
   const src = require(`../img/${name}.svg`);
+
+  // Use rating to determine if the fruit is currently placed on the graph
+  let isOnGraph = !ratings[name] ? false : true;
 
   const calculateUserPosition = () => {
     // Displaying user's ratings
@@ -35,7 +37,6 @@ const Fruit = ({
         scale.width / 2 -
         (count * scale.imgSize + (count - 1) * marginForOffGraphFruits) / 2;
       return {
-        //x: scale.width / 2 - scale.imgSize / 2,
         x: index * scale.imgSize + index * marginForOffGraphFruits + listOffset,
         y: -20 - scale.imgSize,
       };
@@ -74,7 +75,6 @@ const Fruit = ({
 
     if (newX < 0 || newX > scale.width || newY < 0 || newY > scale.height) {
       // Dropped off of the graph
-      setIsOnGraph(false);
       setRatings({
         ...ratings,
         [name]: null,
@@ -90,7 +90,6 @@ const Fruit = ({
           y: newYRating,
         },
       });
-      setIsOnGraph(true);
     }
   };
 

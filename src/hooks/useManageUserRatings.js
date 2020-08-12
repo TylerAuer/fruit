@@ -1,13 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import fruitList from '../components/Fruit.json';
 import toaster from 'toasted-notes';
 import 'toasted-notes/src/styles.css';
 import '../components/Toasts.scss';
 
 const useManageUserRatings = () => {
-  // TODO: Populate the matrix with previous user ratings if the user
-  // has an active sessions
   const [ratings, setRatings] = useState(fruitList);
+
+  console.log('Rendered', fruitList);
+  useEffect(() => {
+    // When the app first loads, see if the user's active session matches
+    // the session IDs in the Ratings table of the database. If so, populate the
+    // the ratings state with their previous ratings
+    fetch('/previous-ratings').then((res) => {
+      if (res.status === 200) {
+        res.json().then((ratings) => setRatings(ratings));
+        toaster.notify(
+          "Welcome back! We found your previous ratings. Don't like your choices? If you submit changes, we'll update your previous submission.",
+          { duration: 8000 }
+        );
+      }
+    });
+  }, []);
 
   const submitRatings = () => {
     const roundToTenths = (float) => {
