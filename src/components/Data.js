@@ -33,8 +33,12 @@ const Data = () => {
     return (
       <div className="chart">
         <div className="chart__header">
-          <h3 className="chart__title">{cleanName(fruit)} 2D Histogram</h3>
-          <div className="chart__subtitle">Subtitle, blah, blah!</div>
+          <h3 className="chart__title">{cleanName(fruit)}</h3>
+          <div className="chart__subtitle">
+            This two-dimensional histogram represents how often {fruit} are
+            placed in different locations on the Fruit Matrix. The darker the
+            hexagon, the more often it is placed in the given location.
+          </div>
         </div>
         <div
           id={`${fruit}-hist-d3`}
@@ -128,7 +132,7 @@ const Data = () => {
         <p>
           Moving between these perspecitives -- isolated versus interrelated
           dimensions -- is a tough abstraction that takes a lot of experience to
-          become natural. To help, here are two charts showing each dimension in
+          feel natural. To help, here are two charts showing each dimension in
           isolation.
         </p>
         <div className="chart">
