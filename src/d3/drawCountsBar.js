@@ -16,7 +16,7 @@ const drawCountsBar = () => {
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
   // Parse the Data
-  d3.json('/data/counts').then((data) => {
+  d3.json('/data/counts-of-ratings-by-fruit').then((data) => {
     const max = d3.max(data.map(({ count }) => count));
     const min = d3.min(data.map(({ count }) => count));
 

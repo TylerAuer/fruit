@@ -173,7 +173,7 @@ const sendTastyBoxData = async (req, res) => {
   console.log(
     chalk.blue.bold('SEND DATA >'),
     chalk.blue(
-      `Sent easy box chart data to user.`,
+      `Sent tast box chart data to user.`,
       chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
     )
   );
@@ -219,7 +219,7 @@ const sendTastyBoxData = async (req, res) => {
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
     console.log(
       chalk.red.bold('CACHE > '),
-      chalk.red(`Easy box chart data (${timeElapsed}s)`)
+      chalk.red(`Tasty box chart data (${timeElapsed}s)`)
     );
 
     return data;
@@ -228,18 +228,18 @@ const sendTastyBoxData = async (req, res) => {
 
 //
 //
-// COUNTS
+// COUNTS OF RATINGS BY FRUIT
 //
 //
 const sendCountsOfRatings = async (req, res) => {
-  if (cache.has('countsOfRatings')) {
-    res.send(cache.get('countsOfRatings'));
+  if (cache.has('countsByFruit')) {
+    res.send(cache.get('countsByFruit'));
   } else {
     res.send(await calculateAndCacheCountsOfRatings());
   }
 
   const secondsUntilCacheExpires = Math.round(
-    (cache.getTtl('countsOfRatings') - Date.now()) / 1000
+    (cache.getTtl('countsByFruit') - Date.now()) / 1000
   );
 
   console.log(
@@ -280,7 +280,7 @@ const sendCountsOfRatings = async (req, res) => {
     countsData.sort((a, b) => b.count - a.count);
 
     // Store results in the cache
-    cache.set('counts', countsData);
+    cache.set('countsByFruit', countsData);
 
     // End process timer
     const end = process.hrtime.bigint();
@@ -289,9 +289,54 @@ const sendCountsOfRatings = async (req, res) => {
 
     console.log(
       chalk.red.bold('CACHE > '),
-      chalk.red(`Counts data (${timeElapsed}s)`)
+      chalk.red(`Counts by fruit data (${timeElapsed}s)`)
     );
     return countsData;
+  }
+};
+
+//
+//
+// TOTAL COUNT OF RATINGS
+//
+//
+const sendCountOfAllRatings = async (req, res) => {
+  if (cache.has('countOfAllRatings')) {
+    res.send(cache.get('countOfAllRatings'));
+  } else {
+    res.send(await calculateAndCacheCountOfAllRatings());
+  }
+
+  const secondsUntilCacheExpires = Math.round(
+    (cache.getTtl('countOfAllRatings') - Date.now()) / 1000
+  );
+
+  console.log(
+    chalk.blue.bold('SEND DATA > '),
+    chalk.blue(
+      `Count of all ratings.`,
+      chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
+    )
+  );
+
+  async function calculateAndCacheCountOfAllRatings() {
+    let response = {
+      count_of_all_ratings: 0,
+    };
+    for (let fruit of listOfFruit) {
+      const count = await sequelize
+        .query(
+          `
+          SELECT 
+          COUNT(${fruit}_x) as count
+          FROM "Ratings";`,
+          { type: sequelize.QueryTypes.SELECT }
+        )
+        .then((data) => data[0].count); // pulls out object from obj in array
+      response.count_of_all_ratings += parseInt(count);
+    }
+
+    return response;
   }
 };
 
@@ -300,4 +345,5 @@ module.exports = {
   sendCountsOfRatings,
   sendEasyBoxData,
   sendTastyBoxData,
+  sendCountOfAllRatings,
 };

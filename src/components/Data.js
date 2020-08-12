@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import drawEasyBox from '../d3/drawEasyBox';
 import drawTastyBox from '../d3/drawTastyBox';
@@ -7,10 +7,15 @@ import './secondary-page.scss';
 import './Charts.scss';
 
 const Data = () => {
+  const [countOfAllRatings, setCountOfAllRatings] = useState(null);
+
   useEffect(() => {
     drawEasyBox();
     drawTastyBox();
     drawCountsBar();
+    fetch('/data/count-of-all-ratings')
+      .then((res) => res.json())
+      .then((count) => setCountOfAllRatings(count.count_of_all_ratings));
   }, []);
 
   return (
@@ -35,27 +40,31 @@ const Data = () => {
           The challenge of this approach is that it makes it harder to think
           about each dimension on its own. Two fruits may be rated equally tasty
           but be far apart in the scatterplot. That's confusing! By considering
-          just one dimension (tastyness or easyness) at a time we can help our
+          just one dimension (tastiness or easyness) at a time we can help our
           minds notice other details. We can, for example, see which fruits are
           tasty (or not) without worrying about how easy they are to eat
           (looking at you grapefruit).
         </p>
         <div className="chart">
           <div className="chart__header">
-            <h3 className="chart__title">Counts</h3>
-            <div className="chart__subtitle">Blah, blah, subtitle</div>
+            <h3 className="chart__title">Which fruits are rated most</h3>
+            <div className="chart__subtitle">
+              People have submited {countOfAllRatings} ratings overall. This bar
+              chart shows how those ratings are spread out among the 16
+              different fruits.
+            </div>
           </div>
           <div id="counts-d3" className="chart__chart"></div>
         </div>
         <p>
-          The graphs below isolate tastyness and easyness to make each easier to
+          The graphs below isolate tastiness and easyness to make each easier to
           think about. The bars contain the middle 50% of responses with each
           fruit located at its average.
         </p>
 
         <div className="chart">
           <div className="chart__header">
-            <h3 className="chart__title">Fruit by Tastyness</h3>
+            <h3 className="chart__title">Tastiness Only</h3>
             <div className="chart__subtitle">Blah, blah, subtitle</div>
           </div>
           <div id="tasty-d3" className="chart__chart"></div>
@@ -63,7 +72,7 @@ const Data = () => {
 
         <div className="chart">
           <div className="chart__header">
-            <h3 className="chart__title">Fruit by Easyness</h3>
+            <h3 className="chart__title">Easyness of Eating Only</h3>
             <div className="chart__subtitle">Blah, blah, subtitle</div>
           </div>
           <div id="easy-d3" className="chart__chart"></div>
