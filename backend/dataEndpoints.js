@@ -173,7 +173,7 @@ const sendTastyBoxData = async (req, res) => {
   console.log(
     chalk.blue.bold('SEND DATA >'),
     chalk.blue(
-      `Sent tast box chart data to user.`,
+      `Sent tasty box chart data to user.`,
       chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
     )
   );
@@ -300,15 +300,15 @@ const sendCountsOfRatings = async (req, res) => {
 // TOTAL COUNT OF RATINGS
 //
 //
-const sendCountOfAllRatings = async (req, res) => {
-  if (cache.has('countOfAllRatings')) {
-    res.send(cache.get('countOfAllRatings'));
+const sendCountOfAllRatingsAndUsers = async (req, res) => {
+  if (cache.has('countOfAllRatingsAndUsers')) {
+    res.send(cache.get('countOfAllRatingsAndUsers'));
   } else {
-    res.send(await calculateAndCacheCountOfAllRatings());
+    res.send(await calculateAndCacheCountOfAllRatingsAndUsers());
   }
 
   const secondsUntilCacheExpires = Math.round(
-    (cache.getTtl('countOfAllRatings') - Date.now()) / 1000
+    (cache.getTtl('countOfAllRatingsAndUsers') - Date.now()) / 1000
   );
 
   console.log(
@@ -319,10 +319,15 @@ const sendCountOfAllRatings = async (req, res) => {
     )
   );
 
-  async function calculateAndCacheCountOfAllRatings() {
+  async function calculateAndCacheCountOfAllRatingsAndUsers() {
+    // Used to time process
+    const start = process.hrtime.bigint();
+
     let response = {
       count_of_all_ratings: 0,
+      count_of_users: await Model.Rating.count(),
     };
+
     for (let fruit of listOfFruit) {
       const count = await sequelize
         .query(
@@ -330,11 +335,26 @@ const sendCountOfAllRatings = async (req, res) => {
           SELECT 
           COUNT(${fruit}_x) as count
           FROM "Ratings";`,
-          { type: sequelize.QueryTypes.SELECT }
+          {
+            type: sequelize.QueryTypes.SELECT,
+          }
         )
         .then((data) => data[0].count); // pulls out object from obj in array
       response.count_of_all_ratings += parseInt(count);
     }
+
+    // Store results in the cache
+    cache.set('countOfAllRatingsAndUsers', response);
+
+    // End process timer
+    const end = process.hrtime.bigint();
+    const timeElapsedInSeconds = Number(end - start) / 1000000000;
+    const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
+
+    console.log(
+      chalk.red.bold('CACHE > '),
+      chalk.red(`Total rating count and count of users (${timeElapsed}s)`)
+    );
 
     return response;
   }
@@ -345,5 +365,5 @@ module.exports = {
   sendCountsOfRatings,
   sendEasyBoxData,
   sendTastyBoxData,
-  sendCountOfAllRatings,
+  sendCountOfAllRatingsAndUsers,
 };
