@@ -106,6 +106,7 @@ app.get(
   '/data/counts-of-ratings-and-users',
   dataEndpoints.sendCountOfAllRatingsAndUsers
 );
+app.get('/data/histograms', dataEndpoints.send2DHistogramData);
 
 //
 //

@@ -2,6 +2,7 @@ const Model = require('./models');
 const chalk = require('chalk');
 const NodeCache = require('node-cache');
 const { sequelize } = require('./models');
+const { Op } = require('sequelize');
 const { listOfFruit } = require('./listOfFruit');
 
 //
@@ -360,10 +361,76 @@ const sendCountOfAllRatingsAndUsers = async (req, res) => {
   }
 };
 
+//
+//
+// 2D HistogramData
+//
+//
+const send2DHistogramData = async (req, res) => {
+  if (cache.has('2DHistogramData')) {
+    res.send(cache.get('2DHistogramData'));
+  } else {
+    res.send(await getAndCache2DHistogramData());
+  }
+
+  const secondsUntilCacheExpires = Math.round(
+    (cache.getTtl('2DHistogramData') - Date.now()) / 1000
+  );
+
+  console.log(
+    chalk.blue.bold('SEND DATA > '),
+    chalk.blue(
+      `2D Histogram Data.`,
+      chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
+    )
+  );
+
+  async function getAndCache2DHistogramData() {
+    // Used to time process
+    const start = process.hrtime.bigint();
+
+    let data = {};
+    // Query and process std dev and avg for each fruit
+    // Then add to data array
+    for (let fruit of listOfFruit) {
+      const fruitData = await Model.Rating.findAll({
+        attributes: [
+          [`${fruit}_x`, 'x'], // renames key to x
+          [`${fruit}_y`, 'y'], // renames key to y
+        ],
+        where: {
+          [`${fruit}_x`]: {
+            [Op.ne]: null, // skips rows where rating is null
+          },
+        },
+      });
+
+      data[fruit] = {};
+      data[fruit].ratings = fruitData;
+    }
+
+    // Store results in the cache
+    cache.set('2DHistogramData', data);
+
+    // End process timer
+    const end = process.hrtime.bigint();
+    const timeElapsedInSeconds = Number(end - start) / 1000000000;
+    const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
+
+    console.log(
+      chalk.red.bold('CACHE > '),
+      chalk.red(`2D Histogram Data (${timeElapsed}s)`)
+    );
+
+    return data;
+  }
+};
+
 module.exports = {
   sendAverageData,
   sendCountsOfRatings,
   sendEasyBoxData,
   sendTastyBoxData,
   sendCountOfAllRatingsAndUsers,
+  send2DHistogramData,
 };
