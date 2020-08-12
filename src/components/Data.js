@@ -8,14 +8,19 @@ import './Charts.scss';
 
 const Data = () => {
   const [countOfAllRatings, setCountOfAllRatings] = useState(null);
+  const [countOfUsers, setCountOfUsers] = useState(null);
 
   useEffect(() => {
     drawEasyBox();
     drawTastyBox();
     drawCountsBar();
-    fetch('/data/count-of-all-ratings')
+    //drawFruitHistograms();
+    fetch('/data/counts-of-ratings-and-users')
       .then((res) => res.json())
-      .then((count) => setCountOfAllRatings(count.count_of_all_ratings));
+      .then((count) => {
+        setCountOfAllRatings(count.count_of_all_ratings);
+        setCountOfUsers(count.count_of_users);
+      });
   }, []);
 
   return (
@@ -24,61 +29,151 @@ const Data = () => {
       <main>
         <h2>Let's look at the data!</h2>
         <p>
-          Our puny human brains need help to understand sets of data. Luckily,
-          statisticians and visualization designers give us tools to help our
-          feeble noggins parse big data sets.
+          Our puny human brains are ill-equiped for analyzing data. We can only
+          keep about{' '}
+          <a href="https://en.wikipedia.org/wiki/Working_memory">
+            four things in our heads
+          </a>{' '}
+          at any given time. But, our brains also{' '}
+          <a href="https://en.wikipedia.org/wiki/Apophenia">
+            often see patterns where they do not exist
+          </a>
+          . We need help to understand trends without overfitting our ideas to
+          imagined patterns. Luckily, heroes (also known as statisticians and
+          data visualization experts) have developed many tools and strategies
+          for helping our noggins overcome their evolved habits.
         </p>
         <p>
-          The Fruit Matrix is a 2-dimensional graph meaning each piece of fruit
-          is rated in two different ways. When you look at a scatter plot or
-          similar chart showing both pieces of information at the same time,
-          it's easiest to see how to two dimensions interact. For example, a
-          fruit in the top-right corner is the optimal cobination of tasty and
-          easy to eat.
+          This page contains a number of visualizations that update as people
+          submit or change their ratings in the fruit matrix. Visualizations,
+          when well-designed, help us notice real and meaningful patterns in
+          data sets.
+        </p>
+        <h2>Sample Size & Frequency</h2>
+        <p>
+          How can you tell when something is a real pattern instead of just
+          randomness? Statisticians have strategies to help with this. The most
+          useful is to think about the <b>sample size</b> or{' '}
+          <b>
+            <i>n</i>
+          </b>{' '}
+          of a data set which describes how much data was collected. The dataset
+          for this site is made up of {countOfAllRatings} ratings by{' '}
+          {countOfUsers} people.
         </p>
         <p>
-          The challenge of this approach is that it makes it harder to think
-          about each dimension on its own. Two fruits may be rated equally tasty
-          but be far apart in the scatterplot. That's confusing! By considering
-          just one dimension (tastiness or easyness) at a time we can help our
-          minds notice other details. We can, for example, see which fruits are
-          tasty (or not) without worrying about how easy they are to eat
-          (looking at you grapefruit).
+          The more data you collect, the more likely it is that the patterns you
+          see are real. But, even huge data sets don't guarantee accuracy. All
+          sorts of things can throw off your conclusions, so statisticians use
+          probabilities to describe how likely a pattern is to be true.
+          Statistics is hard! Lots of very smart people mess it up.
+        </p>
+        <p>
+          Statisticians also keep track of <b>frequency</b>, the number of times
+          something appears in data. Frequency is also sometimes called{' '}
+          <b>count</b> because you are literally counting how many times
+          something appears in your dataset.
+        </p>
+        <p>
+          Since I don't require you to rate every fruit, some fruits are rated
+          more than others. You can see the relative frequencies below.
         </p>
         <div className="chart">
           <div className="chart__header">
-            <h3 className="chart__title">Which fruits are rated most</h3>
+            <h3 className="chart__title">Ratings Frequency by Fruit</h3>
             <div className="chart__subtitle">
-              People have submited {countOfAllRatings} ratings overall. This bar
-              chart shows how those ratings are spread out among the 16
-              different fruits.
+              {countOfUsers} people have submited {countOfAllRatings} ratings
+              overall. This bar chart shows how those ratings are spread out
+              among the 16 different fruits.
             </div>
           </div>
           <div id="counts-d3" className="chart__chart"></div>
         </div>
+        <h2>Isolating Dimensions</h2>
         <p>
-          The graphs below isolate tastiness and easyness to make each easier to
-          think about. The bars contain the middle 50% of responses with each
-          fruit located at its average.
+          As a middle school math teacher, I often had to help students
+          understand scatterplots and the Cartesian plane. They usually already
+          knew how to use ordered pairs of coordinates find a location on the
+          graph but they didn't really understand what the point (Ha! I do not
+          apologize!) was.
         </p>
-
+        <p>
+          The trickiest concept is that any point represents two distinct pieces
+          of information. In the case of the Fruit Matrix, those two dimensions
+          are tastiness and the easiness. But, the power of scatterplots like
+          the Fruit Matrix is that they let you see each dimension in isolation
+          as well as how those dimensions are correlated.
+        </p>
+        <p>
+          Moving between these perspecitives -- isolated versus interrelated
+          dimensions -- is a tough abstraction that takes a lot of experience to
+          become natural. To help, here are two charts showing each dimension in
+          isolation.
+        </p>
         <div className="chart">
           <div className="chart__header">
             <h3 className="chart__title">Tastiness Only</h3>
-            <div className="chart__subtitle">Blah, blah, subtitle</div>
+            <div className="chart__subtitle">
+              Displays how tasty each fruit is as an average of {countOfUsers}{' '}
+              users' ratings. The bars stretch from the 25th to the 75th
+              percentile (Q1 to Q3).
+            </div>
           </div>
           <div id="tasty-d3" className="chart__chart"></div>
         </div>
 
         <div className="chart">
           <div className="chart__header">
-            <h3 className="chart__title">Easyness of Eating Only</h3>
-            <div className="chart__subtitle">Blah, blah, subtitle</div>
+            <h3 className="chart__title">Easiness of Eating Only</h3>
+            <div className="chart__subtitle">
+              Displays how easy each fruit is to eat as an average of{' '}
+              {countOfUsers} users' ratings. The bars stretch from the 25th to
+              the 75th percentile (Q1 to Q3).
+            </div>
           </div>
           <div id="easy-d3" className="chart__chart"></div>
         </div>
 
-        <p>The bars on the</p>
+        <h2>Variance & Spread</h2>
+        <p>
+          There's still more we can discover! In the two charts above, each
+          fruit's icon is located at the average rating. But, even if two fruits
+          have the same average, their data can be spread out in different ways.
+        </p>
+        <p>
+          Some fruit, for example, might have pretty consistent ratings where
+          users usually rate them a specific way. Another fruit might have the
+          same average but have a wide range of user ratings.
+        </p>
+        <p>
+          Statisticians say that an average (or mean) is a measure of the center
+          of a dataset. But, data sets also have other properties. One important
+          one is how spread out the data is. This is also called variance and is
+          often described using a fancy term called standard deviation. Try
+          saying standard deviation out loud ... admit it, you feel smart!
+        </p>
+        <p>
+          Visualizing the spread or variance in data can be tricky. We often use
+          histograms (which look like bar charts but where the data is grouped
+          into ranges of values).
+        </p>
+        <p>
+          Things get fun (or harder) when you want to display histograms for
+          two-dimensional data like our fruit. It doesn't really work with bars,
+          so you can use colors instead. And, frankly, it looks cooler.
+        </p>
+        <p>
+          The graphs below are two-dimensional histograms. They help us see how
+          the ratings for each fruit are spread out.
+        </p>
+
+        <div className="chart">
+          <div className="chart__header">
+            <h3 className="chart__title">Peach 2D Histogram</h3>
+            <div className="chart__subtitle">Subtitle, blah, blah!</div>
+          </div>
+          <div id="peach-hist-d3" className="chart__chart"></div>
+        </div>
       </main>
     </div>
   );
