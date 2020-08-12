@@ -30,4 +30,11 @@
     font-size: 1.7rem;
     line-height: 1.4;
   }
+
+  &__histogram {
+    background-image: url('../img/axis.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+  }
 }

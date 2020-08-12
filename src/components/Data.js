@@ -3,6 +3,9 @@ import Header from './Header';
 import drawEasyBox from '../d3/drawEasyBox';
 import drawTastyBox from '../d3/drawTastyBox';
 import drawCountsBar from '../d3/drawCountsBar';
+import drawFruitHist from '../d3/drawFruitHist';
+import fruitList from '../components/Fruit.json';
+import cleanName from '../functions/cleanFruitName';
 import './secondary-page.scss';
 import './Charts.scss';
 
@@ -14,14 +17,32 @@ const Data = () => {
     drawEasyBox();
     drawTastyBox();
     drawCountsBar();
-    //drawFruitHistograms();
+    // Get total count of ratings and count of users
     fetch('/data/counts-of-ratings-and-users')
       .then((res) => res.json())
       .then((count) => {
         setCountOfAllRatings(count.count_of_all_ratings);
         setCountOfUsers(count.count_of_users);
       });
+    Object.keys(fruitList).forEach((fruit) => {
+      drawFruitHist(fruit);
+    });
   }, []);
+
+  const fruit2DHistograms = Object.keys(fruitList).map((fruit) => {
+    return (
+      <div className="chart">
+        <div className="chart__header">
+          <h3 className="chart__title">{cleanName(fruit)} 2D Histogram</h3>
+          <div className="chart__subtitle">Subtitle, blah, blah!</div>
+        </div>
+        <div
+          id={`${fruit}-hist-d3`}
+          className="chart__chart chart__histogram"
+        ></div>
+      </div>
+    );
+  });
 
   return (
     <div className="secondary">
@@ -158,22 +179,16 @@ const Data = () => {
           into ranges of values).
         </p>
         <p>
-          Things get fun (or harder) when you want to display histograms for
-          two-dimensional data like our fruit. It doesn't really work with bars,
-          so you can use colors instead. And, frankly, it looks cooler.
+          Things get fun (harder) when you want to display histograms for
+          two-dimensional data like our fruit ratings. It doesn't really work
+          with bars, so we'll use colors instead. And, frankly, it looks
+          sweeter.
         </p>
         <p>
           The graphs below are two-dimensional histograms. They help us see how
           the ratings for each fruit are spread out.
         </p>
-
-        <div className="chart">
-          <div className="chart__header">
-            <h3 className="chart__title">Peach 2D Histogram</h3>
-            <div className="chart__subtitle">Subtitle, blah, blah!</div>
-          </div>
-          <div id="peach-hist-d3" className="chart__chart"></div>
-        </div>
+        {fruit2DHistograms}
       </main>
     </div>
   );
