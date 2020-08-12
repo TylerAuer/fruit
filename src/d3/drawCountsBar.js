@@ -26,7 +26,7 @@ const drawCountsBar = () => {
     const colorScale = d3
       .scaleLinear()
       .domain([min, max])
-      .range(['rgb(0,0,0)', 'rgb(255, 0, 183)'])
+      .range(['rgb(255, 135, 221)', 'rgb(255, 0, 183)'])
       .interpolate(d3.interpolateRgb);
 
     const y = d3
