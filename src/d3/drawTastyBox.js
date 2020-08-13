@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 const drawTastyBox = () => {
-  const imgSize = 30;
+  const imgSize = 35;
 
   // set the dimensions and margins of the graph
   const margin = imgSize / 2;
@@ -68,9 +68,9 @@ const drawTastyBox = () => {
       .attr('stroke', 'black')
       .attr('stroke-width', '2px');
 
-    const bar = {
-      height: 1,
-      width: 10,
+    const circle = {
+      radius: 3,
+      color: 'rgb(255, 0, 183)',
     };
 
     // Bars for Q3
@@ -78,24 +78,22 @@ const drawTastyBox = () => {
       .selectAll('mycircle')
       .data(data)
       .enter()
-      .append('rect')
-      .attr('x', (d) => x(d.name) - bar.width / 2)
-      .attr('y', (d) => y(d.q3))
-      .attr('width', bar.width)
-      .attr('height', bar.height)
-      .style('fill', 'black');
+      .append('circle')
+      .attr('cx', (d) => x(d.name))
+      .attr('cy', (d) => y(d.q3))
+      .attr('r', circle.radius)
+      .style('fill', circle.color);
 
     // Bars for Q1
     svg
       .selectAll('mycircle')
       .data(data)
       .enter()
-      .append('rect')
-      .attr('x', (d) => x(d.name) - bar.width / 2)
-      .attr('y', (d) => y(d.q1))
-      .attr('width', bar.width)
-      .attr('height', bar.height)
-      .style('fill', 'black');
+      .append('circle')
+      .attr('cx', (d) => x(d.name))
+      .attr('cy', (d) => y(d.q1))
+      .attr('r', circle.radius)
+      .style('fill', circle.color);
 
     // FRUIT @ averages
     svg
