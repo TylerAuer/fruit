@@ -1,14 +1,24 @@
 .Toaster {
-  &__alert {
-    // padding: 1.5rem;
+  &__manager-top {
+    max-width: 90%;
+    width: 760px;
   }
 
   &__alert_text {
     padding: 1rem;
-    font-size: 1.6rem;
   }
 
   &__alert_close {
     font-size: 2rem;
+  }
+}
+
+.toast__msg {
+  text-align: left;
+  font-size: 1.8rem;
+  padding: 1rem;
+
+  p {
+    margin: 1rem 0;
   }
 }

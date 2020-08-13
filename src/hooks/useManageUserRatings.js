@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import fruitList from '../components/Fruit.json';
 import toaster from 'toasted-notes';
 import 'toasted-notes/src/styles.css';
@@ -16,7 +16,15 @@ const useManageUserRatings = () => {
       if (res.status === 200) {
         res.json().then((ratings) => setRatings(ratings));
         toaster.notify(
-          "Welcome back! We found your previous ratings. Don't like your choices? If you submit changes, we'll update your previous submission.",
+          <div className="toast__msg">
+            <p>
+              <b>Welcome back! We found your previous ratings!</b>
+            </p>
+            <p>
+              Don't like your choices? If you submit changes, we'll update your
+              previous submission.
+            </p>
+          </div>,
           { duration: 8000 }
         );
       }
@@ -46,9 +54,25 @@ const useManageUserRatings = () => {
       body: JSON.stringify(roundedRatings),
     })
       .then((res) => res.text())
-      .then((message) => toaster.notify(message))
+      .then((message) =>
+        toaster.notify(
+          <div className="toast__msg">
+            <p>
+              <b>Submission Recieved!</b>
+            </p>
+            <p>{message}</p>
+          </div>
+        )
+      )
       .catch((error) => {
-        toaster.notify('So sorry! There was an error submiting your ratings.');
+        toaster.notify(
+          <div className="toast__msg">
+            <p>
+              <b>Ugh oh!</b>
+            </p>
+            <p>So sorry! There was an error submiting your ratings.</p>
+          </div>
+        );
         console.log(error);
       });
   };
