@@ -1,17 +1,17 @@
 import * as d3 from 'd3';
 
 const drawCountsBar = () => {
-  const imgSize = 30;
+  const imgSize = 50;
   // set the dimensions and margins of the graph
-  var margin = { top: 10, right: 10, bottom: 30, left: 2 * imgSize },
+  var margin = { top: 10, right: 10, bottom: 30, left: 1.25 * imgSize },
     width = 1000 - margin.left - margin.right,
-    height = 700 - margin.top - margin.bottom;
+    height = 1000 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
     .select('#counts-d3')
     .append('svg')
-    .attr('viewBox', `0 0 1000 700`)
+    .attr('viewBox', `0 0 1000 1000`)
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -31,9 +31,9 @@ const drawCountsBar = () => {
 
     const y = d3
       .scaleBand()
-      .range([0, height])
+      .range([0, height - 5])
       .domain(data.map((d) => d.name))
-      .padding(0.1);
+      .padding(0.05);
 
     //Bars
     svg
@@ -55,6 +55,7 @@ const drawCountsBar = () => {
       .append('text')
       .attr('text-anchor', 'end')
       .attr('fill', 'white')
+      .attr('font-size', '2rem')
       .attr('x', (d) => x(d.count))
       .attr('y', (d) => y(d.name))
       .attr('dx', -10)

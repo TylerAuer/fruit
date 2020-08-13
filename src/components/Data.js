@@ -112,10 +112,10 @@ const Data = () => {
         </p>
         <div className="chart">
           <div className="chart__header">
-            <h3 className="chart__title">Ratings Frequency by Fruit</h3>
+            <h3 className="chart__title">Ratings by Fruit</h3>
             <div className="chart__subtitle">
-              {countOfUsers} people have submited {countOfAllRatings} ratings
-              overall. This bar chart shows how those ratings are spread out
+              {countOfUsers} people have submited a total of {countOfAllRatings}{' '}
+              ratings. This bar chart shows how those ratings are spread out
               among the 16 different fruits.
             </div>
           </div>
