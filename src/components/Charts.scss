@@ -37,4 +37,12 @@
     background-repeat: no-repeat;
     background-size: auto;
   }
+
+  &__fruit-img-in-title {
+    position: relative;
+    top: 8px;
+    display: inline-block;
+    height: 3.5rem;
+    margin-right: 1rem;
+  }
 }

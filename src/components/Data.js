@@ -33,7 +33,14 @@ const Data = () => {
     return (
       <div className="chart">
         <div className="chart__header">
-          <h3 className="chart__title">{cleanName(fruit)}</h3>
+          <h3 className="chart__title">
+            <img
+              className="chart__fruit-img-in-title"
+              src={require(`../img/${fruit}.svg`)}
+              alt={cleanName(fruit)}
+            />
+            {cleanName(fruit)}
+          </h3>
           <div className="chart__subtitle">
             This two-dimensional histogram represents how often {fruit} are
             placed in different locations on the Fruit Matrix. The darker the
