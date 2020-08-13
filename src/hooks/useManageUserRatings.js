@@ -7,7 +7,6 @@ import '../components/Toasts.scss';
 const useManageUserRatings = () => {
   const [ratings, setRatings] = useState(fruitList);
 
-  console.log('Rendered', fruitList);
   useEffect(() => {
     // When the app first loads, see if the user's active session matches
     // the session IDs in the Ratings table of the database. If so, populate the
@@ -35,11 +34,11 @@ const useManageUserRatings = () => {
     // If no fruit are rated, don't submit and communicate to user
     let atLeastOneFruitIsRated = false;
     for (let fruit in fruitList) {
-      if (fruit) {
+      if (ratings[fruit] && ratings[fruit].x) {
         atLeastOneFruitIsRated = true;
       }
     }
-    if (atLeastOneFruitIsRated) {
+    if (!atLeastOneFruitIsRated) {
       toaster.notify(
         <div className="toast__msg">
           <p>
