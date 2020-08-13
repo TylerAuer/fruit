@@ -32,6 +32,27 @@ const useManageUserRatings = () => {
   }, []);
 
   const submitRatings = () => {
+    // If no fruit are rated, don't submit and communicate to user
+    let atLeastOneFruitIsRated = false;
+    for (let fruit in fruitList) {
+      if (fruit) {
+        atLeastOneFruitIsRated = true;
+      }
+    }
+    if (atLeastOneFruitIsRated) {
+      toaster.notify(
+        <div className="toast__msg">
+          <p>
+            <b>Whoops!</b>
+          </p>
+          <p>
+            You must rate at least one fruit before you submit your ratings.
+          </p>
+        </div>
+      );
+      return;
+    }
+
     const roundToTenths = (float) => {
       return Math.round(float * 10) / 10;
     };
