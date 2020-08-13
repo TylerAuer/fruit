@@ -4,6 +4,12 @@
   text-align: center;
   opacity: 1;
   transition: opacity 2s;
+  line-height: 1.2;
+
+  @media (max-width: 475px) {
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
 
   &--hidden {
     opacity: 0;
