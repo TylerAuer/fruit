@@ -24,14 +24,18 @@ const Data = () => {
         setCountOfAllRatings(count.count_of_all_ratings);
         setCountOfUsers(count.count_of_users);
       });
-    Object.keys(fruitList).forEach((fruit) => {
-      drawFruitHist(fruit);
-    });
+    fetch('/data/histograms')
+      .then((res) => res.json())
+      .then((data) => {
+        Object.keys(fruitList).forEach((fruit) => {
+          drawFruitHist(fruit, data);
+        });
+      });
   }, []);
 
   const fruit2DHistograms = Object.keys(fruitList).map((fruit) => {
     return (
-      <div className="chart">
+      <div key={fruit} className="chart">
         <div className="chart__header">
           <h3 className="chart__title">
             <img
