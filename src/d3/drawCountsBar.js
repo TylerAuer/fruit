@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 const drawCountsBar = () => {
   const imgSize = 50;
   // set the dimensions and margins of the graph
-  var margin = { top: 10, right: 10, bottom: 30, left: 1.25 * imgSize },
+  var margin = { top: 10, right: 20, bottom: 30, left: 1.25 * imgSize },
     width = 1000 - margin.left - margin.right,
     height = 1000 - margin.top - margin.bottom;
 
