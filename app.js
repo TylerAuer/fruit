@@ -15,7 +15,6 @@ require('dotenv').config();
 // Overwrites standard console.log with function that prepends the timestamp
 //
 //
-
 const originalLog = console.log;
 // Overwriting
 console.log = function () {
