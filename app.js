@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const secure = require('express-force-https');
+//const secure = require('express-force-https');
 const dataEndpoints = require('./backend/dataEndpoints');
 const userEndpoints = require('./backend/userEndpoints');
 const db = require('./backend/models');
@@ -70,7 +70,7 @@ async function syncDatabaseToModels() {
 //
 
 const app = express();
-app.use(secure);
+//app.use(secure);
 app.use(express.json());
 app.use(
   session({
