@@ -1,28 +1,24 @@
 # Fruit Matrix
 
-An interactive recreation of the [XKCD fruit comic (WARNING: includes swear)](https://xkcd.com/388/) that stores aggregates users' ratings for fun.
+Fruit Matrix is aggregator of people's feelings about fruit with [an obsession with data](https://fruit.tylerauer.com/data). It's inspired by [XKCD (WARNING: curse word)](https://xkcd.com/388/) and [The New York Times](https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html).
 
-## Road Map
+## Improvements I'm Considering
 
-Plan for building out features
+- Chart that tracks the total submissions over time
+- Chart that tracks how a fruit's average position has changed over time
+- Help overlay for `/`
+- Guidance to help users get to data page
 
-1. ~~Responsive axis~~
-2. ~~Can click and drag elements around the screen~~
-3. ~~The elements have store state of their location~~
-4. ~~Location state is null if not on matrix, scaled to 100 if on matrix~~
-5. ~~Show unplaced fruit above graph~~
-6. ~~Unplaced fruit can be dragged onto graph~~
-7. ~~Elements snap to container and state set to null if lifted off grid (also need to hint at this some way in the UI, maybe they turn grayscale if dragged outside the axis)~~
-8. ~~API for submitting user data to postgres DB~~
-9. ~~Caches averages for each fruit and other stats~~
-10. ~~API for getting average user data from DB~~
-11. ~~Protections from people gaming the system with ranking the fruit over and over~~
-12. ~~UI for displaying public results~~
-13. Help button that displays an overlay of how to use the page
-14. Docker setup
-15. Deploy with CI setup
+## Technologies
 
-## Log Manager Helpers (Observability)
+### Frontend
 
-- Data Dog
-- New Relic
+This is a [React](https://reactjs.org/) application that makes use of [React-Router](https://reactrouter.com/web/guides/quick-start) for routing and D3 for the visualizations on the data page. I also used [Toasted-Notes](https://toasted-notes.netlify.app/).
+
+### Backend
+
+The backend is built with [Node](https://nodejs.org/en/), [Express](https://expressjs.com/), and a [PostgreSQL](https://www.postgresql.org/) database. I used [Sequelize](https://sequelize.org/) to make interacting with Postgres easier.
+
+### Deployment
+
+The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maintenance efficient -- pushes to `master` automatically create new builds.
