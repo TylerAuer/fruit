@@ -5,7 +5,7 @@ const dataEndpoints = require('./backend/dataEndpoints');
 const userEndpoints = require('./backend/userEndpoints');
 const db = require('./backend/models');
 const chalk = require('chalk');
-const { useReducer } = require('react');
+require('dotenv').config();
 
 //
 //
@@ -73,7 +73,7 @@ const app = express();
 app.use(express.json());
 app.use(
   session({
-    secret: 'temp_secret',
+    secret: process.env.COOKIE_SESSIONS_SECRET,
     store: sessionStore,
     secure: false,
     resave: false,
