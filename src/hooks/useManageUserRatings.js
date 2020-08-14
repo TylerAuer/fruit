@@ -24,7 +24,7 @@ const useManageUserRatings = () => {
               ratings.
             </p>
           </div>,
-          { duration: 8000 * 1000 }
+          { duration: 8000 }
         );
       }
     });
