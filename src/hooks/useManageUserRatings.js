@@ -20,11 +20,11 @@ const useManageUserRatings = () => {
               <b>Welcome back! We found your previous ratings!</b>
             </p>
             <p>
-              Don't like your choices? If you submit changes, we'll update your
-              previous submission.
+              Don't like your choices? If you submit changes, we'll update the
+              ratings.
             </p>
           </div>,
-          { duration: 8000 }
+          { duration: 8000 * 1000 }
         );
       }
     });
