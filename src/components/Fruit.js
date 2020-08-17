@@ -110,6 +110,7 @@ const Fruit = ({
         onStart={onStart}
         onDrag={onDrag}
         onStop={onStop}
+        cancel=".fruit__label"
         disabled={showAggregate ? true : false} // can't drag aggregate fruit
       >
         <div
