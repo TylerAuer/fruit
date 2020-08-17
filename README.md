@@ -32,6 +32,7 @@ The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maint
 - Chart that tracks the total submissions over time
 - Chart that tracks how a fruit's average position has changed over time
 - Toggle to show your placement over each chart
+- Percentiles for your ratings (ex: You like the taste of (fruit_name) more than x% of raters)
 
 ### Other
 
