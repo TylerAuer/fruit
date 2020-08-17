@@ -5,9 +5,11 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import Button from './Button';
 import './Bottom.scss';
+import SubmitModal from './SubmitModal';
 
 const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
   const [showXKCDModal, setShowXKCDModal] = useState(false);
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
   const onClickOfSubmitRatings = () => {
     return showAggregate ? null : submitRatings();
   };
@@ -18,7 +20,10 @@ const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
         <Button
           disabled={showAggregate}
           text="Submit Ratings"
-          onClick={onClickOfSubmitRatings}
+          onClick={() => {
+            onClickOfSubmitRatings();
+            setShowSubmitModal(true);
+          }}
         />
         <Button
           text={showAggregate ? 'Show Your Ratings' : 'Show Aggregate Ratings'}
@@ -67,6 +72,10 @@ const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
           Data
         </Link>
       </div>
+      <SubmitModal
+        show={showSubmitModal}
+        onClose={() => setShowSubmitModal(false)}
+      />
     </div>
   );
 };
