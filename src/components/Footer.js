@@ -57,7 +57,7 @@ const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
               you should check out!
             </p>
             <p>
-              You can read more about the influences for this site on the{' '}
+              You can read more about this site's influences on the{' '}
               <Link to="/about">About Page</Link>.
             </p>
           </div>
