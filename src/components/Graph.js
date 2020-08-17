@@ -42,7 +42,6 @@ const Graph = ({ ratings, setRatings, submitRatings }) => {
 
   return (
     <main className="app">
-      <Directions ratings={ratings} />
       <div
         className="matrix"
         style={{
@@ -50,6 +49,7 @@ const Graph = ({ ratings, setRatings, submitRatings }) => {
         }}
       >
         <div ref={graphRef} className="matrix__graph">
+          <Directions ratings={ratings} />
           {fruit}
         </div>
       </div>
