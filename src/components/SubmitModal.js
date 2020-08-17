@@ -2,29 +2,36 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import Button from './Button';
+import './SubmitModal.scss';
 
-const SubmitModal = ({ show, onClose }) => {
+const SubmitModal = ({ show, setShow }) => {
   return (
-    <Modal open={show} onClose={onClose} center>
-      <h2 className="modal__title">What now?</h2>
+    <Modal
+      open={show}
+      onClose={() => setShow(false)}
+      blockScroll={false}
+      center
+    >
+      <h2 className="modal__title">Thanks for sharing!</h2>
       <div className="modal__body">
         <p>
-          Thanks for submitting ratings! If you change your mind, you can always
-          submit changes and we'll update your ratings.
+          If you change your mind, you can always submit changes and we'll
+          update your ratings.
         </p>
+        <h2 className="modal__title">Don't stop now!</h2>
         <p>
-          <b>
-            You definitely don't want to miss the{' '}
-            <Link to="/data">Data Page</Link>
-          </b>{' '}
-          which is full of charts and graphs to help analyze every submission
-          we've ever received.
+          There's so much more to see. You can see TONS of charts and graphs
+          about the data we've received. Or, you can learn more about the site.
         </p>
-        <p>
-          You can also check out the <Link to="/about">About Page</Link> if you
-          want to learn more about the site or XKCD, the webcomic that inspired
-          this.
-        </p>
+        <div className="submit-modal-btn-container">
+          <Link to="./data">
+            <Button onClick={null} text="See all the data" />
+          </Link>
+          <Link to="/about">
+            <Button text="Learn about the site" />
+          </Link>
+        </div>
       </div>
     </Modal>
   );

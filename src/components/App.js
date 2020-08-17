@@ -7,12 +7,7 @@ import Data from './Data';
 
 const App = () => {
   // Held in app state so not lost when navigating
-  const {
-    ratings,
-    setRatings,
-    submitRatings,
-    SubmitModal,
-  } = useManageUserRatings();
+  const { ratings, setRatings, submitRatings } = useManageUserRatings();
 
   return (
     <Router>

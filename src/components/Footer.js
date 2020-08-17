@@ -72,10 +72,7 @@ const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
           Data
         </Link>
       </div>
-      <SubmitModal
-        show={showSubmitModal}
-        onClose={() => setShowSubmitModal(false)}
-      />
+      <SubmitModal show={showSubmitModal} setShow={setShowSubmitModal} />
     </div>
   );
 };
