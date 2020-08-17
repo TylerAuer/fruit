@@ -25,7 +25,9 @@
 
   &__link-container {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    max-width: 40rem;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 0;
   }
@@ -33,12 +35,13 @@
   &__link,
   &__link:visited {
     letter-spacing: 2px;
-    width: 15rem;
     text-align: center;
     text-decoration: none;
     color: black;
     font-size: 1.8rem;
     text-transform: uppercase;
+    border: none;
+    background-color: transparent;
 
     @media (max-width: 475px) {
       font-size: 1.6rem;
@@ -48,6 +51,7 @@
   &__link:hover,
   &__link:focus {
     outline: none;
+    cursor: pointer;
     color: rgb(255, 0, 183);
   }
 }
