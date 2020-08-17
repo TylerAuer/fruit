@@ -34,8 +34,9 @@ const Fruit = ({
       const count = listOfKeysOffGraph.length;
       const index = listOfKeysOffGraph.indexOf(name);
       const listOffset =
-        scale.width / 2 -
-        (count * scale.imgSize + (count - 1) * marginForOffGraphFruits) / 2;
+        (scale.width -
+          (count * scale.imgSize + (count - 1) * marginForOffGraphFruits)) /
+        2;
       return {
         x: index * scale.imgSize + index * marginForOffGraphFruits + listOffset,
         y: -20 - scale.imgSize,
