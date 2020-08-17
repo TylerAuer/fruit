@@ -203,7 +203,7 @@ const Data = () => {
           The graphs below are two-dimensional histograms. They help us see how
           the ratings for each fruit are spread out.
         </p>
-        <div class="histograms">{fruit2DHistograms}</div>
+        <div className="histograms">{fruit2DHistograms}</div>
       </main>
     </div>
   );
