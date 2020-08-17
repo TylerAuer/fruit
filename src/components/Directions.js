@@ -3,7 +3,7 @@ import { useSpring, animated } from 'react-spring';
 import './Directions.scss';
 //import Delayer from './Delayer';
 
-const Directions = ({ listOfKeysOffGraph }) => {
+const Directions = ({ listOfKeysOffGraph, showAggregate }) => {
   const [showDirs, setShowDirs] = useState(true);
 
   useEffect(() => {
@@ -11,6 +11,12 @@ const Directions = ({ listOfKeysOffGraph }) => {
       setShowDirs(false);
     }
   }, [listOfKeysOffGraph]);
+
+  useEffect(() => {
+    if (showAggregate) {
+      setShowDirs(false);
+    }
+  }, [showAggregate]);
 
   const anim = useSpring({
     opacity: 1,

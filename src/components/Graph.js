@@ -49,7 +49,10 @@ const Graph = ({ ratings, setRatings, submitRatings }) => {
         }}
       >
         <div ref={graphRef} className="matrix__graph">
-          <Directions listOfKeysOffGraph={listOfKeysOffGraph} />
+          <Directions
+            showAggregate={showAggregate}
+            listOfKeysOffGraph={listOfKeysOffGraph}
+          />
           {fruit}
         </div>
       </div>
