@@ -86,23 +86,24 @@ const Data = () => {
       <main>
         <h2>Let's look at the data!</h2>
         <p>
-          Our puny human brains are ill-equiped for analyzing data. We can only
-          keep about{' '}
+          Our puny human brains are ill-equipped for analyzing data. We can only
+          keep a measly{' '}
           <a href="https://en.wikipedia.org/wiki/Working_memory">
             four things in our heads
           </a>{' '}
-          at any given time. But, our brains also{' '}
+          at any given time. And, to make matters worse, our brains also{' '}
           <a href="https://en.wikipedia.org/wiki/Apophenia">
             often see patterns where they do not exist
           </a>
-          . We need help to understand trends without overfitting our ideas to
-          imagined patterns. Luckily, heroes (also known as statisticians and
-          data visualization experts) have developed many tools and strategies
-          for helping our noggins overcome their evolved habits.
+          . So we need lots of help to understand trends without overfitting our
+          ideas to imagined patterns. Luckily, heroes -- also known as
+          statisticians and data visualization experts -- have developed many
+          tools and strategies for helping our noggins overcome their evolved
+          habits.
         </p>
         <p>
           This page contains a number of visualizations that update as people
-          submit or change their ratings in the fruit matrix. Visualizations,
+          submit or change their ratings in the Fruit Matrix. Visualizations,
           when well-designed, help us notice real and meaningful patterns in
           data sets.
         </p>
@@ -132,16 +133,16 @@ const Data = () => {
           something appears in your dataset.
         </p>
         <p>
-          Since I don't require you to rate every fruit, some fruits are rated
-          more than others. You can see the relative frequencies below.
+          Since we don't require you to rate every fruit, some fruits are rated
+          more frequently than others. You can see the relative counts below.
         </p>
         <div className="chart">
           <div className="chart__header">
             <h3 className="chart__title">Ratings by Fruit</h3>
             <div className="chart__subtitle">
-              {countOfUsers} people have submited a total of {countOfAllRatings}{' '}
-              ratings. This bar chart shows how those ratings are spread out
-              among the 16 different fruits.
+              {countOfUsers} people have submitted a total of{' '}
+              {countOfAllRatings} ratings. This bar chart shows how those
+              ratings are spread out among the 16 different fruits.
             </div>
           </div>
           <div id="counts-d3" className="chart__chart"></div>
@@ -150,22 +151,21 @@ const Data = () => {
         <p>
           As a middle school math teacher, I often had to help students
           understand scatterplots and the Cartesian plane. They usually already
-          knew how to use ordered pairs of coordinates find a location on the
-          graph but they didn't really understand what the point (Ha! I do not
-          apologize!) was.
+          knew how to use ordered pairs of coordinates to find a location on the
+          graph but they didn't really get the point (Ha! I do not apologize!).
         </p>
         <p>
           The trickiest concept is that any point represents two distinct pieces
           of information. In the case of the Fruit Matrix, those two dimensions
-          are tastiness and the easiness. But, the power of scatterplots like
+          are tastiness and ease of eating. But, the power of scatterplots like
           the Fruit Matrix is that they let you see each dimension in isolation
           as well as how those dimensions are correlated.
         </p>
         <p>
-          Moving between these perspecitives -- isolated versus interrelated
-          dimensions -- is a tough abstraction that takes a lot of experience to
-          feel natural. To help, here are two charts showing each dimension in
-          isolation.
+          Moving between these perspectives -- isolated versus interrelated
+          dimensions -- is a tough abstraction that takes a lot of experience
+          before it feels natural. To help, here are two charts showing each
+          dimension in isolation.
         </p>
         <div className="chart">
           <div className="chart__header">
@@ -194,7 +194,7 @@ const Data = () => {
         <h2>Variance & Spread</h2>
         <p>
           There's still more we can discover! In the two charts above, each
-          fruit's icon is located at the average rating. But, even if two fruits
+          fruit's icon is located at its average rating. But, even if two fruits
           have the same average, their data can be spread out in different ways.
         </p>
         <p>
@@ -205,24 +205,24 @@ const Data = () => {
         <p>
           Statisticians say that an average (or mean) is a measure of the center
           of a dataset. But, data sets also have other properties. One important
-          one is how spread out the data is. This is also called variance and is
-          often described using a fancy term called standard deviation. Try
-          saying standard deviation out loud ... admit it, you feel smart!
+          one is how spread out the data is. This is also called <b>variance</b>{' '}
+          and is often measured using a fancy metric called standard deviation.
+          Try saying standard deviation out loud ... admit it, you feel smart!
         </p>
         <p>
           Visualizing the spread or variance in data can be tricky. We often use
           histograms (which look like bar charts but where the data is grouped
-          into ranges of values).
+          into ranges of values) to see how the data is spread out.
         </p>
         <p>
           Things get fun (harder) when you want to display histograms for
           two-dimensional data like our fruit ratings. It doesn't really work
-          with bars, so we'll use colors instead. And, frankly, it looks
-          sweeter.
+          with bars, so we'll use colors instead. And, frankly, it looks cooler.
         </p>
         <p>
           The graphs below are two-dimensional histograms. They help us see how
-          the ratings for each fruit are spread out.
+          the ratings for each fruit are spread out. Darker pink hexagons
+          represent the areas where lots of people placed the fruit.
         </p>
         <div className="histograms">{fruit2DHistograms}</div>
       </main>
