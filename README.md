@@ -1,7 +1,6 @@
 # Fruit Matrix
 
-Fruit Matrix is aggregator of people's feelings about fruit with [an obsession with data](https://fruit.tylerauer.com/data). It's inspired by [XKCD (WARNING: curse word)](https://xkcd.com/388/) and [The New York Times](https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html).
-
+Fruit Matrix is an aggregator of people's feelings about fruit with [an obsession with data](https://fruit.tylerauer.com/data). It's inspired by [XKCD (WARNING: curse word)](https://xkcd.com/388/) and [The New York Times](https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html).
 
 ## Technologies
 
