@@ -24,7 +24,6 @@ The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maint
 - Help overlay
 - Move fruit to bottom on mobile to avoid swipe-down refresh by accident
 - Store current positions in cookies so data isn't lost when user leaves or refreshes by accident
-- Guidance to point user towards data page after they submit
 - Improved fruit graphics, especially melons
 
 ### Data
@@ -33,7 +32,3 @@ The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maint
 - Chart that tracks how a fruit's average position has changed over time
 - Toggle to show your placement over each chart
 - Percentiles for your ratings (ex: You like the taste of (fruit_name) more than x% of raters)
-
-### Other
-
-- Link to actual comic without the title (maybe in a modal). Email Randall Munroe to
