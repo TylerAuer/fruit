@@ -1,7 +1,6 @@
 # Fruit Matrix
 
-Fruit Matrix is aggregator of people's feelings about fruit with [an obsession with data](https://fruit.tylerauer.com/data). It's inspired by [XKCD (WARNING: curse word)](https://xkcd.com/388/) and [The New York Times](https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html).
-
+Fruit Matrix is an aggregator of people's feelings about fruit with [an obsession with data](https://fruit.tylerauer.com/data). It's inspired by [XKCD (WARNING: curse word)](https://xkcd.com/388/) and [The New York Times](https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html).
 
 ## Technologies
 
@@ -24,7 +23,6 @@ The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maint
 - Help overlay
 - Move fruit to bottom on mobile to avoid swipe-down refresh by accident
 - Store current positions in cookies so data isn't lost when user leaves or refreshes by accident
-- Guidance to point user towards data page after they submit
 - Improved fruit graphics, especially melons
 
 ### Data
@@ -33,7 +31,3 @@ The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maint
 - Chart that tracks how a fruit's average position has changed over time
 - Toggle to show your placement over each chart
 - Percentiles for your ratings (ex: You like the taste of (fruit_name) more than x% of raters)
-
-### Other
-
-- Link to actual comic without the title (maybe in a modal). Email Randall Munroe to
