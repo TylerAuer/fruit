@@ -27,7 +27,7 @@ const Directions = ({ listOfKeysOffGraph, showAggregate }) => {
 
   const Dirs = (
     <animated.div style={anim} className="directions">
-      Drag each fruit onto the axes to rate how tasty and easy to eat it is.
+      Drag each fruit onto the graph to rate how tasty and easy to eat it is.
     </animated.div>
   );
 
