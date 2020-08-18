@@ -44,6 +44,7 @@ const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
         <Modal
           open={showXKCDModal}
           onClose={() => setShowXKCDModal(false)}
+          blockScroll
           center
         >
           <h2 className="modal__title">Inspired by XKCD</h2>
