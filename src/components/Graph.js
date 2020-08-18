@@ -45,7 +45,7 @@ const Graph = ({ ratings, setRatings }) => {
       <div
         className="matrix"
         style={{
-          padding: `${scale.imgSize + 30}px 10px 20px 10px`,
+          padding: `${scale.imgSize + 30}px 10px 10px 10px`,
         }}
       >
         <div ref={graphRef} className="matrix__graph">

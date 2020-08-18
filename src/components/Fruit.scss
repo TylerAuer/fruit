@@ -30,6 +30,10 @@
     transform: translateX(-50%);
     transition: opacity 0.2s;
     backface-visibility: hidden;
+
+    @media (max-width: 450px) {
+      display: none;
+    }
   }
 
   &__img:hover + &__label {
