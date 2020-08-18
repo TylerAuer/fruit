@@ -29,10 +29,10 @@
   &:hover:not(&--disabled) {
     background-color: black;
     color: white;
-    border-radius: 5px;
     background-position: left top;
-    box-shadow: 2px 2px 4px grey;
+    box-shadow: 3px 3px 6px grey;
     outline: none;
+    transform: translateY(-2px);
   }
 
   &:focus {
