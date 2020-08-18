@@ -21,6 +21,11 @@
     padding: 1rem 0;
   }
 
+  @media (max-width: 380px) {
+    font-size: 1.4rem;
+    width: 100%;
+  }
+
   &:hover:not(&--disabled) {
     background-color: black;
     color: white;
