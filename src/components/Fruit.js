@@ -18,6 +18,9 @@ const Fruit = ({
   const marginForOffGraphFruits = scale.imgSize * 0.25; // scales responsively
   const src = require(`../img/${name}.svg`);
 
+  if (name === 'bananas') {
+    console.log('bananas', scale);
+  }
   // Use rating to determine if the fruit is currently placed on the graph
   let isOnGraph = !ratings[name] ? false : true;
 

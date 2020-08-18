@@ -36,7 +36,7 @@ const useBounds = (myRef) => {
       }
     : null;
 
-  console.log(scale);
+  console.log('useBounds', scale);
   return scale;
 };
 
