@@ -1,0 +1,88 @@
+.react-responsive-modal-overlay {
+  // The overlay from the NPM package can be styled here
+}
+.react-responsive-modal-modal {
+  // The element from the NPM package can be styled here
+}
+
+.modal {
+  &__title {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 3rem 0;
+    line-height: 1.2;
+    font-size: 2.5rem;
+  }
+
+  &__subtitle {
+    margin: 2rem 0;
+    font-size: 2.2rem;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 2rem 0;
+  }
+
+  &__body {
+    @media (max-width: 475px) {
+      font-size: 1.4rem;
+    }
+
+    p:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+
+    a,
+    a:visited {
+      text-decoration: none;
+      color: rgb(255, 0, 183);
+
+      &:hover {
+        color: rgb(199, 1, 143);
+      }
+    }
+  }
+}
+
+.submit-modal-btn-container {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.headshake {
+  animation: 1.2s headshake 2s ease-in-out;
+  animation-iteration-count: 4;
+}
+
+// Source: Animate.css
+// https://github.com/animate-css/animate.css/blob/main/source/attention_seekers/headShake.css
+@keyframes headshake {
+  0% {
+    transform: translateX(0);
+  }
+
+  6% {
+    transform: translateX(-6px) rotateX(-9deg) rotateZ(1deg);
+  }
+
+  18% {
+    transform: translateX(5px) rotateX(7deg) rotateZ(-1deg);
+  }
+
+  31% {
+    transform: translateX(-3px) rotateX(-5deg) rotateZ(1deg);
+  }
+
+  43% {
+    transform: translateX(2px) rotateX(3deg) rotateZ(-1deg);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+}

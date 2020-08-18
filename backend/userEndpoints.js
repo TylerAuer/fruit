@@ -70,14 +70,14 @@ const storeOrUpdateUserRatings = async (req, res) => {
       chalk.cyan.bold('USER SUBMISSION >'),
       chalk.cyan('Updating set of ratings')
     );
-    res.send("We've updated your previous ratings in our dataset.");
+    res.send("We've updated your ratings in our dataset.");
   } else {
     Model.Rating.create(ratingsForDB);
     console.log(
       chalk.cyan.bold('USER SUBMISSION > ') +
         chalk.cyan('Recording new ratings')
     );
-    res.send('Your ratings have been added to our dataset.');
+    res.send("We've added your ratings to our dataset.");
   }
 
   function prepDataForDB(ratings) {

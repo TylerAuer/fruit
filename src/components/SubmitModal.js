@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import Button from './Button';
-import './SubmitModal.scss';
+import './Modals.scss';
 
-const SubmitModal = ({ show, setShow }) => {
+const SubmitModal = ({ show, setShow, title }) => {
   return (
     <Modal
       open={show}
@@ -13,20 +13,26 @@ const SubmitModal = ({ show, setShow }) => {
       blockScroll={false}
       center
     >
-      <h2 className="modal__title">Thanks for sharing!</h2>
+      <h2 className="modal__title">{title}</h2>
       <div className="modal__body">
         <p>
-          If you change your mind, you can always submit changes and we'll
-          update your ratings.
+          Change your mind? <b>You can always submit changes</b>, and we'll
+          update your ratings. We'll even remember your ratings if you return to
+          this site later.
         </p>
-        <h2 className="modal__title">Don't stop now!</h2>
+        {/* <h3 className="modal__subtitle">Don't stop now!</h3> */}
         <p>
-          There's so much more to see. You can see TONS of charts and graphs
-          about the data we've received. Or, you can learn more about the site.
+          There's so much more to see. You can see{' '}
+          <b>TONS of charts and graphs</b> analyzing the data we've received.
+          Or, you can learn more about the site.
         </p>
         <div className="submit-modal-btn-container">
           <Link to="./data">
-            <Button onClick={null} text="See all the data" />
+            <Button
+              className="headshake"
+              onClick={null}
+              text="See all the data"
+            />
           </Link>
           <Link to="/about">
             <Button text="Learn about the site" />

@@ -1,16 +1,78 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import 'react-responsive-modal/styles.css';
+import toaster from 'toasted-notes';
 import Button from './Button';
-import './Bottom.scss';
 import SubmitModal from './SubmitModal';
 import XKCDModal from './XKCDModal';
+import 'react-responsive-modal/styles.css';
+import 'toasted-notes/src/styles.css';
+import '../components/Toasts.scss';
+import './Bottom.scss';
 
-const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
+const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {
   const [showXKCDModal, setShowXKCDModal] = useState(false);
   const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const [submitModalTitle, setSubmitModalTitle] = useState('Thanks!');
+
+  const submitRatings = () => {
+    const roundToTenths = (float) => {
+      return Math.round(float * 10) / 10;
+    };
+
+    // round data to one decimal place
+    const roundedRatings = { ...ratings };
+    Object.keys(roundedRatings).forEach((fruit) => {
+      // Check if not null
+      if (roundedRatings[fruit]) {
+        roundedRatings[fruit].x = roundToTenths(roundedRatings[fruit].x);
+        roundedRatings[fruit].y = roundToTenths(roundedRatings[fruit].y);
+      }
+    });
+
+    fetch('/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(roundedRatings),
+    })
+      .then((res) => res.text())
+      .then((message) => {
+        setSubmitModalTitle(message);
+        setShowSubmitModal(true);
+      })
+      .catch((error) => {
+        toaster.notify(
+          <div className="toast__msg">
+            <p>
+              <b>Ugh oh!</b>
+            </p>
+            <p>So sorry! There was an error submitting your ratings.</p>
+          </div>
+        );
+        console.log(error);
+      });
+  };
+
   const onClickOfSubmitRatings = () => {
-    return showAggregate ? null : submitRatings();
+    if (showAggregate) {
+      return null;
+    } else if (!areAnyRated) {
+      toaster.notify(
+        <div className="toast__msg">
+          <p>
+            <b>Whoops!</b>
+          </p>
+          <p>
+            You must rate at least one fruit before you submit your ratings.
+          </p>
+        </div>,
+        { duration: 3000 }
+      );
+      return null;
+    } else {
+      submitRatings();
+    }
   };
 
   return (
@@ -21,7 +83,6 @@ const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
           text="Submit Ratings"
           onClick={() => {
             onClickOfSubmitRatings();
-            setShowSubmitModal(true);
           }}
         />
         <Button
@@ -44,7 +105,11 @@ const Footer = ({ submitRatings, showAggregate, setShowAggregate }) => {
           Data
         </Link>
       </div>
-      <SubmitModal show={showSubmitModal} setShow={setShowSubmitModal} />
+      <SubmitModal
+        title={submitModalTitle}
+        show={showSubmitModal}
+        setShow={setShowSubmitModal}
+      />
       <XKCDModal show={showXKCDModal} setShow={setShowXKCDModal} />
     </div>
   );

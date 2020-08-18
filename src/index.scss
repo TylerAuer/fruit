@@ -38,38 +38,3 @@ body {
     width: 100%;
   }
 }
-
-.modal {
-  &__title {
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
-  }
-
-  &__img {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 1rem 0;
-  }
-
-  &__body {
-    @media (max-width: 475px) {
-      font-size: 1.4rem;
-    }
-
-    p:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-
-    a,
-    a:visited {
-      text-decoration: none;
-      color: rgb(255, 0, 183);
-
-      &:hover {
-        color: rgb(199, 1, 143);
-      }
-    }
-  }
-}

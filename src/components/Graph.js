@@ -6,7 +6,7 @@ import Fruit from './Fruit';
 import Footer from './Footer';
 import './Graph.scss';
 
-const Graph = ({ ratings, setRatings, submitRatings }) => {
+const Graph = ({ ratings, setRatings }) => {
   const { aggregate } = useManageAggregate();
   const graphRef = useRef();
   const scale = useBounds(graphRef);
@@ -57,9 +57,10 @@ const Graph = ({ ratings, setRatings, submitRatings }) => {
         </div>
       </div>
       <Footer
-        submitRatings={submitRatings}
-        setShowAggregate={setShowAggregate}
+        ratings={ratings}
+        areAnyRated={16 !== listOfKeysOffGraph.length}
         showAggregate={showAggregate}
+        setShowAggregate={setShowAggregate}
       />
     </main>
   );
