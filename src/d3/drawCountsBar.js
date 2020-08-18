@@ -1,17 +1,17 @@
 import * as d3 from 'd3';
 
 const drawCountsBar = () => {
-  const imgSize = 50;
+  const imgSize = 40;
   // set the dimensions and margins of the graph
   var margin = { top: 10, right: 20, bottom: 30, left: 1.25 * imgSize },
     width = 1000 - margin.left - margin.right,
-    height = 1000 - margin.top - margin.bottom;
+    height = 800 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
     .select('#counts-d3')
     .append('svg')
-    .attr('viewBox', `0 0 1000 1000`)
+    .attr('viewBox', `0 0 1000 800`)
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 

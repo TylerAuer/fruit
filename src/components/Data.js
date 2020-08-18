@@ -46,9 +46,8 @@ const Data = () => {
             {cleanName(fruit)}
           </h3>
           <div className="chart__subtitle">
-            This two-dimensional histogram represents how often {fruit} are
-            placed in different locations on the Fruit Matrix. The darker the
-            hexagon, the more often it is placed in the given location.
+            A two-dimensional histogram showing how often {fruit} are placed in
+            different locations on the Fruit Matrix.
           </div>
         </div>
         <div
