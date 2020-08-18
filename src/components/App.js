@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import useManageUserRatings from '../hooks/useManageUserRatings';
+import ScrollToTop from '../functions/ScrollToTop';
 import About from './About';
 import Graph from './Graph';
 import Data from './Data';
@@ -13,6 +14,7 @@ const App = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <Switch>
         <Route exact path="/">
           <Graph ratings={ratings} setRatings={setRatings} />
