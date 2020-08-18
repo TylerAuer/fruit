@@ -12,11 +12,11 @@ import './Charts.scss';
 const Data = () => {
   const [countOfAllRatings, setCountOfAllRatings] = useState(null);
   const [countOfUsers, setCountOfUsers] = useState(null);
+  const [countsByFruit, setCountsByFruit] = useState(null);
 
   useEffect(() => {
     drawEasyBox();
     drawTastyBox();
-    drawCountsBar();
     // Get total count of ratings and count of users
     fetch('/data/counts-of-ratings-and-users')
       .then((res) => res.json())
@@ -24,6 +24,15 @@ const Data = () => {
         setCountOfAllRatings(count.count_of_all_ratings);
         setCountOfUsers(count.count_of_users);
       });
+    // Get counts by fruit
+    fetch('/data/counts-of-ratings-by-fruit')
+      .then((res) => res.json())
+      .then((countsByFruit) => {
+        setCountsByFruit(countsByFruit);
+        drawCountsBar(countsByFruit);
+      });
+
+    // Get data for historgrams
     fetch('/data/histograms')
       .then((res) => res.json())
       .then((data) => {
@@ -33,7 +42,7 @@ const Data = () => {
       });
   }, []);
 
-  const fruit2DHistograms = Object.keys(fruitList).map((fruit) => {
+  const fruit2DHistograms = Object.keys(fruitList).map((fruit, index) => {
     return (
       <div key={fruit} className="chart">
         <div className="chart__header">
@@ -46,8 +55,9 @@ const Data = () => {
             {cleanName(fruit)}
           </h3>
           <div className="chart__subtitle">
-            A two-dimensional histogram showing how often {fruit} are placed in
-            different locations on the Fruit Matrix.
+            Two-dimensional histogram showing all{' '}
+            {getCountFromCountsByFruit(fruit)} ratings of{' '}
+            {cleanName(fruit).toLowerCase()}.
           </div>
         </div>
         <div
@@ -57,6 +67,18 @@ const Data = () => {
       </div>
     );
   });
+
+  function getCountFromCountsByFruit(fruit) {
+    if (countsByFruit) {
+      for (let data of countsByFruit) {
+        if (data.name === fruit) {
+          return data.count;
+        }
+      }
+    } else {
+      return '';
+    }
+  }
 
   return (
     <div className="secondary">
