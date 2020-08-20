@@ -2,6 +2,10 @@
 
 Fruit Matrix is an aggregator of people's feelings about fruit with [an obsession for data](https://fruit.tylerauer.com/data). Users rate 16 fruits for tastiness and ease of eating. Their ratings are aggregated and displayed in a variety of ways using D3.
 
+[![gif of Fruit Matrix](https://github.com/TylerAuer/fruit/blob/master/snapshot-matrix.gif)](https://fruit.tylerauer.com)
+
+[![Snapshot of 2D histograms from Data page](https://github.com/TylerAuer/fruit/blob/master/snapshot-data.png)](https://fruit.tylerauer.com)
+
 ## Inspirations
 
 The original idea for the Fruit Matrix comes from [xkcd (WARNING: title includes curse word)](https://xkcd.com/388/). [Desmos](https://teacher.desmos.com/activitybuilder/custom/58cb067910f10b0a21d4db93) implements this on a smaller scale for teachers and the [The New York Times](https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html) had a similar application for Game of Thrones.
