@@ -3,7 +3,9 @@
 Fruit Matrix is an aggregator of people's feelings about fruit with [an obsession for data](https://fruit.tylerauer.com/data). Users rate 16 fruits for tastiness and ease of eating. Their ratings are aggregated and displayed in a variety of ways using D3.
 
 <p align='center'>
-    <img alt='gif of fruit matrix aggregate' src='https://github.com/TylerAuer/fruit/blob/master/snapshot-matrix.gif'/>
+    <a href="https://fruit.tylerauer.com">
+      <img alt='gif of fruit matrix aggregate' src='https://github.com/TylerAuer/fruit/blob/master/snapshot-matrix.gif'/>
+    </a>
 </p>
 
 [![Snapshot of 2D histograms from Data page](https://github.com/TylerAuer/fruit/blob/master/snapshot-data.png)](https://fruit.tylerauer.com)
