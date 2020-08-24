@@ -44,6 +44,7 @@ The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maint
 - Chart that tracks how a fruit's average position has changed over time
 - Toggle to show your ratings over each chart
 - Percentiles for your ratings (ex: You like the taste of (fruit_name) more than x% of raters). If I feel fancy, this could be marked on a histogram of all ratings. May be able use raw data from 2D histograms to simplify the query.
+- Correlations between fruits. In other words, how well does your rating of blueberries predict your rating of strawberries?
 
 ## Interesting Development Tidbits
 
