@@ -14,7 +14,6 @@ const checkForPreviousRatings = async (req, res) => {
     },
   });
 
-  console.log(priorRatings);
   // No matching session found in ratings table of DB
   if (!priorRatings) {
     res.status(404).send(null);
