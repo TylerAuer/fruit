@@ -2,6 +2,14 @@
 
 Fruit Matrix is an aggregator of people's feelings about fruit with [an obsession for data](https://fruit.tylerauer.com/data). Users rate 16 fruits for tastiness and ease of eating. Their ratings are aggregated and displayed in a variety of ways using D3.
 
+<p align='center'>
+    <a href="https://fruit.tylerauer.com">
+      <img alt='gif of fruit matrix aggregate' src='https://github.com/TylerAuer/fruit/blob/master/snapshot-matrix.gif'/>
+    </a>
+</p>
+
+[![Snapshot of 2D histograms from Data page](https://github.com/TylerAuer/fruit/blob/master/snapshot-data.png)](https://fruit.tylerauer.com)
+
 ## Inspirations
 
 The original idea for the Fruit Matrix comes from [xkcd (WARNING: title includes curse word)](https://xkcd.com/388/). [Desmos](https://teacher.desmos.com/activitybuilder/custom/58cb067910f10b0a21d4db93) implements this on a smaller scale for teachers and the [The New York Times](https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html) had a similar application for Game of Thrones.
@@ -36,6 +44,7 @@ The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maint
 - Chart that tracks how a fruit's average position has changed over time
 - Toggle to show your ratings over each chart
 - Percentiles for your ratings (ex: You like the taste of (fruit_name) more than x% of raters). If I feel fancy, this could be marked on a histogram of all ratings. May be able use raw data from 2D histograms to simplify the query.
+- Correlations between fruits. In other words, how well does your rating of blueberries predict your rating of strawberries? Can use a correlation heatmap to display. Would need for taste and ease. And, maybe one for ease predicting taste
 
 ## Interesting Development Tidbits
 
@@ -46,7 +55,7 @@ Sessions are used to prevent users from resubmitting over-and-over to bias resul
 ## To Run Locally
 
 1. Clone repo
-2. Run `npm install`
+2. Run `npm install` to install dependencies
 3. Start backend with `nodemon app.js`
 4. Start frontend with `npm start`
 5. Open app in browser (use local host port shown when you start the frontend)
