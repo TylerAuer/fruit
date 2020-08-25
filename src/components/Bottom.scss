@@ -13,6 +13,13 @@
     @media (max-width: 475px) {
       margin: 1rem auto;
     }
+
+    button {
+      @media (max-width: 475px) {
+        margin-top: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+    }
   }
 
   &__title {
@@ -23,7 +30,7 @@
     text-align: center;
 
     @media (max-width: 475px) {
-      font-size: 3rem;
+      font-size: 3.3rem;
     }
   }
 
@@ -34,6 +41,10 @@
     justify-content: space-around;
     align-items: center;
     padding: 10px 0;
+
+    @media (max-width: 475px) {
+      justify-content: center;
+    }
   }
 
   &__link,
@@ -48,7 +59,12 @@
     background-color: transparent;
 
     @media (max-width: 475px) {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
+      margin: 0 1.5rem;
+    }
+
+    @media (max-width: 300px) {
+      margin: 0 0.5rem;
     }
   }
 
