@@ -55,7 +55,7 @@ Sessions are used to prevent users from resubmitting over-and-over to bias resul
 ## To Run Locally
 
 1. Clone repo
-2. Run `npm install`
+2. Run `npm install` to install dependencies
 3. Start backend with `nodemon app.js`
 4. Start frontend with `npm start`
 5. Open app in browser (use local host port shown when you start the frontend)

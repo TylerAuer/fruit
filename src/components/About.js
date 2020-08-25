@@ -19,7 +19,7 @@ const About = () => {
         <h2>Inspiration</h2>
         <p>
           The original idea for the Fruit Matrix came from Randall Munroe's
-          webcomic <a href="https://xkcd.com/">XKCD</a>. If you've never
+          webcomic <a href="https://xkcd.com/">xkcd</a>. If you've never
           encountered Munroe's work before, I am so excited to share it with
           you. His <a href="https://xkcd.com/">webcomic</a> comes out
           thrice-weekly and often includes ideas from science, math, and

@@ -12,7 +12,7 @@ const XKCDModal = ({ show, setShow }) => {
       blockScroll={false}
       center
     >
-      <h2 className="modal__title">Inspired by XKCD</h2>
+      <h2 className="modal__title">Inspired by xkcd</h2>
       <img
         src={xkcdImg}
         className="modal__img"
@@ -21,7 +21,7 @@ const XKCDModal = ({ show, setShow }) => {
       <div className="modal__body">
         <p>
           This site was inspired by this post from Randall Munroe's webcomic{' '}
-          <a href="http://xkcd.com/">XKCD</a>. He's written{' '}
+          <a href="http://xkcd.com/">xkcd</a>. He's written{' '}
           <a href="https://www.amazon.com/Randall-Munroe/e/B004H66444">
             some great books
           </a>{' '}
