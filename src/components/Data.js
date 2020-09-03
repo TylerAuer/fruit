@@ -4,7 +4,7 @@ import drawCountsBar from '../d3/drawCountsBar';
 import drawEasyBox from '../d3/drawEasyBox';
 import drawTastyBox from '../d3/drawTastyBox';
 import drawFruitHist from '../d3/drawFruitHist';
-import drawEasyCor from '../d3/drawEasyCor';
+import drawCorrelation from '../d3/drawCorrelation';
 import fruitList from '../components/Fruit.json';
 import cleanName from '../functions/cleanFruitName';
 import './secondary-page.scss';
@@ -16,10 +16,6 @@ const Data = () => {
   const [countsByFruit, setCountsByFruit] = useState(null);
 
   useEffect(() => {
-    drawEasyBox();
-    drawTastyBox();
-    drawEasyCor();
-
     // Get total count of ratings and count of users
     fetch('/data/counts-of-ratings-and-users')
       .then((res) => res.json())
@@ -36,6 +32,9 @@ const Data = () => {
         drawCountsBar(countsByFruit);
       });
 
+    drawEasyBox();
+    drawTastyBox();
+
     // Get data for historgrams
     fetch('/data/histograms')
       .then((res) => res.json())
@@ -44,9 +43,17 @@ const Data = () => {
           drawFruitHist(fruit, data);
         });
       });
+
+    // Get data for correlation matrixes
+    fetch('/data/correlation')
+      .then((res) => res.json())
+      .then((data) => {
+        drawCorrelation(data, 'y');
+        drawCorrelation(data, 'x');
+      });
   }, []);
 
-  const fruit2DHistograms = Object.keys(fruitList).map((fruit, index) => {
+  const fruit2DHistograms = Object.keys(fruitList).map((fruit) => {
     return (
       <div key={fruit} className="chart">
         <div className="chart__header">
@@ -232,21 +239,21 @@ const Data = () => {
         <h2>Correlation</h2>
         <p>
           Now that we’ve looked at each fruit on its own, let’s start to think
-          about how they relate to one another. As you were rating the fruit,
-          you may have realized that you felt similarly about certain types of
+          about how they relate to one another. As you rating each fruit, you
+          may have realized that you felt similarly about certain types of
           fruit. Maybe you thought that green and red apples are each just as
           easy to eat. Maybe lots of other people feel the same way!
         </p>
         <p>
           Scientists look for relationships between different things,
-          specifically how the different values are related to one another. When
-          measured, this relationship is called correlation. Correlation
-          describes how well the measure of one thing predicts the measure of
-          another.
+          specifically how different values are related to one another. One way
+          of describing the strength of a relationship is correlation.
+          Correlation is a value that describes how well the measure of one
+          thing predicts the measure of another.
         </p>
         <p>
-          Correlation has a simple scale; it ranges from -1 to +1. Where the
-          closer the value is to -1 or 1 the stronger the correlation. A
+          Correlation has a simple scale; it always ranges from -1 to +1. Where
+          the closer the value is to -1 or 1 the stronger the relationship. A
           correlation close to 0 means there is not much of a relationship.
         </p>
         <p>
@@ -270,41 +277,45 @@ const Data = () => {
             just because two things are correlated doesn’t mean that one causes
             the other
           </a>
-          . Often there’s something else behind the relationship.
+          . There is often something else behind the relationship.
         </p>
         <p>
           For example, ice cream sales and drowning are positively correlated --
           they both increase together. But, that doesn’t mean eating ice cream
           causes drowning or that drowning makes you crave ice cream. Instead,
           they increase together because people eat ice cream and swim much more
-          in the summer. The time of year is a lurking variable causing the
-          relationship between the two things.
+          often in the summer. The time of year is a lurking variable causing
+          the relationship between the two things to appear.
         </p>
         <p>
           Below are matrices of correlations between each fruit's tastiness and
           ease of eating. The pinker squares have stronger correlations. The
           diagonal line of dark pink squares appears because everything has a
-          perfect correlation with itself.
+          perfect relationship with itself.
         </p>
 
         <div className="chart">
           <div className="chart__header">
             <h3 className="chart__title">Tastiness Correlation Matrix</h3>
             <div className="chart__subtitle">
-              Correlation coefficient matrix for the tastiness of fruits.
+              Correlation matrix for tastiness with correlation coefficient
+              shown in each square. Darker pink squares represent stronger
+              relationships.
             </div>
           </div>
-          <div id="tasty-cor-d3" className="chart__chart"></div>
+          <div id="y-cor-d3" className="chart__chart"></div>
         </div>
 
         <div className="chart">
           <div className="chart__header">
             <h3 className="chart__title">Easiness Correlation Matrix</h3>
             <div className="chart__subtitle">
-              Correlation coefficient matrix for the ease of eating fruits.
+              Correlation matrix for easiness of eating with correlation
+              coefficient shown in each square. Darker pink squares represent
+              stronger relationships.
             </div>
           </div>
-          <div id="easy-cor-d3" className="chart__chart"></div>
+          <div id="x-cor-d3" className="chart__chart"></div>
         </div>
       </main>
     </div>
