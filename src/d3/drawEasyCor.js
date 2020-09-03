@@ -1,10 +1,8 @@
 import * as d3 from 'd3';
 
 const drawEasyCor = () => {
-  const imgSize = 35;
-
   // set the dimensions and margins of the graph
-  const margin = imgSize;
+  const margin = 30;
   const width = 760 - 3 * margin;
   const height = 760 - 3 * margin;
 
@@ -48,6 +46,30 @@ const drawEasyCor = () => {
         .attr('y', yScale(fruitRow))
         .attr('width', xScale.bandwidth())
         .attr('height', yScale.bandwidth());
+
+      // Add fruit icons to x-axis
+      svg
+        .selectAll('svgs')
+        .data(rowData)
+        .enter()
+        .append('svg:image')
+        .attr('xlink:href', (d) => require(`../img/${d.key}.min.svg`))
+        .attr('width', xScale.bandwidth() * 0.8) // icons are 80% of square size
+        .attr('height', xScale.bandwidth() * 0.8)
+        .attr('y', -1 * xScale.bandwidth()) // Move one square's height above grid
+        .attr('x', (d) => xScale(d.key) + xScale.bandwidth() * 0.1); // center icon
+
+      // Add fruit icons to Y-axis
+      svg
+        .selectAll('svgs')
+        .data(rowData)
+        .enter()
+        .append('svg:image')
+        .attr('xlink:href', (d) => require(`../img/${d.key}.min.svg`))
+        .attr('width', yScale.bandwidth() * 0.8) // icons are 80% of square size
+        .attr('height', yScale.bandwidth() * 0.8)
+        .attr('x', -1 * yScale.bandwidth()) // Move one square's height above grid
+        .attr('y', (d) => yScale(d.key) + yScale.bandwidth() * 0.1); // center icon
     }
   });
 };

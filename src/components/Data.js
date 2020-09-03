@@ -265,9 +265,12 @@ const Data = () => {
           predict the other.
         </p>
         <p>
-          But, just because two things are correlated doesn’t mean that one
-          causes the other. Often there’s something else behind the
-          relationship.
+          But,{' '}
+          <a href="https://xkcd.com/552/">
+            just because two things are correlated doesn’t mean that one causes
+            the other
+          </a>
+          . Often there’s something else behind the relationship.
         </p>
         <p>
           For example, ice cream sales and drowning are positively correlated --
