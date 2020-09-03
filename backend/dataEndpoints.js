@@ -35,7 +35,7 @@ const sendAverageData = async (req, res) => {
     (cache.getTtl('averages') - Date.now()) / 1000
   );
   console.log(
-    chalk.blue.bold('SEND DATA > '),
+    chalk.blue.bold('SEND DATA >'),
     chalk.blue(
       `Sent averages of fruit ratings to user.`,
       chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
@@ -76,7 +76,7 @@ const sendAverageData = async (req, res) => {
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
 
     console.log(
-      chalk.red.bold('CACHE > '),
+      chalk.red.bold('CACHE >'),
       chalk.red(`Averages data (${timeElapsed}s)`)
     );
     return averagesData;
@@ -147,7 +147,7 @@ const sendEasyBoxData = async (req, res) => {
     const timeElapsedInSeconds = Number(end - start) / 1000000000;
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
     console.log(
-      chalk.red.bold('CACHE > '),
+      chalk.red.bold('CACHE >'),
       chalk.red(`Easy box chart data (${timeElapsed}s)`)
     );
 
@@ -219,7 +219,7 @@ const sendTastyBoxData = async (req, res) => {
     const timeElapsedInSeconds = Number(end - start) / 1000000000;
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
     console.log(
-      chalk.red.bold('CACHE > '),
+      chalk.red.bold('CACHE >'),
       chalk.red(`Tasty box chart data (${timeElapsed}s)`)
     );
 
@@ -244,7 +244,7 @@ const sendCountsOfRatings = async (req, res) => {
   );
 
   console.log(
-    chalk.blue.bold('SEND DATA > '),
+    chalk.blue.bold('SEND DATA >'),
     chalk.blue(
       `Counts of ratings.`,
       chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
@@ -289,7 +289,7 @@ const sendCountsOfRatings = async (req, res) => {
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
 
     console.log(
-      chalk.red.bold('CACHE > '),
+      chalk.red.bold('CACHE >'),
       chalk.red(`Counts by fruit data (${timeElapsed}s)`)
     );
     return countsData;
@@ -313,7 +313,7 @@ const sendCountOfAllRatingsAndUsers = async (req, res) => {
   );
 
   console.log(
-    chalk.blue.bold('SEND DATA > '),
+    chalk.blue.bold('SEND DATA >'),
     chalk.blue(
       `Count of all ratings.`,
       chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
@@ -353,7 +353,7 @@ const sendCountOfAllRatingsAndUsers = async (req, res) => {
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
 
     console.log(
-      chalk.red.bold('CACHE > '),
+      chalk.red.bold('CACHE >'),
       chalk.red(`Total rating count and count of users (${timeElapsed}s)`)
     );
 
@@ -378,7 +378,7 @@ const send2DHistogramData = async (req, res) => {
   );
 
   console.log(
-    chalk.blue.bold('SEND DATA > '),
+    chalk.blue.bold('SEND DATA >'),
     chalk.blue(
       `2D Histogram Data.`,
       chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
@@ -418,11 +418,82 @@ const send2DHistogramData = async (req, res) => {
     const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
 
     console.log(
-      chalk.red.bold('CACHE > '),
+      chalk.red.bold('CACHE >'),
       chalk.red(`2D Histogram Data (${timeElapsed}s)`)
     );
 
     return data;
+  }
+};
+
+//
+//
+// Correlation Data
+//
+//
+const sendCorrelationData = async (req, res) => {
+  if (cache.has('correlationData')) {
+    res.send(cache.get('correlationData'));
+  } else {
+    res.send(await getAndCacheCorrelationData());
+  }
+
+  const secondsUntilCacheExpires = Math.round(
+    (cache.getTtl('correlationData') - Date.now()) / 1000
+  );
+
+  console.log(
+    chalk.blue.bold('SEND DATA >'),
+    chalk.blue(
+      `Correlation Data.`,
+      chalk.red(`Cache TTL: ${secondsUntilCacheExpires}s.`)
+    )
+  );
+
+  async function getAndCacheCorrelationData() {
+    // Used to time process
+    const start = process.hrtime.bigint();
+
+    const data = {};
+    for (let fruit of listOfFruit) {
+      data[fruit] = {
+        x: {},
+        y: {},
+      };
+      for (let subFruit of listOfFruit) {
+        data[fruit].x[subFruit] = await getCorrelation('x', fruit, subFruit);
+        data[fruit].y[subFruit] = await getCorrelation('y', fruit, subFruit);
+      }
+    }
+
+    // Store results in the cache
+    cache.set('correlationData', data);
+
+    // End process timer
+    const end = process.hrtime.bigint();
+    const timeElapsedInSeconds = Number(end - start) / 1000000000;
+    const timeElapsed = Math.round(timeElapsedInSeconds * 1000) / 1000;
+
+    console.log(
+      chalk.red.bold('CACHE >'),
+      chalk.red(`Correlation Data (${timeElapsed}s)`)
+    );
+
+    return data;
+  }
+
+  async function getCorrelation(xOrY, fruit1, fruit2) {
+    const cor = await sequelize.query(
+      `
+        SELECT
+        corr(${fruit1}_${xOrY}, ${fruit2}_${xOrY})
+        FROM "Ratings";
+        `,
+      {
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
+    return Math.round(1000 * cor[0].corr) / 1000;
   }
 };
 
@@ -433,4 +504,5 @@ module.exports = {
   sendTastyBoxData,
   sendCountOfAllRatingsAndUsers,
   send2DHistogramData,
+  sendCorrelationData,
 };
