@@ -239,15 +239,15 @@ const Data = () => {
         <h2>Correlation</h2>
         <p>
           Now that we’ve looked at each fruit on its own, let’s start to think
-          about how they relate to one another. As you rating each fruit, you
-          may have realized that you felt similarly about certain types of
-          fruit. Maybe you thought that green and red apples are each just as
-          easy to eat. Maybe lots of other people feel the same way!
+          about how they relate to one another. As you rated each fruit, you may
+          have realized that you felt similarly about certain types of fruit.
+          Maybe you thought that green and red apples are each just as easy to
+          eat. Maybe lots of other people feel the same way!
         </p>
         <p>
           Scientists look for relationships between different things,
           specifically how different values are related to one another. One way
-          of describing the strength of a relationship is correlation.
+          of describing the strength of a relationship is with correlation.
           Correlation is a value that describes how well the measure of one
           thing predicts the measure of another.
         </p>
@@ -284,8 +284,8 @@ const Data = () => {
           they both increase together. But, that doesn’t mean eating ice cream
           causes drowning or that drowning makes you crave ice cream. Instead,
           they increase together because people eat ice cream and swim much more
-          often in the summer. The time of year is a lurking variable causing
-          the relationship between the two things to appear.
+          often in the summer. The time of year is a hidden variable causing the
+          relationship between the ice cream and drowning to appear.
         </p>
         <p>
           Below are matrices of correlations between each fruit's tastiness and
@@ -298,7 +298,7 @@ const Data = () => {
           <div className="chart__header">
             <h3 className="chart__title">Tastiness Correlation Matrix</h3>
             <div className="chart__subtitle">
-              Correlation matrix for tastiness with correlation coefficient
+              Correlation matrix for tastiness with the correlation coefficient
               shown in each square. Darker pink squares represent stronger
               relationships.
             </div>
@@ -310,7 +310,7 @@ const Data = () => {
           <div className="chart__header">
             <h3 className="chart__title">Easiness Correlation Matrix</h3>
             <div className="chart__subtitle">
-              Correlation matrix for easiness of eating with correlation
+              Correlation matrix for easiness of eating with the correlation
               coefficient shown in each square. Darker pink squares represent
               stronger relationships.
             </div>
