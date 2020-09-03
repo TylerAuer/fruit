@@ -69,7 +69,7 @@ const drawCountsBar = (data) => {
     .data(data)
     .enter()
     .append('svg:image')
-    .attr('xlink:href', (d) => require(`../img/${d.name}.svg`))
+    .attr('xlink:href', (d) => require(`../img/${d.name}.min.svg`))
     .attr('x', -1 * imgSize - 10)
     .attr('y', (d) => y(d.name))
     .attr('width', imgSize)
