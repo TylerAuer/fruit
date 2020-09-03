@@ -110,6 +110,7 @@ app.get(
   dataEndpoints.sendCountOfAllRatingsAndUsers
 );
 app.get('/data/histograms', dataEndpoints.send2DHistogramData);
+app.get('/data/correlation', dataEndpoints.sendCorrelationData);
 
 //
 //

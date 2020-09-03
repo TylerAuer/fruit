@@ -16,7 +16,7 @@ const Fruit = ({
   const nodeRef = useRef(null);
   const [isDraggingOverGraph, setIsDraggingOverGraph] = useState(null);
   const marginForOffGraphFruits = scale.imgSize * 0.25; // scales responsively
-  const src = require(`../img/${name}.svg`);
+  const src = require(`../img/${name}.min.svg`);
 
   // Use rating to determine if the fruit is currently placed on the graph
   let isOnGraph = !ratings[name] ? false : true;
