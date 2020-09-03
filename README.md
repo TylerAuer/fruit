@@ -28,24 +28,6 @@ The backend is built with [Node](https://nodejs.org/en/), [Express](https://expr
 
 The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maintenance efficient -- pushes to `master` automatically create and deploy new builds.
 
-## Potential Enhancements
-
-### Matrix
-
-- Help overlay
-- Move fruit to bottom on mobile to limit swipe-down refresh by accident
-- Store current positions in cookies so data isn't lost when user leaves or refreshes by accident
-- Improved fruit graphics, especially melons
-- Click button to isolate a dimension (tastiness or easiness)
-
-### Data
-
-- Chart that tracks the total submissions over time
-- Chart that tracks how a fruit's average position has changed over time
-- Toggle to show your ratings over each chart
-- Percentiles for your ratings (ex: You like the taste of (fruit_name) more than x% of raters). If I feel fancy, this could be marked on a histogram of all ratings. May be able use raw data from 2D histograms to simplify the query.
-- Correlations between fruits. In other words, how well does your rating of blueberries predict your rating of strawberries? Can use a correlation heatmap to display. Would need for taste and ease. And, maybe one for ease predicting taste
-
 ## Interesting Development Tidbits
 
 The queries for the data are fairly complex, so they are cached and updated every minute.
