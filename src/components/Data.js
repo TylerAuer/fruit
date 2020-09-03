@@ -53,7 +53,7 @@ const Data = () => {
           <h3 className="chart__title">
             <img
               className="chart__fruit-img-in-title"
-              src={require(`../img/${fruit}.svg`)}
+              src={require(`../img/${fruit}.min.svg`)}
               alt={cleanName(fruit)}
             />
             {cleanName(fruit)}

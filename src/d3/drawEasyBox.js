@@ -106,7 +106,7 @@ const drawEasyBox = () => {
       .data(data)
       .enter()
       .append('svg:image')
-      .attr('xlink:href', (d) => require(`../img/${d.name}.svg`))
+      .attr('xlink:href', (d) => require(`../img/${d.name}.min.svg`))
       .attr('x', (d) => x(d.avg) - imgSize / 2)
       .attr('y', (d) => y(d.name) - imgSize / 2)
       .attr('width', imgSize)
