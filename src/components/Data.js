@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
+import drawCountsBar from '../d3/drawCountsBar';
 import drawEasyBox from '../d3/drawEasyBox';
 import drawTastyBox from '../d3/drawTastyBox';
-import drawCountsBar from '../d3/drawCountsBar';
 import drawFruitHist from '../d3/drawFruitHist';
+import drawEasyCor from '../d3/drawEasyCor';
 import fruitList from '../components/Fruit.json';
 import cleanName from '../functions/cleanFruitName';
 import './secondary-page.scss';
@@ -17,6 +18,8 @@ const Data = () => {
   useEffect(() => {
     drawEasyBox();
     drawTastyBox();
+    drawEasyCor();
+
     // Get total count of ratings and count of users
     fetch('/data/counts-of-ratings-and-users')
       .then((res) => res.json())
@@ -24,6 +27,7 @@ const Data = () => {
         setCountOfAllRatings(count.count_of_all_ratings);
         setCountOfUsers(count.count_of_users);
       });
+
     // Get counts by fruit
     fetch('/data/counts-of-ratings-by-fruit')
       .then((res) => res.json())
@@ -167,6 +171,7 @@ const Data = () => {
           before it feels natural. To help, here are two charts showing each
           dimension in isolation.
         </p>
+
         <div className="chart">
           <div className="chart__header">
             <h3 className="chart__title">Tastiness Only</h3>
@@ -190,7 +195,6 @@ const Data = () => {
           </div>
           <div id="easy-d3" className="chart__chart"></div>
         </div>
-
         <h2>Variance & Spread</h2>
         <p>
           There's still more we can discover! In the two charts above, each
@@ -225,6 +229,80 @@ const Data = () => {
           represent the areas where lots of people placed the fruit.
         </p>
         <div className="histograms">{fruit2DHistograms}</div>
+        <h2>Correlation</h2>
+        <p>
+          Now that we’ve looked at each fruit on its own, let’s start to think
+          about how they relate to one another. As you were rating the fruit,
+          you may have realized that you felt similarly about certain types of
+          fruit. Maybe you thought that green and red apples are each just as
+          easy to eat. Maybe lots of other people feel the same way!
+        </p>
+        <p>
+          Scientists look for relationships between different things,
+          specifically how the different values are related to one another. When
+          measured, this relationship is called correlation. Correlation
+          describes how well the measure of one thing predicts the measure of
+          another.
+        </p>
+        <p>
+          Correlation has a simple scale; it ranges from -1 to +1. Where the
+          closer the value is to -1 or 1 the stronger the correlation. A
+          correlation close to 0 means there is not much of a relationship.
+        </p>
+        <p>
+          A positive correlation means that when one value goes up, the other
+          value goes up too. For example, age and height are positively
+          correlated. As your age increases, your height also increases (at
+          least while you are a kid).
+        </p>
+        <p>
+          When correlation is negative it means there is an inverse relationship
+          -- when one value goes up the other value goes down. The amount of
+          food you’ve eaten and your hunger level are negatively correlated.
+          When the amount of food you’ve eaten goes up, your hunger level goes
+          down. There’s still a relationship even though the measures go in
+          opposite directions. What’s important is that one can be used to
+          predict the other.
+        </p>
+        <p>
+          But, just because two things are correlated doesn’t mean that one
+          causes the other. Often there’s something else behind the
+          relationship.
+        </p>
+        <p>
+          For example, ice cream sales and drowning are positively correlated --
+          they both increase together. But, that doesn’t mean eating ice cream
+          causes drowning or that drowning makes you crave ice cream. Instead,
+          they increase together because people eat ice cream and swim much more
+          in the summer. The time of year is a lurking variable causing the
+          relationship between the two things.
+        </p>
+        <p>
+          Below are matrices of correlations between each fruit's tastiness and
+          ease of eating. The pinker squares have stronger correlations. The
+          diagonal line of dark pink squares appears because everything has a
+          perfect correlation with itself.
+        </p>
+
+        <div className="chart">
+          <div className="chart__header">
+            <h3 className="chart__title">Tastiness Correlation Matrix</h3>
+            <div className="chart__subtitle">
+              Correlation coefficient matrix for the tastiness of fruits.
+            </div>
+          </div>
+          <div id="tasty-cor-d3" className="chart__chart"></div>
+        </div>
+
+        <div className="chart">
+          <div className="chart__header">
+            <h3 className="chart__title">Easiness Correlation Matrix</h3>
+            <div className="chart__subtitle">
+              Correlation coefficient matrix for the ease of eating fruits.
+            </div>
+          </div>
+          <div id="easy-cor-d3" className="chart__chart"></div>
+        </div>
       </main>
     </div>
   );
