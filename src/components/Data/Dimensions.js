@@ -12,7 +12,7 @@ const Dimensions = ({ countOfUsers }) => {
 
   return (
     <section id="iso-dimensions">
-      <h2>Isolating Dimensions</h2>
+      <h2 className="section__heading">Isolating Dimensions</h2>
       <p>
         As a middle school math teacher, I often had to help students understand
         scatterplots and the Cartesian plane. They usually already knew how to

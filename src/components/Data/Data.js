@@ -6,7 +6,6 @@ import Frequencies from './Frequencies';
 import Histograms from './Histograms';
 import Correlation from './Correlation';
 import '../secondary-page.scss';
-import '../Charts.scss';
 import Dimensions from './Dimensions';
 
 const Data = () => {

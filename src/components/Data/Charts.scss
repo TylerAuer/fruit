@@ -1,0 +1,74 @@
+.chart {
+  border: 4px solid black;
+  padding: 1rem 2rem 2rem 2rem;
+  max-width: 75rem;
+  margin: 3rem auto;
+
+  @media (max-width: 475px) {
+    padding: 0.5rem 1rem 1rem 1rem;
+  }
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+
+    @media (max-width: 475px) {
+      font-size: 2.2rem;
+    }
+  }
+
+  &__subtitle {
+    color: darkgrey;
+    font-size: 1.7rem;
+    line-height: 1.4;
+
+    @media (max-width: 475px) {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__histogram {
+    background-image: url('../../img/axis.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+  }
+
+  &__fruit-img-in-title {
+    position: relative;
+    top: 8px;
+    display: inline-block;
+    height: 3.5rem;
+    margin-right: 1rem;
+  }
+}
+
+// sizing for histograms using flex-grid
+.histograms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.histograms > .chart {
+  max-width: 50rem;
+  margin: 1rem;
+}
+
+.tick text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  shape-rendering: crispEdges;
+}
+
+.tick text.tick--small {
+  font-size: 1.4rem;
+}

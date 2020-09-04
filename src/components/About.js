@@ -16,7 +16,7 @@ const About = () => {
           learning a ton.{' '}
           <a href="https://tylerauer.com">You should hire me!</a>
         </p>
-        <h2>Inspiration</h2>
+        <h2 className="section__heading">Inspiration</h2>
         <p>
           The original idea for the Fruit Matrix came from Randall Munroe's
           webcomic <a href="https://xkcd.com/">xkcd</a>. If you've never
@@ -54,7 +54,7 @@ const About = () => {
           . You'll no doubt notice how their great app influenced the layout of
           mine.
         </p>
-        <h2>How did you choose the fruit?</h2>
+        <h2 className="section__heading">How did you choose the fruit?</h2>
         <p>
           Choosing which types of fruit to include was a balancing act. I wanted
           to honor the original comic so I'd originally planned to keep all 18

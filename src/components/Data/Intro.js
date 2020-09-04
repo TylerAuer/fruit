@@ -3,7 +3,7 @@ import React from 'react';
 const Intro = () => {
   return (
     <section id="intro">
-      <h2>Let's look at the data!</h2>
+      <h2 className="section__heading">Let's look at the data!</h2>
       <p>
         Our puny human brains are ill-equipped for analyzing data. We can only
         keep a measly{' '}

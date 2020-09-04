@@ -12,7 +12,7 @@ const Frequencies = ({ countOfUsers, countOfAllRatings, countsByFruit }) => {
 
   return (
     <section id="frequencies">
-      <h2>Sample Size & Frequency</h2>
+      <h2 className="section__heading">Sample Size & Frequency</h2>
       <p>
         How can you tell when something is a real pattern instead of just
         randomness? Statisticians have strategies to help with this. The most

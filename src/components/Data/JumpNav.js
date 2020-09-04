@@ -4,7 +4,7 @@ import './JumpNav.scss';
 
 const JumpNav = () => {
   return (
-    <nav class="nav">
+    <nav className="nav">
       <div className="nav__wrapper">
         <div className="nav__title">Jump to Sections</div>
         <ul className="nav__ul">

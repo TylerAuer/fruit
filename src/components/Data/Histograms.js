@@ -56,7 +56,7 @@ const Histograms = ({ countsByFruit }) => {
 
   return (
     <section id="histograms">
-      <h2>Variance & Spread</h2>
+      <h2 className="section__heading">Variance & Spread</h2>
       <p>
         There's still more we can discover! In the two charts above, each
         fruit's icon is located at its average rating. But, even if two fruits

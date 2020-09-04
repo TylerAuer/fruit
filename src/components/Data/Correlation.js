@@ -15,7 +15,7 @@ const Correlation = () => {
 
   return (
     <section id="correlation">
-      <h2>Correlation</h2>
+      <h2 className="section__heading">Correlation</h2>
       <p>
         Now that we’ve looked at each fruit on its own, let’s start to think
         about how they relate to one another. As you rated each fruit, you may
