@@ -5,6 +5,7 @@ import ScrollToTop from '../functions/ScrollToTop';
 import About from './About';
 import Graph from './Graph';
 import Data from './Data/Data';
+import GoogleAnalytics from './GoogleAnalytics';
 import 'toasted-notes/src/styles.css';
 import '../components/Toasts.scss';
 
@@ -22,6 +23,7 @@ const App = () => {
         <Route exact path="/about" component={About} />
         <Route exact path="/data" component={Data} />
       </Switch>
+      <GoogleAnalytics />
     </Router>
   );
 };
