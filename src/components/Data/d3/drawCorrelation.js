@@ -3,8 +3,8 @@ import * as d3 from 'd3';
 const drawCorrelation = (data, dimension) => {
   // set the dimensions and margins of the graph
   const margin = 30;
-  const width = 760 - 3 * margin; // margin is twice as large on left side
-  const height = 760 - 3 * margin; // margin is twice as large on left side
+  const width = 760 - 2 * margin; // margin is twice as large on left side
+  const height = 760 - 2 * margin; // margin is twice as large on left side
 
   // append the svg object to the body of the page
   const svg = d3
@@ -13,7 +13,7 @@ const drawCorrelation = (data, dimension) => {
     .attr('preserveAspectRatio', 'xMinYMin meet')
     .attr('viewBox', `0 0 760 760`)
     .append('g')
-    .attr('transform', 'translate(' + 2 * margin + ',' + 2 * margin + ')');
+    .attr('transform', 'translate(' + 1.5 * margin + ',' + 1.5 * margin + ')');
 
   // Generate Scales
   const xScale = d3.scaleBand().domain(Object.keys(data)).range([0, width]);
