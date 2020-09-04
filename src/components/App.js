@@ -4,7 +4,7 @@ import useManageUserRatings from '../hooks/useManageUserRatings';
 import ScrollToTop from '../functions/ScrollToTop';
 import About from './About';
 import Graph from './Graph';
-import Data from './Data';
+import Data from './Data/Data';
 import 'toasted-notes/src/styles.css';
 import '../components/Toasts.scss';
 

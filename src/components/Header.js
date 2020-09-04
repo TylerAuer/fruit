@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Button from './Button';
-import './secondary-page.scss';
+import './Header.scss';
 
 const Header = () => {
   const history = useHistory();
   return (
-    <header className="secondary__header">
-      <Link to="/">
-        <h1 className="secondary__title">Fruit Matrix</h1>
-      </Link>
-      <div className="secondary__subtitle">
+    <header className="header">
+      <h1 className="header__title">
+        <Link to="/">Fruit Matrix</Link>
+      </h1>
+      <div className="header__subtitle">
         An aggregator of people's feelings about fruit. Inspired by xkcd.
       </div>
       <Button onClick={() => history.push('/')} text="Back to Matrix" />

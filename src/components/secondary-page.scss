@@ -1,60 +1,22 @@
 .secondary {
   padding: 0 1rem 3rem 1rem;
 
-  &__header {
-    margin: 3rem 0 3rem 0;
-    text-align: center;
+  // SET WIDTHS AND MARGINS
+  // Can't set on a parent because the graphs are a different width
+  main p,
+  .section__heading {
+    max-width: 65rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  &__header a {
-    text-decoration: none;
-  }
-
-  &__title {
-    font-size: 8rem;
-    line-height: 1;
-    text-transform: uppercase;
-    letter-spacing: 8px;
-    color: black;
-    text-decoration: none;
-
-    @media (max-width: 700px) {
-      font-size: 5.3rem;
-      letter-spacing: 5px;
-    }
-
-    @media (max-width: 475px) {
-      font-size: 4rem;
-      letter-spacing: 4px;
-    }
-  }
-
-  &__subtitle {
-    font-size: 1.8rem;
-    line-height: 1;
-    margin: 1rem 0;
-
-    @media (max-width: 700px) {
-      font-size: 1.4rem;
-    }
-  }
-
-  button {
-    margin: 4rem auto;
-    display: block;
-
-    @media (max-width: 475px) {
-      font-size: 1.4rem;
-      border-width: 1.5px;
-    }
-  }
-
-  main h2 {
+  .section__heading {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
     font-size: 3rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: text-shadow 0.4s;
-    margin: 2rem 0;
 
     &:hover {
       text-shadow: 2px 2px 0 rgb(255, 0, 183);
@@ -83,36 +45,5 @@
         color: rgb(199, 1, 143);
       }
     }
-  }
-
-  main ul {
-    list-style-position: inside;
-    line-height: 2;
-  }
-
-  // SET WIDTHS AND MARGINS for text vs charts
-  // Text
-  main > p,
-  main > h2,
-  main > h3 {
-    max-width: 65rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  // ALL Charts except histograms
-  main > .chart {
-    max-width: 75rem;
-    margin: 3rem auto;
-  }
-
-  // sizing for histograms using flex-grid
-  main > div.histograms {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  main > div.histograms > .chart {
-    max-width: 50rem;
-    margin: 1rem;
   }
 }

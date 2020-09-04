@@ -1,37 +1,37 @@
 import * as d3 from 'd3';
 
-const drawTastyBox = () => {
+const drawEasyBox = () => {
   const imgSize = 35;
 
   // set the dimensions and margins of the graph
-  const margin = imgSize / 2;
+  const margin = imgSize;
   const width = 760 - 2 * margin;
-  const height = 600 - 2 * margin;
+  const height = (imgSize + 10) * 16 - 2 * margin;
 
   // append the svg object to the body of the page
-  const svg = d3
-    .select('#tasty-d3')
+  var svg = d3
+    .select('#easy-d3')
     .append('svg')
     .attr('preserveAspectRatio', 'xMinYMin meet')
-    .attr('viewBox', `0 0 760 600`)
+    .attr('viewBox', `0 0 760 ${(imgSize + 10) * 16}`)
     .append('g')
     .attr('transform', 'translate(' + margin + ',' + margin + ')');
 
   // Parse the Data
-  d3.json('/data/tasty-box').then((data) => {
+  d3.json('/data/easy-box').then((data) => {
     // Add X axis
-    const x = d3
-      .scaleBand()
-      .range([imgSize + 10, width])
-      .domain(data.map((fruit) => fruit.name));
-
-    // Y axis
-    const y = d3.scaleLinear().domain([100, 0]).range([0, height]);
-    const tickLabels = ['Tasty', 'Untasty'];
-    const yAxis = d3
-      .axisLeft(y)
+    const x = d3.scaleLinear().domain([0, 100]).range([0, width]);
+    const tickLabels = ['Hard', 'Easy'];
+    const xAxis = d3
+      .axisBottom(x)
       .ticks(1)
       .tickFormat((d, i) => tickLabels[i]);
+
+    // Y axis
+    const y = d3
+      .scaleBand()
+      .range([0, height])
+      .domain(data.map((fruit) => fruit.name));
 
     // Midline
     svg
@@ -39,21 +39,18 @@ const drawTastyBox = () => {
       .data(data)
       .enter()
       .append('line')
-      .attr('x1', '0')
-      .attr('x2', width)
-      .attr('y1', y(50))
-      .attr('y2', y(50))
+      .attr('x1', x(50))
+      .attr('x2', x(50))
+      .attr('y1', 0)
+      .attr('y2', height)
       .attr('stroke', '#ddd')
       .attr('stroke-width', '1px');
 
-    // Y Axis Labels
+    // Add x Axis labels
     svg
       .append('g')
-      .call(yAxis)
-      .selectAll('text')
-      .style('text-anchor', 'start')
-      .attr('dx', '20')
-      .attr('dy', '7');
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis);
 
     // Lines
     svg
@@ -61,10 +58,18 @@ const drawTastyBox = () => {
       .data(data)
       .enter()
       .append('line')
-      .attr('x1', (d) => x(d.name))
-      .attr('x2', (d) => x(d.name))
-      .attr('y1', (d) => y(d.q1))
-      .attr('y2', (d) => y(d.q3))
+      .attr('x1', function (d) {
+        return x(d.q1);
+      })
+      .attr('x2', function (d) {
+        return x(d.q3);
+      })
+      .attr('y1', function (d) {
+        return y(d.name);
+      })
+      .attr('y2', function (d) {
+        return y(d.name);
+      })
       .attr('stroke', 'black')
       .attr('stroke-width', '2px');
 
@@ -79,8 +84,8 @@ const drawTastyBox = () => {
       .data(data)
       .enter()
       .append('circle')
-      .attr('cx', (d) => x(d.name))
-      .attr('cy', (d) => y(d.q3))
+      .attr('cx', (d) => x(d.q3))
+      .attr('cy', (d) => y(d.name))
       .attr('r', circle.radius)
       .style('fill', circle.color);
 
@@ -90,8 +95,8 @@ const drawTastyBox = () => {
       .data(data)
       .enter()
       .append('circle')
-      .attr('cx', (d) => x(d.name))
-      .attr('cy', (d) => y(d.q1))
+      .attr('cx', (d) => x(d.q1))
+      .attr('cy', (d) => y(d.name))
       .attr('r', circle.radius)
       .style('fill', circle.color);
 
@@ -101,12 +106,12 @@ const drawTastyBox = () => {
       .data(data)
       .enter()
       .append('svg:image')
-      .attr('xlink:href', (d) => require(`../img/${d.name}.min.svg`))
-      .attr('x', (d) => x(d.name) - imgSize / 2)
-      .attr('y', (d) => y(d.avg) - imgSize / 2)
+      .attr('xlink:href', (d) => require(`../../../img/${d.name}.min.svg`))
+      .attr('x', (d) => x(d.avg) - imgSize / 2)
+      .attr('y', (d) => y(d.name) - imgSize / 2)
       .attr('width', imgSize)
       .attr('height', imgSize);
   });
 };
 
-export default drawTastyBox;
+export default drawEasyBox;

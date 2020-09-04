@@ -1,0 +1,49 @@
+.header {
+  margin: 3rem 0 3rem 0;
+  text-align: center;
+
+  &__title {
+    font-size: 8rem;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    color: black;
+    text-decoration: none;
+
+    @media (max-width: 700px) {
+      font-size: 5.3rem;
+      letter-spacing: 5px;
+    }
+
+    @media (max-width: 475px) {
+      font-size: 4rem;
+      letter-spacing: 4px;
+    }
+  }
+
+  &__title a,
+  &__title a:visited {
+    text-decoration: none;
+    color: black;
+  }
+
+  &__subtitle {
+    font-size: 1.8rem;
+    line-height: 1;
+    margin: 1rem 0;
+
+    @media (max-width: 700px) {
+      font-size: 1.4rem;
+    }
+  }
+
+  .button {
+    margin: 4rem auto;
+    display: block;
+
+    @media (max-width: 475px) {
+      font-size: 1.4rem;
+      border-width: 1.5px;
+    }
+  }
+}
