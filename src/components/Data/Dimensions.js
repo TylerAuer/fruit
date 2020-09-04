@@ -2,6 +2,7 @@ import React from 'react';
 import drawEasyBox from './d3/drawEasyBox';
 import drawTastyBox from './d3/drawTastyBox';
 import { useEffect } from 'react';
+import './Charts.scss';
 
 const Dimensions = ({ countOfUsers }) => {
   useEffect(() => {

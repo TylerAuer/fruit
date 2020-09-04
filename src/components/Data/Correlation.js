@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import drawCorrelation from './d3/drawCorrelation';
+import './Charts.scss';
 
 const Correlation = () => {
   useEffect(() => {

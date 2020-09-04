@@ -116,44 +116,4 @@
     max-width: 50rem;
     margin: 1rem;
   }
-
-  .nav {
-    border: 3px solid rgb(255, 0, 183);
-    padding: 3px;
-    max-width: 65rem;
-    margin: 3rem auto;
-    text-align: center;
-
-    ul {
-      list-style-type: none;
-      line-height: 2;
-
-      li {
-        font-size: 2rem;
-
-        a,
-        a:visited {
-          text-decoration: none;
-          color: black;
-        }
-
-        a:hover,
-        a:focus {
-          color: rgb(255, 0, 183);
-        }
-      }
-    }
-
-    &__wrapper {
-      padding: 2px;
-      border: 3px solid black;
-    }
-
-    &__title {
-      font-size: 2.5rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: bold;
-    }
-  }
 }

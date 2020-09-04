@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import drawCountsBar from './d3/drawCountsBar';
+import './Charts.scss';
 
 const Frequencies = ({ countOfUsers, countOfAllRatings, countsByFruit }) => {
   useEffect(() => {

@@ -1,28 +1,29 @@
 import React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
+import './JumpNav.scss';
 
 const JumpNav = () => {
   return (
     <nav class="nav">
       <div className="nav__wrapper">
         <div className="nav__title">Jump to Sections</div>
-        <ul>
-          <li>
+        <ul className="nav__ul">
+          <li className="nav__li">
             <Link className="nav__link" to="/data/#frequencies">
               Rating Frequencies
             </Link>
           </li>
-          <li>
+          <li className="nav__li">
             <Link className="nav__link" to="/data/#iso-dimensions">
               Isolated Dimensions
             </Link>
           </li>
-          <li>
+          <li className="nav__li">
             <Link className="nav__link" to="/data/#histograms">
               2D Histograms
             </Link>
           </li>
-          <li>
+          <li className="nav__li">
             <Link className="nav__link" to="/data/#correlation">
               Correlation Matrices
             </Link>

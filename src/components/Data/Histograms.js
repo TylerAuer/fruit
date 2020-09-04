@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import drawFruitHist from './d3/drawFruitHist';
 import fruitList from '../Fruit.json';
 import cleanName from '../../functions/cleanFruitName';
-import { useEffect } from 'react';
+import './Charts.scss';
 
 const Histograms = ({ countsByFruit }) => {
   useEffect(() => {
