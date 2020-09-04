@@ -5,9 +5,17 @@
   margin: 3rem auto;
   text-align: center;
 
+  @media (max-width: 475px) {
+    border-width: 2px;
+  }
+
   &__wrapper {
     padding: 1rem;
     border: 3px solid black;
+
+    @media (max-width: 475px) {
+      border-width: 2px;
+    }
   }
 
   &__title {
@@ -15,6 +23,10 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
+
+    @media (max-width: 475px) {
+      font-size: 2rem;
+    }
   }
 
   &__ul {
@@ -24,6 +36,10 @@
 
   &__li {
     font-size: 2rem;
+
+    @media (max-width: 475px) {
+      font-size: 1.6rem;
+    }
   }
 
   &__link,

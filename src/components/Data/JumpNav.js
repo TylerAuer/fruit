@@ -6,7 +6,7 @@ const JumpNav = () => {
   return (
     <nav className="nav">
       <div className="nav__wrapper">
-        <div className="nav__title">Jump to Sections</div>
+        <div className="nav__title">Jump to Section</div>
         <ul className="nav__ul">
           <li className="nav__li">
             <Link className="nav__link" to="/data/#frequencies">
