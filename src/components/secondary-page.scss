@@ -92,27 +92,68 @@
 
   // SET WIDTHS AND MARGINS for text vs charts
   // Text
-  main > p,
-  main > h2,
-  main > h3 {
+  main p,
+  main h2,
+  main h3 {
     max-width: 65rem;
     margin-left: auto;
     margin-right: auto;
   }
+
   // ALL Charts except histograms
-  main > .chart {
+  main .chart {
     max-width: 75rem;
     margin: 3rem auto;
   }
 
   // sizing for histograms using flex-grid
-  main > div.histograms {
+  main div.histograms {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
-  main > div.histograms > .chart {
+  main div.histograms > .chart {
     max-width: 50rem;
     margin: 1rem;
+  }
+
+  .nav {
+    border: 3px solid rgb(255, 0, 183);
+    padding: 3px;
+    max-width: 65rem;
+    margin: 3rem auto;
+    text-align: center;
+
+    ul {
+      list-style-type: none;
+      line-height: 2;
+
+      li {
+        font-size: 2rem;
+
+        a,
+        a:visited {
+          text-decoration: none;
+          color: black;
+        }
+
+        a:hover,
+        a:focus {
+          color: rgb(255, 0, 183);
+        }
+      }
+    }
+
+    &__wrapper {
+      padding: 2px;
+      border: 3px solid black;
+    }
+
+    &__title {
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
   }
 }
