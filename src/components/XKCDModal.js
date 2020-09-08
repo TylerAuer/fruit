@@ -1,10 +1,15 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
-import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import xkcdImg from '../img/xkcd388.png';
+import 'react-responsive-modal/styles.css';
 
 const XKCDModal = ({ show, setShow }) => {
+  if (show) {
+    ReactGA.modalview('/inspiration');
+  }
+
   return (
     <Modal
       open={show}

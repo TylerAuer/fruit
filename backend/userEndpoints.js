@@ -51,13 +51,14 @@ const checkForPreviousRatings = async (req, res) => {
 //
 const storeOrUpdateUserRatings = async (req, res) => {
   const ratingsForDB = await prepDataForDB(req.body);
-  const userPreviouslySubmittedRatings = (await Model.Rating.findOne({
+
+  const previousRatings = await Model.Rating.findOne({
     where: {
       session_id: req.sessionID,
     },
-  }))
-    ? true
-    : false;
+  });
+
+  const userPreviouslySubmittedRatings = !!previousRatings;
 
   if (userPreviouslySubmittedRatings) {
     Model.Rating.update(ratingsForDB, {
@@ -71,7 +72,7 @@ const storeOrUpdateUserRatings = async (req, res) => {
     );
     res.send("We've updated your ratings in our dataset.");
   } else {
-    Model.Rating.create(ratingsForDB);
+    Model.Rating.create(ratingsForDB).catch((err) => console.log(err));
     console.log(
       chalk.cyan.bold('USER SUBMISSION > ') +
         chalk.cyan('Recording new ratings')

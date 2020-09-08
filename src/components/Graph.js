@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import ReactGA from 'react-ga';
 import useManageAggregate from '../hooks/useManageAggregate';
 import useBounds from '../hooks/useBounds';
 import Directions from './Directions';
@@ -11,6 +12,11 @@ const Graph = ({ ratings, setRatings }) => {
   const graphRef = useRef();
   const scale = useBounds(graphRef);
   const [showAggregate, setShowAggregate] = useState(false);
+
+  // Logs pageview with Google Analytics when component mounts
+  useEffect(() => {
+    ReactGA.pageview('/');
+  }, []);
 
   // Just show axis until useBounds is able to determine the info about the
   // graph that is used to correctly position all of the fruit

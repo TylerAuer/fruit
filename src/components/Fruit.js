@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import ReactGA from 'react-ga';
 import Draggable from 'react-draggable';
 import DragGuides from './DragGuides';
 import AggregateArrows from './AggregateArrows';
@@ -54,6 +55,11 @@ const Fruit = ({
   const onStart = (e, position) => {
     e.preventDefault();
     e.stopPropagation();
+    ReactGA.event({
+      category: 'Matrix',
+      action: 'Drag fruit',
+      label: name,
+    });
 
     // Prevents flash of off graph styles when fruit on graph is clicked but cursor
     // is not moved
