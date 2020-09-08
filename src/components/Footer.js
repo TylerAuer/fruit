@@ -9,7 +9,6 @@ import 'react-responsive-modal/styles.css';
 import 'toasted-notes/src/styles.css';
 import '../components/Toasts.scss';
 import './Bottom.scss';
-import { geoClipRectangle } from 'd3';
 
 const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {
   const [showXKCDModal, setShowXKCDModal] = useState(false);
@@ -108,7 +107,16 @@ const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {
         />
         <Button
           text={showAggregate ? 'Show Your Ratings' : 'Show Aggregate Ratings'}
-          onClick={() => setShowAggregate(!showAggregate)}
+          onClick={() => {
+            if (!showAggregate) {
+              ReactGA.event({
+                category: 'Matrix',
+                action: 'Aggregate',
+                label: 'Show aggregate',
+              });
+            }
+            setShowAggregate(!showAggregate);
+          }}
         />
       </div>
       <header>

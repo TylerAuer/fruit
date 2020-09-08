@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
 import Header from './Header';
 import './secondary-page.scss';
 
 const About = () => {
-  ReactGA.pageview('/about');
+  // Logs pageview with Google Analytics when component mounts
+  useEffect(() => {
+    ReactGA.pageview('/about');
+  }, []);
 
   return (
     <div className="secondary">

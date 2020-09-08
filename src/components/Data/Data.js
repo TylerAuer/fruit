@@ -14,7 +14,10 @@ const Data = () => {
   const [countOfUsers, setCountOfUsers] = useState(null);
   const [countsByFruit, setCountsByFruit] = useState(null);
 
-  ReactGA.pageview('/data');
+  // Logs pageview with Google Analytics when component mounts
+  useEffect(() => {
+    ReactGA.pageview('/data');
+  }, []);
 
   useEffect(() => {
     // Get total count of ratings and count of users
