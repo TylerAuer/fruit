@@ -1,8 +1,11 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import Header from './Header';
 import './secondary-page.scss';
 
 const About = () => {
+  ReactGA.pageview('/about');
+
   return (
     <div className="secondary">
       <Header />

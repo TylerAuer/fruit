@@ -21,6 +21,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.3",
+    "react-ga": "^3.1.2",
     "react-responsive-modal": "^5.0.3",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.0.0",

@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import useManageUserRatings from '../hooks/useManageUserRatings';
 import ScrollToTop from '../functions/ScrollToTop';
 import About from './About';
@@ -12,6 +13,9 @@ import '../components/Toasts.scss';
 const App = () => {
   // Held in app state so not lost when navigating
   const { ratings, setRatings } = useManageUserRatings();
+
+  // Config initial Google Analytics tracking info
+  ReactGA.initialize('UA-177254644-1');
 
   return (
     <Router>

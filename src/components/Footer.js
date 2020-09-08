@@ -8,6 +8,7 @@ import 'react-responsive-modal/styles.css';
 import 'toasted-notes/src/styles.css';
 import '../components/Toasts.scss';
 import './Bottom.scss';
+import { geoClipRectangle } from 'd3';
 
 const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {
   const [showXKCDModal, setShowXKCDModal] = useState(false);
@@ -39,6 +40,7 @@ const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {
       .then((res) => res.text())
       .then((message) => {
         setSubmitModalTitle(message);
+        // GA TRACKING EVENT HERE. ADD TAG BASED ON MSG
         setShowSubmitModal(true);
       })
       .catch((error) => {

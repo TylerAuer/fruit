@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactGA from 'react-ga';
 import Header from '../Header';
 import Intro from './Intro';
 import JumpNav from './JumpNav';
@@ -12,6 +13,8 @@ const Data = () => {
   const [countOfAllRatings, setCountOfAllRatings] = useState(null);
   const [countOfUsers, setCountOfUsers] = useState(null);
   const [countsByFruit, setCountsByFruit] = useState(null);
+
+  ReactGA.pageview('/data');
 
   useEffect(() => {
     // Get total count of ratings and count of users
