@@ -56,7 +56,7 @@ const Fruit = ({
     e.preventDefault();
     e.stopPropagation();
     ReactGA.event({
-      category: 'INTERACTION',
+      category: 'Matrix',
       action: 'Drag fruit',
       label: name,
     });

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import toaster from 'toasted-notes';
+import ReactGA from 'react-ga';
 import Button from './Button';
 import SubmitModal from './SubmitModal';
 import XKCDModal from './XKCDModal';
@@ -41,6 +42,19 @@ const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {
       .then((message) => {
         setSubmitModalTitle(message);
         // GA TRACKING EVENT HERE. ADD TAG BASED ON MSG
+        if (message === "We've updated your ratings in our dataset.") {
+          ReactGA.event({
+            category: 'Matrix',
+            action: 'Submit',
+            label: 'Updated ratings',
+          });
+        } else {
+          ReactGA.event({
+            category: 'Matrix',
+            action: 'Submit',
+            label: 'New ratings',
+          });
+        }
         setShowSubmitModal(true);
       })
       .catch((error) => {
@@ -60,6 +74,11 @@ const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {
     if (showAggregate) {
       return null;
     } else if (!areAnyRated) {
+      ReactGA.event({
+        category: 'Matrix',
+        action: 'Submit',
+        label: 'FAILED: tried to submit with no fruit rated',
+      });
       toaster.notify(
         <div className="toast__msg">
           <p>
