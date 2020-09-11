@@ -26,7 +26,7 @@ The backend is built with [Node](https://nodejs.org/en/), [Express](https://expr
 
 ### Deployment
 
-The site is hosted with [Heroku](https://www.heroku.com/home). Which makes maintenance efficient -- pushes to `master` automatically create and deploy new builds.
+The site is hosted with [Heroku](https://www.heroku.com/home) which makes maintenance efficient -- pushes to `master` automatically create and deploy new builds.
 
 ## Interesting Development Tidbits
 
