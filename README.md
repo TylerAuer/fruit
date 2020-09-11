@@ -12,7 +12,7 @@ Fruit Matrix is an aggregator of people's feelings about fruit with [an obsessio
 
 ## Inspirations
 
-The original idea for the Fruit Matrix comes from [xkcd (WARNING: title includes curse word)](https://xkcd.com/388/). [Desmos](https://teacher.desmos.com/activitybuilder/custom/58cb067910f10b0a21d4db93) implements this on a smaller scale for teachers and the [The New York Times](https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html) had a similar application for Game of Thrones.
+The original idea for the Fruit Matrix comes from [xkcd (WARNING: title includes curse word)](https://xkcd.com/388/). [Desmos](https://teacher.desmos.com/activitybuilder/custom/58cb067910f10b0a21d4db93) implements this on a smaller scale for teachers. The [The New York Times](https://www.nytimes.com/interactive/2017/08/09/upshot/game-of-thrones-chart.html) had a similar application for Game of Thrones characters.
 
 ## Technologies
 
