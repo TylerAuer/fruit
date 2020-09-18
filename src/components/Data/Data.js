@@ -3,13 +3,14 @@ import ReactGA from 'react-ga';
 import Header from '../Header';
 import Intro from './Intro';
 import JumpNav from './JumpNav';
+import UserPercentiles from './UserPercentiles';
 import Frequencies from './Frequencies';
 import Histograms from './Histograms';
 import Correlation from './Correlation';
 import '../secondary-page.scss';
 import Dimensions from './Dimensions';
 
-const Data = () => {
+const Data = ({ ratings }) => {
   const [countOfAllRatings, setCountOfAllRatings] = useState(null);
   const [countOfUsers, setCountOfUsers] = useState(null);
   const [countsByFruit, setCountsByFruit] = useState(null);
@@ -42,6 +43,7 @@ const Data = () => {
       <main>
         <Intro />
         <JumpNav />
+        <UserPercentiles ratings={ratings} />
         <Frequencies
           countOfUsers={countOfUsers}
           countOfAllRatings={countOfAllRatings}

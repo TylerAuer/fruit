@@ -26,7 +26,9 @@ const App = () => {
           <Graph ratings={ratings} setRatings={setRatings} />
         </Route>
         <Route exact path="/about" component={About} />
-        <Route exact path="/data" component={Data} />
+        <Route exact path="/data">
+          <Data ratings={ratings} />
+        </Route>
       </Switch>
     </Router>
   );
