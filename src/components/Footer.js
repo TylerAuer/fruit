@@ -5,6 +5,7 @@ import ReactGA from 'react-ga';
 import Button from './Button';
 import SubmitModal from './SubmitModal';
 import XKCDModal from './XKCDModal';
+import roundRatings from '../functions/roundRatings';
 import 'react-responsive-modal/styles.css';
 import 'toasted-notes/src/styles.css';
 import '../components/Toasts.scss';
@@ -16,19 +17,7 @@ const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {
   const [submitModalTitle, setSubmitModalTitle] = useState('Thanks!');
 
   const submitRatings = () => {
-    const roundToTenths = (float) => {
-      return Math.round(float * 10) / 10;
-    };
-
-    // round data to one decimal place
-    const roundedRatings = { ...ratings };
-    Object.keys(roundedRatings).forEach((fruit) => {
-      // Check if not null
-      if (roundedRatings[fruit]) {
-        roundedRatings[fruit].x = roundToTenths(roundedRatings[fruit].x);
-        roundedRatings[fruit].y = roundToTenths(roundedRatings[fruit].y);
-      }
-    });
+    const roundedRatings = roundRatings(ratings);
 
     fetch('/submit', {
       method: 'POST',
@@ -40,7 +29,6 @@ const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {
       .then((res) => res.text())
       .then((message) => {
         setSubmitModalTitle(message);
-        // GA TRACKING EVENT HERE. ADD TAG BASED ON MSG
         if (message === "We've updated your ratings in our dataset.") {
           ReactGA.event({
             category: 'Matrix',
