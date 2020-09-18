@@ -99,6 +99,7 @@ app.get('/', (req, res) => res.sendFile(__dirname + '/build/index.html'));
 // USER ENDPOINTS
 app.post('/submit', userEndpoints.storeOrUpdateUserRatings);
 app.get('/previous-ratings', userEndpoints.checkForPreviousRatings);
+app.post('/user-percentiles', userEndpoints.sendUserPercentileData);
 
 // DATA ENDPOINTS
 app.get('/data/averages', dataEndpoints.sendAverageData);
