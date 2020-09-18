@@ -3,7 +3,7 @@ import ReactGA from 'react-ga';
 import Header from '../Header';
 import Intro from './Intro';
 import JumpNav from './JumpNav';
-import UserPercentiles from './UserPercentiles';
+import UserPercentiles from './UserPercentiles/UserPercentiles';
 import Frequencies from './Frequencies';
 import Histograms from './Histograms';
 import Correlation from './Correlation';

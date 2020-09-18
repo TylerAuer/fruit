@@ -1,0 +1,36 @@
+.percentiles {
+  &__container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__single {
+    position: relative;
+    margin: 1rem;
+    padding: 4rem;
+  }
+
+  &__graph {
+    position: relative;
+  }
+
+  &__img {
+    position: absolute;
+    z-index: 1000;
+    height: 4rem;
+    width: auto;
+  }
+
+  &__arrows {
+    position: absolute;
+    overflow: visible;
+  }
+
+  &__arrow-label {
+    font-size: 1.8rem;
+  }
+
+  &__arrow-labels {
+  }
+}
