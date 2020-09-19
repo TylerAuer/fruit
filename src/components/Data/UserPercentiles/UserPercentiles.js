@@ -37,18 +37,16 @@ const UserPercentiles = ({ ratings }) => {
     <div key={fruitName} className="chart">
       <div className="chart__header">
         <h3 className="chart__title">
-          Your{' '}
           <img
             className="chart__fruit-img-in-title"
             src={require(`../../../img/${fruitName}.min.svg`)}
             alt={cleanName(fruitName)}
           />
-          Ratings Vs Others
+          {cleanName(fruitName)}
         </h3>
         <div className="chart__subtitle">
-          Shows the percentage of users who rated{' '}
-          {cleanName(fruitName).toLowerCase()} more or less tasty and more or
-          less easy to eat.
+          Percentage of users who rated {cleanName(fruitName).toLowerCase()}{' '}
+          more or less tasty and more or less easy to eat than you.
         </div>
       </div>
       <PercentileDisplay fruitName={fruitName} data={percentiles[fruitName]} />
@@ -57,8 +55,22 @@ const UserPercentiles = ({ ratings }) => {
 
   return (
     <section className="user-percentiles">
-      <h2 className="section__heading">Your Ratings Compared to Others</h2>
-      <p>Some text will go here.</p>
+      <h2 className="section__heading">
+        Your Ratings Relative To Everyone Else
+      </h2>
+      <p>
+        One way to analyze the data is to see how your ratings compare to
+        everyone else's ratings. Maybe you rated strawberries as tasty, but lots
+        of people rated strawberries as <i>REALLY</i> tasty. That sort of
+        difference only shows up when we compare your ratings to everyone's
+        ratings. This helps us know if your ratings are typical or atypical.
+      </p>
+      <p>
+        One way of describing how your ratings compare to the population
+        (everyone who has rated fruit) is using percentages. We can look at the
+        percentage of people who rated fruit above or below you in taste and
+        ease of eating.
+      </p>
       <div className="percentiles__container">{listOfPercentileDisplays}</div>
     </section>
   );

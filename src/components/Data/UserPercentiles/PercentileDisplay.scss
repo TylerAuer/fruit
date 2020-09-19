@@ -5,21 +5,18 @@
     flex-wrap: wrap;
   }
 
-  &__single {
-    position: relative;
+  &__container > .chart {
+    max-width: 45rem;
     margin: 1rem;
-    padding: 4rem;
+  }
+
+  &__single {
+    padding: 2rem;
   }
 
   &__graph {
     position: relative;
-  }
-
-  &__img {
-    position: absolute;
-    z-index: 1000;
-    height: 4rem;
-    width: auto;
+    padding-bottom: 100%;
   }
 
   &__arrows {
@@ -29,8 +26,5 @@
 
   &__arrow-label {
     font-size: 1.8rem;
-  }
-
-  &__arrow-labels {
   }
 }
