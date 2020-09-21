@@ -17,6 +17,10 @@
   &__graph {
     position: relative;
     padding-bottom: 100%;
+    background-image: url('../../../img/grid-only.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
   }
 
   &__arrows {
