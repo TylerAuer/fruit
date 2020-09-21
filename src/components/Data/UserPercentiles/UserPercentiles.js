@@ -54,7 +54,7 @@ const UserPercentiles = ({ ratings }) => {
   ));
 
   return (
-    <section className="user-percentiles">
+    <section id="percentiles" className="user-percentiles">
       <h2 className="section__heading">Your Ratings Relative To Everyone</h2>
       <p>
         When you rated the fruit, you were likely comparing each piece of fruit
