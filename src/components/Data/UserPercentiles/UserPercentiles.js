@@ -55,21 +55,34 @@ const UserPercentiles = ({ ratings }) => {
 
   return (
     <section className="user-percentiles">
-      <h2 className="section__heading">
-        Your Ratings Relative To Everyone Else
-      </h2>
+      <h2 className="section__heading">Your Ratings Relative To Everyone</h2>
       <p>
-        One way to analyze the data is to see how your ratings compare to
-        everyone else's ratings. Maybe you rated strawberries as tasty, but lots
-        of people rated strawberries as <i>REALLY</i> tasty. That sort of
-        difference only shows up when we compare your ratings to everyone's
-        ratings. This helps us know if your ratings are typical or atypical.
+        When you rated the fruit, you were likely comparing each piece of fruit
+        to the others. Maybe you thought that strawberries are tastier than
+        coconuts. Or maybe you said that watermelon is harder to eat than
+        blueberries.
       </p>
       <p>
-        One way of describing how your ratings compare to the population
-        (everyone who has rated fruit) is using percentages. We can look at the
-        percentage of people who rated fruit above or below you in taste and
-        ease of eating.
+        That approach emphasizes the differences between fruits. But, it doesn’t
+        tell you how your ratings compare to the ratings of others. To see that,
+        we’ll need to look at <i>everyone’s</i> data.
+      </p>
+      <p>
+        One way data scientists compare a single data point to a{' '}
+        <b>population</b> (an entire group) is by using percentiles. A{' '}
+        <b>percentile</b> is different from a percent score on a test which
+        represents the portion of the points you earned. Instead a percentile
+        represents the percentage of a population that you are above. This
+        approach is often seen on standardized tests like the SAT. If you are in
+        the 70th percentile on the SAT, that doesn’t mean that you got 70% of
+        the questions right, it means that you did better than 70% of test
+        takers.
+      </p>
+      <p>
+        I found your percentile for taste and ease of eating for every fruit you
+        rated. You’ll see both the percentages below and above your ratings.
+        With this approach, you can see how others rated fruit in comparison to{' '}
+        <b>you</b> not to the axes.
       </p>
       <div className="percentiles__container">{listOfPercentileDisplays}</div>
     </section>
