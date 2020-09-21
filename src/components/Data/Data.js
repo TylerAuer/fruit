@@ -42,7 +42,7 @@ const Data = ({ ratings }) => {
       <Header />
       <main>
         <Intro />
-        <JumpNav />
+        <JumpNav ratings={ratings} />
         <UserPercentiles ratings={ratings} />
         <Frequencies
           countOfUsers={countOfUsers}
