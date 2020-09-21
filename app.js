@@ -80,7 +80,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      maxAge: 180 * 24 * 60 * 60 * 1000, // 180 days = 6 months
     },
   })
 );
@@ -99,6 +99,7 @@ app.get('/', (req, res) => res.sendFile(__dirname + '/build/index.html'));
 // USER ENDPOINTS
 app.post('/submit', userEndpoints.storeOrUpdateUserRatings);
 app.get('/previous-ratings', userEndpoints.checkForPreviousRatings);
+app.post('/user-percentiles', userEndpoints.sendUserPercentileData);
 
 // DATA ENDPOINTS
 app.get('/data/averages', dataEndpoints.sendAverageData);

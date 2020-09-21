@@ -1,6 +1,7 @@
 const Model = require('./models');
 const chalk = require('chalk');
 const { listOfFruit } = require('./listOfFruit');
+const { sequelize } = require('./models');
 
 //
 //
@@ -98,7 +99,66 @@ const storeOrUpdateUserRatings = async (req, res) => {
   }
 };
 
+const sendUserPercentileData = async (req, res) => {
+  // Get the percentile rank for each fruit (x and y)
+  const userPercentiles = {};
+
+  // ~ Get the count below and count above
+  for (let fruit of listOfFruit) {
+    if (req.body[fruit]) {
+      // check that this fruit has a rating
+      let xCountBelow = await sequelize.query(`
+        SELECT COUNT(*) 
+        FROM "Ratings" 
+        WHERE ${fruit}_x < ${req.body[fruit].x}
+      `);
+      let xCountAbove = await sequelize.query(`
+        SELECT COUNT(*) 
+        FROM "Ratings" 
+        WHERE ${fruit}_x > ${req.body[fruit].x}
+      `);
+      let yCountBelow = await sequelize.query(`
+        SELECT COUNT(*) 
+        FROM "Ratings" 
+        WHERE ${fruit}_y < ${req.body[fruit].y}
+      `);
+      let yCountAbove = await sequelize.query(`
+        SELECT COUNT(*) 
+        FROM "Ratings" 
+        WHERE ${fruit}_y > ${req.body[fruit].y}
+      `);
+
+      xCountBelow = parseInt(xCountBelow[0][0].count);
+      xCountAbove = parseInt(xCountAbove[0][0].count);
+      yCountBelow = parseInt(yCountBelow[0][0].count);
+      yCountAbove = parseInt(yCountAbove[0][0].count);
+
+      const xPercentileBelow =
+        Math.round((xCountBelow / (xCountBelow + xCountAbove)) * 1000) / 10;
+      const xPercentileAbove =
+        Math.round((xCountAbove / (xCountBelow + xCountAbove)) * 1000) / 10;
+      const yPercentileBelow =
+        Math.round((yCountBelow / (yCountBelow + yCountAbove)) * 1000) / 10;
+      const yPercentileAbove =
+        Math.round((yCountAbove / (yCountBelow + yCountAbove)) * 1000) / 10;
+
+      userPercentiles[fruit] = {
+        x: {
+          below: xPercentileBelow,
+          above: xPercentileAbove,
+        },
+        y: {
+          below: yPercentileBelow,
+          above: yPercentileAbove,
+        },
+      };
+    }
+  }
+  res.json(userPercentiles);
+};
+
 module.exports = {
   storeOrUpdateUserRatings,
   checkForPreviousRatings,
+  sendUserPercentileData,
 };
