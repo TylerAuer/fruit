@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import drawFruitHist from './d3/drawFruitHist';
-import fruitList from '../../shared/Fruit.json';
-import cleanName from '../../shared/functions/cleanFruitName';
+import fruitList from '../shared/Fruit.json';
+import cleanName from '../shared/functions/cleanFruitName';
 import './Charts.scss';
 
 const Histograms = ({ countsByFruit }) => {
@@ -23,7 +23,7 @@ const Histograms = ({ countsByFruit }) => {
           <h3 className="chart__title">
             <img
               className="chart__fruit-img-in-title"
-              src={require(`../../shared/img/${fruit}.min.svg`)}
+              src={require(`../shared/img/${fruit}.min.svg`)}
               alt={cleanName(fruit)}
             />
             {cleanName(fruit)}

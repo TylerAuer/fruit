@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PercentileDisplay from './PercentileDisplay';
-import roundRatings from '../../../shared/functions/roundRatings';
-import cleanName from '../../../shared/functions/cleanFruitName';
+import roundRatings from '../../shared/functions/roundRatings';
+import cleanName from '../../shared/functions/cleanFruitName';
 import './PercentileDisplay.scss';
 
 const UserPercentiles = ({ ratings }) => {
@@ -39,7 +39,7 @@ const UserPercentiles = ({ ratings }) => {
         <h3 className="chart__title">
           <img
             className="chart__fruit-img-in-title"
-            src={require(`../../../shared/img/${fruitName}.min.svg`)}
+            src={require(`../../shared/img/${fruitName}.min.svg`)}
             alt={cleanName(fruitName)}
           />
           {cleanName(fruitName)}

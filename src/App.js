@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
-import useManageUserRatings from '../shared/hooks/useManageUserRatings';
-import ScrollToTop from '../shared/functions/ScrollToTop';
-import About from './About';
-import Graph from './Graph';
-import Data from './Data/Data';
+import useManageUserRatings from './shared/hooks/useManageUserRatings';
+import ScrollToTop from './shared/functions/ScrollToTop';
+import About from './AboutPage';
+import Matrix from './MatrixPage';
+import Data from './DataPage';
 import 'toasted-notes/src/styles.css';
-import '../components/Toasts.scss';
+import './shared/components/Toasts/Toasts.scss';
 
 const App = () => {
   // Held in app state so not lost when navigating
@@ -23,7 +23,7 @@ const App = () => {
       <ScrollToTop />
       <Switch>
         <Route exact path="/">
-          <Graph ratings={ratings} setRatings={setRatings} />
+          <Matrix ratings={ratings} setRatings={setRatings} />
         </Route>
         <Route exact path="/about" component={About} />
         <Route exact path="/data">

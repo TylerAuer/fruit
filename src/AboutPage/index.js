@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
-import Header from './Header';
-import './secondary-page.scss';
+import Header from '../shared/components/Header/Header';
 
 const About = () => {
   // Logs pageview with Google Analytics when component mounts

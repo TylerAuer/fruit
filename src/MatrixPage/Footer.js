@@ -8,7 +8,7 @@ import XKCDModal from './XKCDModal';
 import roundRatings from '../shared/functions/roundRatings';
 import 'react-responsive-modal/styles.css';
 import 'toasted-notes/src/styles.css';
-import '../components/Toasts.scss';
+import '../shared/components/Toasts/Toasts.scss';
 import './Bottom.scss';
 
 const Footer = ({ showAggregate, setShowAggregate, areAnyRated, ratings }) => {

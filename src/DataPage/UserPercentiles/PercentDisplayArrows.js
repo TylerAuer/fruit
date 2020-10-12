@@ -62,7 +62,7 @@ const PercentDisplayArrows = ({ data, fruitName }) => {
       <image
         className="percentiles__img"
         alt={fruitName}
-        href={require(`../../../shared/img/${fruitName}.min.svg`)}
+        href={require(`../../shared/img/${fruitName}.min.svg`)}
         x={coords.x}
         y={coords.y}
         height={config.imgSize}
