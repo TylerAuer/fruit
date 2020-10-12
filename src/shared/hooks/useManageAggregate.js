@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import fruitList from '../components/Fruit.json';
+import fruitList from '../Fruit.json';
 
 const useManageAggregate = () => {
   const [aggregate, setAggregate] = useState(fruitList);

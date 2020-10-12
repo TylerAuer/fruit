@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import ReactGA from 'react-ga';
-import useManageAggregate from '../hooks/useManageAggregate';
-import useBounds from '../hooks/useBounds';
+import useManageAggregate from '../shared/hooks/useManageAggregate';
+import useBounds from '../shared/hooks/useBounds';
 import Directions from './Directions';
 import Fruit from './Fruit';
 import Footer from './Footer';

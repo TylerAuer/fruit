@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-import Button from './Button';
+import Button from '../shared/components/Button';
 import './Modals.scss';
 
 const SubmitModal = ({ show, setShow, title }) => {

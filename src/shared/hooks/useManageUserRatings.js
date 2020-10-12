@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import fruitList from '../components/Fruit.json';
+import fruitList from '../../shared/Fruit.json';
 import toaster from 'toasted-notes';
 import 'toasted-notes/src/styles.css';
-import '../components/Toasts.scss';
+import '../components/Toasts/Toasts.scss';
 
 const useManageUserRatings = () => {
   const [ratings, setRatings] = useState(fruitList);

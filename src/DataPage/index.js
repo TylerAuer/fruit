@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
-import Header from '../Header';
+import Header from '../shared/components/Header/Header';
 import Intro from './Intro';
 import JumpNav from './JumpNav';
 import UserPercentiles from './UserPercentiles/UserPercentiles';
 import Frequencies from './Frequencies';
 import Histograms from './Histograms';
 import Correlation from './Correlation';
-import '../secondary-page.scss';
 import Dimensions from './Dimensions';
 
 const Data = ({ ratings }) => {
