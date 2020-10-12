@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import Button from '../Button';
 import cleanFruitName from '../../functions/cleanFruitName';
-import '../../../MatrixPage/Modals.scss';
+import './Modals.scss';
 import './GreetReturningUser.scss';
 
 const GreetReturningUser = ({ show, setShow, ratings }) => {
@@ -31,7 +31,13 @@ const GreetReturningUser = ({ show, setShow, ratings }) => {
   }
 
   return (
-    <Modal open={show} onClose={() => setShow(false)} blockScroll closeOnEsc>
+    <Modal
+      open={show}
+      onClose={() => setShow(false)}
+      blockScroll
+      closeOnEsc
+      center
+    >
       <h2 className="modal__title">Hey, You look familiar!</h2>
       <div className="modal__body">
         <p>
@@ -50,8 +56,8 @@ const GreetReturningUser = ({ show, setShow, ratings }) => {
             you can adjust your rankings, click submit, and we'll update your
             ratings
           </b>
-          . Or you can check out how other people's ratings have affect the
-          aggregate data.
+          . Or you can skip to the data section and see how other people's
+          ratings have affected the aggregate data.
         </p>
         <div className="modal__btn-group">
           <Button
