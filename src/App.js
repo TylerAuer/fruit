@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import useManageUserRatings from './shared/hooks/useManageUserRatings';
@@ -14,9 +14,7 @@ const App = () => {
   const { ratings, setRatings } = useManageUserRatings();
 
   // Config initial Google Analytics tracking info
-  useEffect(() => {
-    ReactGA.initialize('UA-177254644-1');
-  }, []);
+  ReactGA.initialize('UA-177254644-1');
 
   return (
     <Router>
