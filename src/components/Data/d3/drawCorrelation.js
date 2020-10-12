@@ -30,7 +30,7 @@ const drawCorrelation = (data, dimension) => {
     .data(Object.keys(data))
     .enter()
     .append('svg:image')
-    .attr('xlink:href', (d) => require(`../../../img/${d}.min.svg`))
+    .attr('xlink:href', (d) => require(`../../../shared/img/${d}.min.svg`))
     .attr('width', xScale.bandwidth() * 0.8) // icons are 80% of square size
     .attr('height', xScale.bandwidth() * 0.8)
     .attr('y', -1 * xScale.bandwidth()) // Move one square's height above grid
@@ -40,7 +40,7 @@ const drawCorrelation = (data, dimension) => {
     .data(Object.keys(data))
     .enter()
     .append('svg:image')
-    .attr('xlink:href', (d) => require(`../../../img/${d}.min.svg`))
+    .attr('xlink:href', (d) => require(`../../../shared/img/${d}.min.svg`))
     .attr('width', yScale.bandwidth() * 0.8) // icons are 80% of square size
     .attr('height', yScale.bandwidth() * 0.8)
     .attr('x', -1 * yScale.bandwidth()) // Move one square's height above grid

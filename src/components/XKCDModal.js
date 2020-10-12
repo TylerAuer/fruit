@@ -2,7 +2,7 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
-import xkcdImg from '../img/xkcd388.png';
+import xkcdImg from '../shared/img/xkcd388.png';
 import 'react-responsive-modal/styles.css';
 
 const XKCDModal = ({ show, setShow }) => {

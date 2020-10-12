@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
-import useManageUserRatings from '../hooks/useManageUserRatings';
-import ScrollToTop from '../functions/ScrollToTop';
+import useManageUserRatings from '../shared/hooks/useManageUserRatings';
+import ScrollToTop from '../shared/functions/ScrollToTop';
 import About from './About';
 import Graph from './Graph';
 import Data from './Data/Data';
