@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import Button from '../shared/components/Button';
-import './Modals.scss';
+import '../shared/components/Modals/ReturningUserModal';
 
 const SubmitModal = ({ show, setShow, title }) => {
   return (
