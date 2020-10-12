@@ -55,10 +55,7 @@ const Graph = ({ ratings, setRatings }) => {
         }}
       >
         <div ref={graphRef} className="matrix__graph">
-          <Directions
-            showAggregate={showAggregate}
-            listOfKeysOffGraph={listOfKeysOffGraph}
-          />
+          {listOfKeysOffGraph.length === 16 && !showAggregate && <Directions />}
           {fruit}
         </div>
       </div>
