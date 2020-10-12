@@ -1,23 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSpring, animated } from 'react-spring';
 import './Directions.scss';
-//import Delayer from './Delayer';
 
-const Directions = ({ listOfKeysOffGraph, showAggregate }) => {
-  const [showDirs, setShowDirs] = useState(true);
-
-  useEffect(() => {
-    if (listOfKeysOffGraph.length !== 16) {
-      setShowDirs(false);
-    }
-  }, [listOfKeysOffGraph]);
-
-  useEffect(() => {
-    if (showAggregate) {
-      setShowDirs(false);
-    }
-  }, [showAggregate]);
-
+const Directions = () => {
   const anim = useSpring({
     opacity: 1,
     transform: 'translate(-50%, -50%)',
@@ -25,13 +10,11 @@ const Directions = ({ listOfKeysOffGraph, showAggregate }) => {
     delay: 3000,
   });
 
-  const Dirs = (
+  return (
     <animated.div style={anim} className="directions">
       Drag each fruit onto the graph to rate how tasty and easy to eat it is.
     </animated.div>
   );
-
-  return showDirs ? Dirs : null;
 };
 
 export default Directions;
