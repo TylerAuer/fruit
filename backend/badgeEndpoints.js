@@ -3,10 +3,12 @@ const { sequelize } = require('./models');
 const { listOfFruit } = require('./listOfFruit');
 
 const users = async (req, res) => {
+  const userCount = await Model.Rating.count().toString();
+
   let response = {
     schemaVersion: 1,
     label: 'Users',
-    message: await Model.Rating.count().toString(),
+    message: userCount,
   };
 
   res.send(response);
