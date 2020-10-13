@@ -1,6 +1,6 @@
 # Fruit Matrix
 
-![example workflow name](https://github.com/TylerAuer/fruit/workflows/Tests/badge.svg)
+![Users Count Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Ffruit.tylerauer.com%2Fbadge%2Fusers) ![Ratings Count Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Ffruit.tylerauer.com%2Fbadge%2Fratings) ![Test Badge](https://github.com/TylerAuer/fruit/workflows/Tests/badge.svg)
 
 Fruit Matrix is an aggregator of people's feelings about fruit with [an obsession for data](https://fruit.tylerauer.com/#/data). Users rate 16 fruits for tastiness and ease of eating. Their ratings are aggregated and displayed in a variety of ways using D3.
 
