@@ -12,6 +12,6 @@ it('capitalizes bananas', () => {
   expect(cleanFruitName('bananas')).toEqual('Bananas');
 });
 
-it('capitalizes melons', () => {
-  expect(cleanFruitName('melons')).toEqual('Melons');
+it('capitalizes pears', () => {
+  expect(cleanFruitName('pears')).toEqual('Pears');
 });
