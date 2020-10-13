@@ -4,6 +4,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const secure = require('express-force-https');
 const dataEndpoints = require('./backend/dataEndpoints');
 const userEndpoints = require('./backend/userEndpoints');
+const badgeEndpoints = require('./backend/badgeEndpoints');
 const db = require('./backend/models');
 const chalk = require('chalk');
 require('dotenv').config();
@@ -112,6 +113,10 @@ app.get(
 );
 app.get('/data/histograms', dataEndpoints.send2DHistogramData);
 app.get('/data/correlation', dataEndpoints.sendCorrelationData);
+
+// GITHUB Badges
+app.get('/badge/users', badgeEndpoints.users);
+app.get('/badge/ratings', badgeEndpoints.ratings);
 
 //
 //
