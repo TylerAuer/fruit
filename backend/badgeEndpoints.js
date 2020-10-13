@@ -6,7 +6,7 @@ const users = async (req, res) => {
   let response = {
     schemaVersion: 1,
     label: 'Users',
-    message: await Model.Rating.count(),
+    message: await Model.Rating.count().toString(),
   };
 
   res.send(response);
@@ -34,6 +34,7 @@ const ratings = async (req, res) => {
     response.message += parseInt(count);
   }
 
+  response.message = response.message.toString();
   res.send(response);
 };
 
