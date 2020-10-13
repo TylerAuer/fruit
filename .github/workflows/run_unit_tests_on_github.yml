@@ -1,7 +1,6 @@
-name: Run all unit tests
+name: Tests
 
 on:
-  push:
   pull_request:
     branches:
       - main
