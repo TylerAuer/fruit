@@ -9,3 +9,7 @@ jobs:
 
       - name: Cypress run
         uses: cypress-io/github-action@v1
+        with:
+          build: npm run build
+          start: node app.js
+          wait-on: http://localhost:4000
