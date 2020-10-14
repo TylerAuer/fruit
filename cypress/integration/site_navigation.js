@@ -32,7 +32,7 @@ describe('"Back to Matrix" btn navigates to /', () => {
   it('from /data', () => {
     cy.visitAsNewUser('/data');
     cy.get('header > button').click();
-    cy.url().should('include', '#/');
+    cy.location('hash').should('eq', '#/');
   });
 
   it('from /about', () => {
@@ -103,6 +103,72 @@ describe('Jump links in /data', () => {
     it('Percentiles', () => {
       cy.get('.nav__link').contains('Percentiles').click();
       cy.location('hash').should('eq', '#/data/#percentiles');
+    });
+  });
+});
+
+describe('Links in returning user modal', () => {
+  context('/', () => {
+    beforeEach(() => {
+      cy.visitAsUserWithPreviousRatings('/');
+    });
+
+    it('"Adjust My Ratings" closes modal', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Adjust my ratings')
+        .click();
+      cy.get('.react-responsive-modal-overlay').should('not.visible');
+    });
+
+    it('"Skip to the fancy charts" navigates to /data', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Skip to the fancy charts')
+        .click();
+
+      cy.location('hash').should('eq', '#/data');
+    });
+  });
+
+  context('/data', () => {
+    beforeEach(() => {
+      cy.visitAsUserWithPreviousRatings('/data');
+    });
+
+    it('"Adjust my ratings" navigates to /', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Adjust my ratings')
+        .click();
+
+      cy.location('hash').should('eq', '#/');
+    });
+
+    it('"Skip to the fancy charts" closes modal', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Skip to the fancy charts')
+        .click();
+      cy.get('.react-responsive-modal-overlay').should('not.visible');
+    });
+  });
+
+  context('/about', () => {
+    beforeEach(() => {
+      cy.visitAsUserWithPreviousRatings('/about');
+    });
+
+    it('"Adjust my ratings" navigates to /', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Adjust my ratings')
+        .click();
+
+      cy.location('hash').should('eq', '#/');
+    });
+
+    it('"Skip to the fancy charts" navigates to /data', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Skip to the fancy charts')
+        .click();
+
+      cy.location('hash').should('eq', '#/data');
     });
   });
 });
