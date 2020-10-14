@@ -15,6 +15,10 @@ const App = () => {
 
   // Config initial Google Analytics tracking info
   ReactGA.initialize('UA-177254644-1');
+  // Disables Google Analytics when running locally
+  if (window.location.hostname === 'localhost') {
+    window['ga-disable-UA-177254644-1'] = true;
+  }
 
   useEffect(() => {
     if (foundPreviousRatings) {
