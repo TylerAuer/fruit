@@ -1,3 +1,4 @@
 {
-  "projectId": "k2drrc"
+  "projectId": "k2drrc",
+  "baseUrl": "http://localhost:3000/#/"
 }
