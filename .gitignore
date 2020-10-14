@@ -24,6 +24,9 @@ yarn-error.log*
 .env
 
 # cypress examples
-/cypress/integration/examples
-/cypress/integration/sample_spec.js
-/cypress/fixtures/example.json
+/cypress_examples
+
+# cypress screenshots and videos
+/cypress/screenshots
+/cypress/videos
+
