@@ -22,3 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .env
+
+# cypress examples
+/cypress/integration/examples
+/cypress/integration/sample_spec.js
+/cypress/fixtures/example.json
