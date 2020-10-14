@@ -1,6 +1,10 @@
 ///<reference types="Cypress" />
 
 describe('All pages load', () => {
+  beforeEach(() => {
+    cy.seedPreviousRatingsWithNoData();
+  });
+
   it('/', () => {
     cy.visit('/');
   });
@@ -15,6 +19,10 @@ describe('All pages load', () => {
 });
 
 describe('<h1> in Header navigates to /', () => {
+  beforeEach(() => {
+    cy.seedPreviousRatingsWithNoData();
+  });
+
   it('from /data', () => {
     cy.visit('/data');
     cy.get('h1').click();
@@ -29,6 +37,10 @@ describe('<h1> in Header navigates to /', () => {
 });
 
 describe('"Back to Matrix" btn navigates to /', () => {
+  beforeEach(() => {
+    cy.seedPreviousRatingsWithNoData();
+  });
+
   it('from /data', () => {
     cy.visit('/data');
     cy.get('header > button').click();
@@ -44,6 +56,7 @@ describe('"Back to Matrix" btn navigates to /', () => {
 
 describe('Links and buttons in footer of /', () => {
   beforeEach(() => {
+    cy.seedPreviousRatingsWithNoData();
     cy.visit('/');
   });
 
@@ -69,6 +82,7 @@ describe('Links and buttons in footer of /', () => {
 
 describe('Jump links in /data', () => {
   beforeEach(() => {
+    cy.seedPreviousRatingsWithNoData();
     cy.visit('/data');
   });
 

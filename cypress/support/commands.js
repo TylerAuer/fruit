@@ -23,3 +23,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('seedPreviousRatingsWithNoData', () => {
+  cy.server();
+  cy.route({
+    method: 'GET',
+    url: 'https://localhost:3000/previous-ratings',
+    status: 204,
+  });
+});
