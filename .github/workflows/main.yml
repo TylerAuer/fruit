@@ -11,8 +11,8 @@ jobs:
         uses: cypress-io/github-action@v1.16.1
         with:
           build: npm run build
-          start: node app.js
-          wait-on: http://localhost:4000
+          start: npm start
+          wait-on: http://localhost:3000
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           COOKIE_SESSIONS_SECRET: ${{ secrets.COOKIE_SESSIONS_SECRET }}
