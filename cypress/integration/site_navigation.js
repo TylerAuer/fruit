@@ -2,27 +2,27 @@
 
 describe('All pages load', () => {
   it('/', () => {
-    cy.visit('/');
+    cy.visitAsNewUser('/');
   });
 
   it('/data', () => {
-    cy.visit('/data');
+    cy.visitAsNewUser('/data');
   });
 
   it('/about', () => {
-    cy.visit('/about');
+    cy.visitAsNewUser('/about');
   });
 });
 
 describe('<h1> in Header navigates to /', () => {
   it('from /data', () => {
-    cy.visit('/data');
+    cy.visitAsNewUser('/data');
     cy.get('h1').click();
     cy.url().should('include', '#/');
   });
 
   it('from /about', () => {
-    cy.visit('/about');
+    cy.visitAsNewUser('/about');
     cy.get('h1').click();
     cy.location('hash').should('eq', '#/');
   });
@@ -30,13 +30,13 @@ describe('<h1> in Header navigates to /', () => {
 
 describe('"Back to Matrix" btn navigates to /', () => {
   it('from /data', () => {
-    cy.visit('/data');
+    cy.visitAsNewUser('/data');
     cy.get('header > button').click();
-    cy.url().should('include', '#/');
+    cy.location('hash').should('eq', '#/');
   });
 
   it('from /about', () => {
-    cy.visit('/about');
+    cy.visitAsNewUser('/about');
     cy.get('header > button').click();
     cy.location('hash').should('eq', '#/');
   });
@@ -44,7 +44,7 @@ describe('"Back to Matrix" btn navigates to /', () => {
 
 describe('Links and buttons in footer of /', () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.visitAsNewUser('/');
   });
 
   it('Has 3 elements', () => {
@@ -68,27 +68,107 @@ describe('Links and buttons in footer of /', () => {
 });
 
 describe('Jump links in /data', () => {
-  beforeEach(() => {
-    cy.visit('/data');
+  context('User without previous ratings', () => {
+    before(() => {
+      cy.visitAsNewUser('/data');
+    });
+
+    it('Rating Frequencies', () => {
+      cy.get('.nav__link').contains('Rating Frequencies').click();
+      cy.location('hash').should('eq', '#/data/#frequencies');
+    });
+
+    it('Isolated Dimensions', () => {
+      cy.get('.nav__link').contains('Isolated Dimensions').click();
+      cy.location('hash').should('eq', '#/data/#iso-dimensions');
+    });
+
+    it('2D Histograms', () => {
+      cy.get('.nav__link').contains('2D Histograms').click();
+      cy.location('hash').should('eq', '#/data/#histograms');
+    });
+
+    it('Correlation Matrices', () => {
+      cy.get('.nav__link').contains('Correlation Matrices').click();
+      cy.location('hash').should('eq', '#/data/#correlation');
+    });
   });
 
-  it('Rating Frequencies', () => {
-    cy.get('.nav__link').contains('Rating Frequencies').click();
-    cy.location('hash').should('eq', '#/data/#frequencies');
+  context('User with previous ratings', () => {
+    before(() => {
+      cy.visitAsUserWithPreviousRatings('/data');
+      cy.closeReturningUserModal();
+    });
+
+    it('Percentiles', () => {
+      cy.get('.nav__link').contains('Percentiles').click();
+      cy.location('hash').should('eq', '#/data/#percentiles');
+    });
+  });
+});
+
+describe('Links in returning user modal', () => {
+  context('/', () => {
+    beforeEach(() => {
+      cy.visitAsUserWithPreviousRatings('/');
+    });
+
+    it('"Adjust My Ratings" closes modal', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Adjust my ratings')
+        .click();
+      cy.get('.react-responsive-modal-overlay').should('not.visible');
+    });
+
+    it('"Skip to the fancy charts" navigates to /data', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Skip to the fancy charts')
+        .click();
+
+      cy.location('hash').should('eq', '#/data');
+    });
   });
 
-  it('Isolated Dimensions', () => {
-    cy.get('.nav__link').contains('Isolated Dimensions').click();
-    cy.location('hash').should('eq', '#/data/#iso-dimensions');
+  context('/data', () => {
+    beforeEach(() => {
+      cy.visitAsUserWithPreviousRatings('/data');
+    });
+
+    it('"Adjust my ratings" navigates to /', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Adjust my ratings')
+        .click();
+
+      cy.location('hash').should('eq', '#/');
+    });
+
+    it('"Skip to the fancy charts" closes modal', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Skip to the fancy charts')
+        .click();
+      cy.get('.react-responsive-modal-overlay').should('not.visible');
+    });
   });
 
-  it('2D Histograms', () => {
-    cy.get('.nav__link').contains('2D Histograms').click();
-    cy.location('hash').should('eq', '#/data/#histograms');
-  });
+  context('/about', () => {
+    beforeEach(() => {
+      cy.visitAsUserWithPreviousRatings('/about');
+    });
 
-  it('Correlation Matrices', () => {
-    cy.get('.nav__link').contains('Correlation Matrices').click();
-    cy.location('hash').should('eq', '#/data/#correlation');
+    it('"Adjust my ratings" navigates to /', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Adjust my ratings')
+        .click();
+
+      cy.location('hash').should('eq', '#/');
+    });
+
+    it('"Skip to the fancy charts" navigates to /data', () => {
+      cy.get('.modal__btn-group > button')
+        .contains('Skip to the fancy charts')
+        .click();
+
+      cy.location('hash').should('eq', '#/data');
+    });
   });
 });

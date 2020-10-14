@@ -1,0 +1,27 @@
+{
+  "bananas": {
+    "x": 7.5,
+    "y": 65.5
+  },
+  "blueberries": null,
+  "cherries": null,
+  "coconuts": null,
+  "grapefruits": null,
+  "grapes": null,
+  "green_apples": null,
+  "lemons": null,
+  "melons": null,
+  "oranges": null,
+  "peaches": {
+    "x": 76.5,
+    "y": 85.5
+  },
+  "pears": null,
+  "pineapples": null,
+  "red_apples": null,
+  "strawberries": null,
+  "watermelons": {
+    "x": 50.0,
+    "y": 75.5
+  }
+}
