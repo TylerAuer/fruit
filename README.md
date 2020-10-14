@@ -44,4 +44,3 @@ Sessions are used to prevent users from resubmitting over-and-over to bias resul
 4. Start frontend with `npm start`
 5. Open app in browser (use local host port shown when you start the frontend)
 6. Have fun!
-
