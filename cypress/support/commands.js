@@ -24,11 +24,23 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('seedPreviousRatingsWithNoData', () => {
+Cypress.Commands.add('visitAsNewUser', (path) => {
   cy.server();
   cy.route({
     method: 'GET',
     url: 'https://localhost:3000/previous-ratings',
     status: 204,
   });
+  cy.visit(path);
+});
+
+Cypress.Commands.add('visitAsUserWithPreviousRatings', (path) => {
+  cy.route2('http://localhost:3000/previous-ratings', {
+    fixture: 'previous_ratings_of_three_fruits.json',
+  });
+  cy.visit(path);
+});
+
+Cypress.Commands.add('closeReturningUserModal', () => {
+  cy.get('.react-responsive-modal-closeButton').click();
 });
