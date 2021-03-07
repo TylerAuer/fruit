@@ -13,9 +13,9 @@ let sequelize;
 if (env === 'production') {
   // the application is executed on Heroku ... use the postgres database
   sequelize = new Sequelize(
-    process.env.DATABASE_URL,
-    process.env.POSTGRES_USER,
-    process.env.POSTGRES_PASSWORD,
+    config.database,
+    config.username,
+    config.password,
     config
   );
 } else if (config.use_env_variable) {
