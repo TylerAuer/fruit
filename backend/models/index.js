@@ -12,10 +12,7 @@ let sequelize;
 // checks if env is Heroku, if so, sets sequelize to utilize the database hosted on heroku
 if (process.env.DATABASE_URL) {
   // the application is executed on Heroku ... use the postgres database
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres',
-    protocol: 'postgres',
-  });
+  sequelize = new Sequelize(config);
 } else if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
